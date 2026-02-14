@@ -16,7 +16,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.anubisland.noor.quran",
       "infoPlist": {
-        "NSMicrophoneUsageDescription": "يحتاج التطبيق للميكروفون لاختبار الحفظ الصوتي"
+        "NSMicrophoneUsageDescription": "يحتاج التطبيق للميكروفون لاختبار الحفظ الصوتي",
+        "NSPhotoLibraryUsageDescription": "يحتاج التطبيق للوصول إلى مكتبة الصور",
+        "NSSpeechRecognitionUsageDescription": "يحتاج التطبيق للتعرف على الكلام لمقارنة التلاوة"
       }
     },
     "android": {

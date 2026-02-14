@@ -47,6 +47,8 @@
     </dict>
     <key>NSMicrophoneUsageDescription</key>
     <string>يحتاج التطبيق للميكروفون لاختبار التسميع</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>يحتاج التطبيق للوصول إلى مكتبة الصور</string>
     <key>NSSpeechRecognitionUsageDescription</key>
     <string>يحتاج التطبيق للتعرف على الكلام لمقارنة التلاوة</string>
     <key>NSUserActivityTypes</key>

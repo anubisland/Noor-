@@ -36,9 +36,17 @@ jobs:
         working-directory: noor-app
         run: npx expo prebuild --platform android --clean
 
-      - name: Configure Gradle JVM memory
+      - name: Fix build configuration
         run: |
           echo "org.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m" >> noor-app/android/gradle.properties
+          echo "android.kotlinVersion=1.9.25" >> noor-app/android/gradle.properties
+          mkdir -p noor-app/android/app/src/main/res/drawable
+          cat > noor-app/android/app/src/main/res/drawable/splashscreen_logo.xml << 'SPLASH'
+          <?xml version="1.0" encoding="utf-8"?>
+          <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:drawable="@color/splashscreen_background" />
+          </layer-list>
+          SPLASH
 
       - name: Build Android APK
         working-directory: noor-app/android
