@@ -50,6 +50,7 @@ jobs:
         working-directory: noor-app/ios
         run: |
           PBXPROJ="${{ env.SCHEME }}.xcodeproj/project.pbxproj"
+          sed -i '' "s/PRODUCT_BUNDLE_IDENTIFIER = ${{ env.BUNDLE_ID }};/PRODUCT_BUNDLE_IDENTIFIER = ${{ env.BUNDLE_ID }}; DEVELOPMENT_TEAM = ${{ env.TEAM_ID }};/g" "$PBXPROJ"
           sed -i '' "s/PRODUCT_BUNDLE_IDENTIFIER = \"${{ env.BUNDLE_ID }}\";/PRODUCT_BUNDLE_IDENTIFIER = \"${{ env.BUNDLE_ID }}\"; DEVELOPMENT_TEAM = ${{ env.TEAM_ID }};/g" "$PBXPROJ"
           echo "Injected DEVELOPMENT_TEAM into project.pbxproj"
           grep "DEVELOPMENT_TEAM" "$PBXPROJ" || echo "WARNING: DEVELOPMENT_TEAM not found after injection"
