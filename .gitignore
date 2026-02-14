@@ -1,12 +1,5 @@
 node_modules/
 .expo/
-android/
-ios/
-*.json
-!app.json
-!package.json
-!package-lock.json
-!tsconfig.json
 *.log
 .DS_Store
 nul
