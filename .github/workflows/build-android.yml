@@ -39,7 +39,7 @@ jobs:
       - name: Fix build configuration
         run: |
           echo "org.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m" >> noor-app/android/gradle.properties
-          echo "android.kotlinVersion=1.9.25" >> noor-app/android/gradle.properties
+          echo "kotlin.suppressKotlinVersionCompatibilityCheck=1.9.24" >> noor-app/android/gradle.properties
           mkdir -p noor-app/android/app/src/main/res/drawable
           cat > noor-app/android/app/src/main/res/drawable/splashscreen_logo.xml << 'SPLASH'
           <?xml version="1.0" encoding="utf-8"?>
