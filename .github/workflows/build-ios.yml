@@ -1,0 +1,180 @@
+name: Build & Deploy iOS to TestFlight
+
+on:
+  push:
+    branches: ['main']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  BUNDLE_ID: com.noor.quran
+  TEAM_ID: ZXSD6AFDVH
+
+jobs:
+  build:
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install npm dependencies
+        working-directory: noor-app
+        run: npm install --legacy-peer-deps
+
+      - name: Generate iOS project (Expo Prebuild)
+        working-directory: noor-app
+        run: npx expo prebuild --platform ios --clean --no-install
+
+      - name: Install CocoaPods
+        working-directory: noor-app/ios
+        run: pod install
+
+      - name: Discover Xcode workspace and scheme
+        working-directory: noor-app/ios
+        run: |
+          WORKSPACE=$(ls -d *.xcworkspace | head -1)
+          SCHEME=$(basename "$WORKSPACE" .xcworkspace)
+          echo "WORKSPACE=$WORKSPACE" >> $GITHUB_ENV
+          echo "SCHEME=$SCHEME" >> $GITHUB_ENV
+          echo "Discovered workspace: $WORKSPACE, scheme: $SCHEME"
+
+      - name: Set development team in Xcode project
+        working-directory: noor-app/ios
+        run: |
+          PBXPROJ="${{ env.SCHEME }}.xcodeproj/project.pbxproj"
+          sed -i '' "s/PRODUCT_BUNDLE_IDENTIFIER = \"${{ env.BUNDLE_ID }}\";/PRODUCT_BUNDLE_IDENTIFIER = \"${{ env.BUNDLE_ID }}\"; DEVELOPMENT_TEAM = ${{ env.TEAM_ID }};/g" "$PBXPROJ"
+          echo "Injected DEVELOPMENT_TEAM into project.pbxproj"
+          grep "DEVELOPMENT_TEAM" "$PBXPROJ" || echo "WARNING: DEVELOPMENT_TEAM not found after injection"
+
+      - name: Import Code Signing Certificate
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ github.run_id }}
+        run: |
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+      - name: Import Provisioning Profile
+        env:
+          PROVISIONING_PROFILE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+        run: |
+          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          echo -n "$PROVISIONING_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/
+
+      - name: Set up App Store Connect API Key
+        env:
+          APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+        run: |
+          mkdir -p ~/private_keys
+          echo -n "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 --decode -o ~/private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
+
+      - name: Increment Build Number
+        working-directory: noor-app/ios
+        run: |
+          BUILD_NUMBER=${{ github.run_number }}
+          agvtool new-version -all $BUILD_NUMBER
+          echo "Build number set to: $BUILD_NUMBER"
+
+      - name: Build and Archive
+        working-directory: noor-app/ios
+        run: |
+          set -o pipefail
+          xcodebuild archive \
+            -workspace "${{ env.WORKSPACE }}" \
+            -scheme "${{ env.SCHEME }}" \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -archivePath $RUNNER_TEMP/App.xcarchive \
+            DEVELOPMENT_TEAM=${{ env.TEAM_ID }} \
+            CODE_SIGN_STYLE=Automatic \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath ~/private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8 \
+            -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
+            -authenticationKeyIssuerID ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }} \
+            2>&1 | tee $RUNNER_TEMP/xcodebuild.log | xcpretty
+
+      - name: Show build errors on failure
+        if: failure()
+        run: |
+          echo "=== XCODEBUILD ERRORS ==="
+          grep -A 3 "error:" $RUNNER_TEMP/xcodebuild.log || true
+          echo ""
+          echo "=== LAST 50 LINES ==="
+          tail -50 $RUNNER_TEMP/xcodebuild.log || true
+
+      - name: Create ExportOptions.plist
+        run: |
+          cat > $RUNNER_TEMP/ExportOptions.plist << EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>method</key>
+              <string>app-store-connect</string>
+              <key>teamID</key>
+              <string>${{ env.TEAM_ID }}</string>
+              <key>uploadSymbols</key>
+              <true/>
+              <key>compileBitcode</key>
+              <false/>
+          </dict>
+          </plist>
+          EOF
+
+      - name: Export Archive
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath $RUNNER_TEMP/App.xcarchive \
+            -exportOptionsPlist $RUNNER_TEMP/ExportOptions.plist \
+            -exportPath $RUNNER_TEMP/export \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath ~/private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8 \
+            -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
+            -authenticationKeyIssuerID ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+
+      - name: Find and upload IPA
+        run: |
+          IPA_PATH=$(find $RUNNER_TEMP/export -name "*.ipa" | head -1)
+          echo "IPA_PATH=$IPA_PATH" >> $GITHUB_ENV
+          echo "Found IPA: $IPA_PATH"
+
+          xcrun altool --upload-app \
+            --type ios \
+            --file "$IPA_PATH" \
+            --apiKey ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
+            --apiIssuer ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
+
+      - name: Upload IPA as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-release-ipa
+          path: ${{ runner.temp }}/export/*.ipa
+
+      - name: Clean up keychain
+        if: always()
+        run: |
+          security delete-keychain $RUNNER_TEMP/app-signing.keychain-db 2>/dev/null || true
+          rm -f ~/private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8 2>/dev/null || true

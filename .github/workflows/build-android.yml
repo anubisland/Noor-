@@ -1,0 +1,73 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: ['main']
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install dependencies
+        working-directory: noor-app
+        run: npm install --legacy-peer-deps
+
+      - name: Run Expo Prebuild
+        working-directory: noor-app
+        run: npx expo prebuild --platform android --clean
+
+      - name: Configure Gradle JVM memory
+        run: |
+          echo "org.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m" >> noor-app/android/gradle.properties
+
+      - name: Build Android APK
+        working-directory: noor-app/android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease
+
+      - name: Generate release tag
+        id: tag
+        working-directory: noor-app
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
+          TAG="v${VERSION}-${SHORT_SHA}"
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: "Noor Quran ${{ steps.tag.outputs.tag }}"
+          body: |
+            Automated release from commit ${{ github.sha }}
+
+            **Version:** ${{ steps.tag.outputs.version }}
+            **Package:** com.noor.quran
+          files: noor-app/android/app/build/outputs/apk/release/app-release.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
