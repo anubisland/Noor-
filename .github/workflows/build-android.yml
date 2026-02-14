@@ -60,7 +60,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.tag.outputs.tag }}
-          name: "Noor Quran ${{ steps.tag.outputs.tag }}"
+          name: "Noor Islam ${{ steps.tag.outputs.tag }}"
           body: |
             Automated release from commit ${{ github.sha }}
 

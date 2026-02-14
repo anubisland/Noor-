@@ -1,6 +1,6 @@
 export const APP_CONFIG = {
   name: 'نور',
-  nameEn: 'Noor',
+  nameEn: 'Noor Islam',
   version: '1.0.0',
   description: 'تطبيق شامل لخدمة القرآن الكريم',
   totalSurahs: 114,
