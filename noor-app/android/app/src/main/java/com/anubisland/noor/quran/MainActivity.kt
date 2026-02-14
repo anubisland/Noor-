@@ -1,4 +1,4 @@
-package com.noor.quran
+package com.anubisland.noor.quran
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

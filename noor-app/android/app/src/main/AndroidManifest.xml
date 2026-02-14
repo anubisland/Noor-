@@ -33,7 +33,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="noor"/>
-        <data android:scheme="com.noor.quran"/>
+        <data android:scheme="com.anubisland.noor.quran"/>
       </intent-filter>
     </activity>
   </application>

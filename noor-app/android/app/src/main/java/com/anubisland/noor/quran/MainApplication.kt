@@ -1,4 +1,4 @@
-package com.noor.quran
+package com.anubisland.noor.quran
 
 import android.app.Application
 import android.content.res.Configuration

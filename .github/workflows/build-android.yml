@@ -65,7 +65,7 @@ jobs:
             Automated release from commit ${{ github.sha }}
 
             **Version:** ${{ steps.tag.outputs.version }}
-            **Package:** com.noor.quran
+            **Package:** com.anubisland.noor.quran
           files: noor-app/android/app/build/outputs/apk/release/app-release.apk
           draft: false
           prerelease: false

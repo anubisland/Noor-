@@ -1,7 +1,7 @@
 {
   "name": "noor-quran",
   "version": "1.0.0",
-  "description": "تطبيق نور - القرآن الكريم",
+  "description": "Noor - Quran app",
   "main": "expo-router/entry",
   "scripts": {
     "start": "expo start",

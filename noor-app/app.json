@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "نور - القرآن الكريم",
+    "name": "Noor",
     "slug": "noor-quran",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.noor.quran",
+      "bundleIdentifier": "com.anubisland.noor.quran",
       "infoPlist": {
         "NSMicrophoneUsageDescription": "يحتاج التطبيق للميكروفون لاختبار الحفظ الصوتي"
       }
@@ -23,7 +23,7 @@
       "adaptiveIcon": {
         "backgroundColor": "#0D7C5F"
       },
-      "package": "com.noor.quran",
+      "package": "com.anubisland.noor.quran",
       "permissions": [
         "RECORD_AUDIO",
         "INTERNET"

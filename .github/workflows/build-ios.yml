@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 env:
-  BUNDLE_ID: com.noor.quran
+  BUNDLE_ID: com.anubisland.noor.quran
   TEAM_ID: ZXSD6AFDVH
 
 jobs:
