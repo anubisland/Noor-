@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "نور - القرآن الكريم",
+    "slug": "noor-quran",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "noor",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#0D7C5F",
+      "resizeMode": "contain"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.noor.quran",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "يحتاج التطبيق للميكروفون لاختبار الحفظ الصوتي"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0D7C5F"
+      },
+      "package": "com.noor.quran",
+      "permissions": [
+        "RECORD_AUDIO",
+        "INTERNET"
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "يحتاج التطبيق للميكروفون لاختبار التسميع",
+          "speechRecognitionPermission": "يحتاج التطبيق للتعرف على الكلام لمقارنة التلاوة"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "noor-quran-app"
+      }
+    }
+  }
+}
