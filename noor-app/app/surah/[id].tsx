@@ -11,7 +11,12 @@ import AudioPlayer from '../../components/quran/AudioPlayer';
 import { quranData } from '../../data/quran';
 import { surahsMetadata } from '../../data/metadata';
 import { englishTranslation } from '../../data/translations/en';
+import { englishBatch1 } from '../../data/translations/en-batch1';
+import { englishBatch2 } from '../../data/translations/en-batch2';
+import { englishBatch3 } from '../../data/translations/en-batch3';
 import { audioService } from '../../services/audioService';
+
+const allTranslations = [...englishTranslation, ...englishBatch1, ...englishBatch2, ...englishBatch3];
 
 export default function SurahScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -33,7 +38,7 @@ export default function SurahScreen() {
   const surahAyahs = quranData.find((s) => s.id === surahId)?.ayahs || [];
 
   const getTranslation = useCallback((ayahNumber: number): string | undefined => {
-    const entry = englishTranslation.find(
+    const entry = allTranslations.find(
       (t) => t.surahId === surahId && t.ayahNumber === ayahNumber
     );
     return entry?.text;

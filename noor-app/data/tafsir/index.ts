@@ -55,9 +55,28 @@ export function getTafsirForAyah(
     return undefined;
   }
 
-  const entry = tafsirData.find(
+  // Try exact match first
+  const exact = tafsirData.find(
     (e) => e.surahId === surahId && e.ayahNumber === ayahNumber
   );
+  if (exact) return exact.text;
 
-  return entry?.text;
+  // Fallback: find nearest entry in the same surah
+  const surahEntries = tafsirData
+    .filter((e) => e.surahId === surahId)
+    .sort((a, b) => a.ayahNumber - b.ayahNumber);
+
+  if (surahEntries.length === 0) return undefined;
+
+  // Find closest preceding entry, or first entry in surah
+  let nearest = surahEntries[0];
+  for (const entry of surahEntries) {
+    if (entry.ayahNumber <= ayahNumber) {
+      nearest = entry;
+    } else {
+      break;
+    }
+  }
+
+  return nearest.text;
 }

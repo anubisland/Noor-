@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anubisland.noor.quran",
+      "bundleIdentifier": "com.noor.quran",
       "infoPlist": {
         "NSMicrophoneUsageDescription": "يحتاج التطبيق للميكروفون لاختبار الحفظ الصوتي",
         "NSPhotoLibraryUsageDescription": "يحتاج التطبيق للوصول إلى مكتبة الصور",
@@ -25,7 +25,7 @@
       "adaptiveIcon": {
         "backgroundColor": "#0D7C5F"
       },
-      "package": "com.anubisland.noor.quran",
+      "package": "com.noor.quran",
       "permissions": [
         "RECORD_AUDIO",
         "INTERNET"

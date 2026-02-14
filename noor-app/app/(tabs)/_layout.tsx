@@ -1,9 +1,27 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { Platform } from 'react-native';
+import { Platform, View, StyleSheet } from 'react-native';
 import { useTheme } from '../../context/ThemeContext';
 import { Fonts } from '../../constants/theme';
+
+const TAB_COLORS = {
+  index: '#0D7C5F',
+  quran: '#8E44AD',
+  hifz: '#E67E22',
+  mawdui: '#2980B9',
+  more: '#636E72',
+};
+
+function TabIcon({ name, tabKey, focused }: { name: keyof typeof Ionicons.glyphMap; tabKey: keyof typeof TAB_COLORS; focused: boolean }) {
+  const iconColor = TAB_COLORS[tabKey];
+  return (
+    <View style={[styles.iconWrap, focused && { backgroundColor: iconColor + '18' }]}>
+      <Ionicons name={name} size={22} color={iconColor} />
+      {focused && <View style={[styles.dot, { backgroundColor: iconColor }]} />}
+    </View>
+  );
+}
 
 export default function TabLayout() {
   const { colors } = useTheme();
@@ -18,18 +36,19 @@ export default function TabLayout() {
           borderTopWidth: 1,
           height: Platform.OS === 'ios' ? 88 : 65,
           paddingBottom: Platform.OS === 'ios' ? 28 : 8,
-          paddingTop: 8,
+          paddingTop: 4,
           elevation: 8,
           shadowColor: '#000',
           shadowOffset: { width: 0, height: -2 },
           shadowOpacity: 0.05,
           shadowRadius: 4,
         },
-        tabBarActiveTintColor: colors.primary,
+        tabBarActiveTintColor: colors.text,
         tabBarInactiveTintColor: colors.textLight,
         tabBarLabelStyle: {
           fontSize: Fonts.sizes.xs,
           fontWeight: '600',
+          marginTop: -2,
         },
       }}
     >
@@ -37,8 +56,8 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'الرئيسية',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color={color} />
+          tabBarIcon: ({ focused }) => (
+            <TabIcon name="home" tabKey="index" focused={focused} />
           ),
         }}
       />
@@ -46,8 +65,8 @@ export default function TabLayout() {
         name="quran"
         options={{
           title: 'المصحف',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="book" size={size} color={color} />
+          tabBarIcon: ({ focused }) => (
+            <TabIcon name="book" tabKey="quran" focused={focused} />
           ),
         }}
       />
@@ -55,8 +74,8 @@ export default function TabLayout() {
         name="hifz"
         options={{
           title: 'الحفظ',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="school" size={size} color={color} />
+          tabBarIcon: ({ focused }) => (
+            <TabIcon name="school" tabKey="hifz" focused={focused} />
           ),
         }}
       />
@@ -64,8 +83,8 @@ export default function TabLayout() {
         name="mawdui"
         options={{
           title: 'الموضوعي',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="grid" size={size} color={color} />
+          tabBarIcon: ({ focused }) => (
+            <TabIcon name="grid" tabKey="mawdui" focused={focused} />
           ),
         }}
       />
@@ -73,11 +92,28 @@ export default function TabLayout() {
         name="more"
         options={{
           title: 'الإعدادات',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="settings" size={size} color={color} />
+          tabBarIcon: ({ focused }) => (
+            <TabIcon name="settings" tabKey="more" focused={focused} />
           ),
         }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  iconWrap: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 16,
+    minWidth: 44,
+  },
+  dot: {
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
+    marginTop: 3,
+  },
+});
