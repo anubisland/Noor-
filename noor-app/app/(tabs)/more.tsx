@@ -8,7 +8,7 @@ import { ALL_TAFSIR_SOURCES } from '../../constants/config';
 
 export default function MoreScreen() {
   const { colors, toggleTheme, isDark } = useTheme();
-  const { fontSize, setFontSize, showTranslation, setShowTranslation, selectedTafsirs, setSelectedTafsirs } = useApp();
+  const { fontSize, setFontSize, showTranslation, setShowTranslation, showTafsir, setShowTafsir, selectedTafsirs, setSelectedTafsirs } = useApp();
 
   const toggleTafsir = (id: string) => {
     if (selectedTafsirs.includes(id)) {
@@ -56,6 +56,20 @@ export default function MoreScreen() {
             value={showTranslation}
             onValueChange={setShowTranslation}
             trackColor={{ false: colors.border, true: colors.primary }}
+            thumbColor="#FFF"
+          />
+        </View>
+
+        {/* Show Tafsir */}
+        <View style={[styles.settingItem, { backgroundColor: colors.surface, borderColor: colors.borderLight }]}>
+          <View style={styles.settingLeft}>
+            <Ionicons name="book" size={22} color={colors.secondary} />
+            <Text style={[styles.settingText, { color: colors.text }]}>إظهار التفسير</Text>
+          </View>
+          <Switch
+            value={showTafsir}
+            onValueChange={setShowTafsir}
+            trackColor={{ false: colors.border, true: colors.secondary }}
             thumbColor="#FFF"
           />
         </View>

@@ -5,3 +5,9 @@ node_modules/
 nul
 .claude/
 .vscode/
+*.json
+
+# Bundled React Native assets (generated before APK build)
+android/app/src/main/assets/
+android/app/src/main/res/drawable-*/
+android/app/src/main/res/raw/

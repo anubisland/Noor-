@@ -6,6 +6,11 @@ import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
 import { BorderRadius, Fonts, Spacing } from '../../constants/theme';
 
+interface TafsirEntry {
+  sourceName: string;
+  text: string;
+}
+
 interface AyahViewProps {
   surahId: number;
   surahName: string;
@@ -13,6 +18,8 @@ interface AyahViewProps {
   arabicText: string;
   translation?: string;
   showTranslation?: boolean;
+  tafsirs?: TafsirEntry[];
+  showTafsir?: boolean;
   fontSize?: number;
   onPlayAudio?: () => void;
   isPlaying?: boolean;
@@ -21,7 +28,8 @@ interface AyahViewProps {
 
 export default function AyahView({
   surahId, surahName, ayahNumber, arabicText, translation,
-  showTranslation = true, fontSize = 26, onPlayAudio, isPlaying, highlighted,
+  showTranslation = true, tafsirs, showTafsir = false,
+  fontSize = 26, onPlayAudio, isPlaying, highlighted,
 }: AyahViewProps) {
   const { colors } = useTheme();
   const { addBookmark, removeBookmark, isBookmarked, bookmarks } = useApp();
@@ -80,6 +88,22 @@ export default function AyahView({
           <Text style={[styles.translation, { color: colors.textSecondary }]}>
             {translation}
           </Text>
+        </View>
+      )}
+
+      {/* Tafsir */}
+      {showTafsir && tafsirs && tafsirs.length > 0 && (
+        <View style={[styles.tafsirContainer, { borderTopColor: colors.borderLight }]}>
+          {tafsirs.map((tafsir, idx) => (
+            <View key={idx} style={[styles.tafsirBlock, idx > 0 && { borderTopWidth: 1, borderTopColor: colors.borderLight }]}>
+              <Text style={[styles.tafsirSource, { color: colors.secondary }]}>
+                تفسير {tafsir.sourceName}
+              </Text>
+              <Text style={[styles.tafsirText, { color: colors.textSecondary }]}>
+                {tafsir.text}
+              </Text>
+            </View>
+          ))}
         </View>
       )}
 
@@ -166,6 +190,24 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.md,
     lineHeight: 24,
     textAlign: 'left',
+  },
+  tafsirContainer: {
+    padding: Spacing.lg,
+    paddingTop: Spacing.md,
+    borderTopWidth: 1,
+  },
+  tafsirBlock: {
+    paddingVertical: Spacing.sm,
+  },
+  tafsirSource: {
+    fontSize: Fonts.sizes.sm,
+    fontWeight: '700',
+    marginBottom: 4,
+  },
+  tafsirText: {
+    fontSize: Fonts.sizes.sm,
+    lineHeight: 22,
+    writingDirection: 'rtl',
   },
   actions: {
     flexDirection: 'row',

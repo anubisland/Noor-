@@ -14,6 +14,8 @@ import { englishTranslation } from '../../data/translations/en';
 import { englishBatch1 } from '../../data/translations/en-batch1';
 import { englishBatch2 } from '../../data/translations/en-batch2';
 import { englishBatch3 } from '../../data/translations/en-batch3';
+import { getTafsirForAyah } from '../../data/tafsir';
+import { ALL_TAFSIR_SOURCES } from '../../constants/config';
 import { audioService } from '../../services/audioService';
 
 const allTranslations = [...englishTranslation, ...englishBatch1, ...englishBatch2, ...englishBatch3];
@@ -22,7 +24,7 @@ export default function SurahScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const surahId = parseInt(id || '1');
   const { colors } = useTheme();
-  const { setLastRead, fontSize, setFontSize, showTranslation, setShowTranslation } = useApp();
+  const { setLastRead, fontSize, setFontSize, showTranslation, setShowTranslation, showTafsir, setShowTafsir, selectedTafsirs } = useApp();
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -43,6 +45,16 @@ export default function SurahScreen() {
     );
     return entry?.text;
   }, [surahId]);
+
+  const getTafsirs = useCallback((ayahNumber: number): { sourceName: string; text: string }[] => {
+    return selectedTafsirs
+      .map((id) => {
+        const source = ALL_TAFSIR_SOURCES.find((s) => s.id === id);
+        const text = getTafsirForAyah(surahId, ayahNumber, id);
+        return text && source ? { sourceName: source.name, text } : null;
+      })
+      .filter(Boolean) as { sourceName: string; text: string }[];
+  }, [surahId, selectedTafsirs]);
 
   useEffect(() => {
     if (surahMeta && surahAyahs.length > 0) {
@@ -238,6 +250,8 @@ export default function SurahScreen() {
             arabicText={item.text}
             translation={showTranslation ? getTranslation(item.ayahNumber) : undefined}
             showTranslation={showTranslation}
+            tafsirs={showTafsir ? getTafsirs(item.ayahNumber) : undefined}
+            showTafsir={showTafsir}
             fontSize={fontSize}
             onPlayAudio={() => handlePlayAyah(item.ayahNumber)}
             isPlaying={isPlaying && currentPlayingAyah === item.ayahNumber}
@@ -286,6 +300,17 @@ export default function SurahScreen() {
               <Text style={[styles.settingLabel, { color: colors.textSecondary }]}>الترجمة الإنجليزية</Text>
               <Ionicons name={showTranslation ? 'checkmark-circle' : 'ellipse-outline'} size={24} color={showTranslation ? colors.primary : colors.textLight} />
             </TouchableOpacity>
+            <TouchableOpacity style={[styles.settingRow, { borderTopWidth: 1, borderTopColor: colors.borderLight }]} onPress={() => setShowTafsir(!showTafsir)}>
+              <View style={styles.settingColumn}>
+                <Text style={[styles.settingLabel, { color: colors.textSecondary }]}>التفاسير المختارة</Text>
+                {showTafsir && (
+                  <Text style={[styles.tafsirSummary, { color: colors.primary }]}>
+                    {selectedTafsirs.map((id) => ALL_TAFSIR_SOURCES.find((s) => s.id === id)?.name).join('، ')}
+                  </Text>
+                )}
+              </View>
+              <Ionicons name={showTafsir ? 'checkmark-circle' : 'ellipse-outline'} size={24} color={showTafsir ? colors.primary : colors.textLight} />
+            </TouchableOpacity>
             <TouchableOpacity style={[styles.settingRow, { borderTopWidth: 1, borderTopColor: colors.borderLight }]} onPress={() => { setShowSettings(false); handlePlayAyah(1); }}>
               <Text style={[styles.settingLabel, { color: colors.primary }]}>تشغيل من البداية</Text>
               <Ionicons name="play-circle" size={24} color={colors.primary} />
@@ -324,6 +349,8 @@ const styles = StyleSheet.create({
   settingsTitle: { fontSize: Fonts.sizes.xl, fontWeight: '700', textAlign: 'center', marginBottom: Spacing.sm },
   settingRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: Spacing.md },
   settingLabel: { fontSize: Fonts.sizes.md, fontWeight: '500' },
+  settingColumn: { flex: 1, gap: 2 },
+  tafsirSummary: { fontSize: Fonts.sizes.sm, fontWeight: '600' },
   fontControls: { flexDirection: 'row', alignItems: 'center', gap: Spacing.md },
   fontBtn: { width: 36, height: 36, borderRadius: 18, justifyContent: 'center', alignItems: 'center' },
   fontBtnText: { fontSize: Fonts.sizes.xl, fontWeight: '700' },

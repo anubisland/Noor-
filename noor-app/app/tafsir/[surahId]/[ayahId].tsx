@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../../context/ThemeContext';
 import { useApp } from '../../../context/AppContext';
@@ -17,6 +17,7 @@ export default function TafsirScreen() {
   const ayahId = parseInt(aId || '1');
   const { colors } = useTheme();
   const { selectedTafsirs } = useApp();
+  const router = useRouter();
   const [selectedSource, setSelectedSource] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'tabs' | 'compare'>('tabs');
 
@@ -24,14 +25,16 @@ export default function TafsirScreen() {
   const surahAyahs = quranData.find((s) => s.id === surahId)?.ayahs || [];
   const ayah = surahAyahs.find((a) => a.ayahNumber === ayahId);
 
-  // Only show user-selected tafsirs
+  // Only show user-selected tafsirs that have data for this ayah
   const activeSources = ALL_TAFSIR_SOURCES.filter((s) => selectedTafsirs.includes(s.id));
-  const tafsirs = activeSources.map((source) => ({
-    ...source,
-    text: getTafsirForAyah(surahId, ayahId, source.id),
-  }));
+  const tafsirs = activeSources
+    .map((source) => ({
+      ...source,
+      text: getTafsirForAyah(surahId, ayahId, source.id),
+    }))
+    .filter((t) => t.text);
 
-  const activeSource = selectedSource || (activeSources[0]?.id ?? 'ibn-kathir');
+  const activeSource = selectedSource || (tafsirs[0]?.id ?? '');
   const activeTafsir = tafsirs.find((t) => t.id === activeSource);
 
   return (
@@ -75,29 +78,39 @@ export default function TafsirScreen() {
           </TouchableOpacity>
         </View>
 
-        {viewMode === 'tabs' ? (
+        {tafsirs.length === 0 ? (
+          <View style={[styles.tafsirCard, { backgroundColor: colors.surface }, Shadows.sm]}>
+            <View style={[styles.tafsirHeader, { borderBottomColor: colors.borderLight }]}>
+              <Ionicons name="book" size={20} color={colors.textLight} />
+              <Text style={[styles.tafsirName, { color: colors.textLight }]}>التفسير</Text>
+            </View>
+            <Text style={[styles.tafsirText, { color: colors.textSecondary }]}>
+              التفسير غير متوفر لهذه الآية في المصادر المختارة
+            </Text>
+          </View>
+        ) : viewMode === 'tabs' ? (
           <>
             {/* Source Tabs */}
             <View style={styles.tabs}>
-              {activeSources.map((source) => (
+              {tafsirs.map((t) => (
                 <TouchableOpacity
-                  key={source.id}
+                  key={t.id}
                   style={[
                     styles.tab,
                     {
-                      backgroundColor: activeSource === source.id ? colors.secondary : colors.surfaceVariant,
-                      borderColor: activeSource === source.id ? colors.secondary : colors.border,
+                      backgroundColor: activeSource === t.id ? colors.secondary : colors.surfaceVariant,
+                      borderColor: activeSource === t.id ? colors.secondary : colors.border,
                     },
                   ]}
-                  onPress={() => setSelectedSource(source.id)}
+                  onPress={() => setSelectedSource(t.id)}
                 >
                   <Text
                     style={[
                       styles.tabText,
-                      { color: activeSource === source.id ? '#FFF' : colors.textSecondary },
+                      { color: activeSource === t.id ? '#FFF' : colors.textSecondary },
                     ]}
                   >
-                    {source.name}
+                    {t.name}
                   </Text>
                 </TouchableOpacity>
               ))}
@@ -113,7 +126,7 @@ export default function TafsirScreen() {
                   </Text>
                 </View>
                 <Text style={[styles.tafsirText, { color: colors.text }]}>
-                  {activeTafsir.text || 'التفسير غير متوفر لهذه الآية'}
+                  {activeTafsir.text}
                 </Text>
               </View>
             )}
@@ -132,7 +145,7 @@ export default function TafsirScreen() {
                 </Text>
               </View>
               <Text style={[styles.tafsirText, { color: colors.text }]}>
-                {tafsir.text || 'التفسير غير متوفر لهذه الآية'}
+                {tafsir.text}
               </Text>
             </View>
           ))
@@ -141,13 +154,19 @@ export default function TafsirScreen() {
         {/* Navigation */}
         <View style={styles.navigation}>
           {ayahId > 1 && (
-            <TouchableOpacity style={[styles.navBtn, { backgroundColor: colors.primaryLight }]}>
+            <TouchableOpacity
+              style={[styles.navBtn, { backgroundColor: colors.primaryLight }]}
+              onPress={() => router.push(`/tafsir/${surahId}/${ayahId - 1}`)}
+            >
               <Ionicons name="arrow-forward" size={20} color={colors.primary} />
               <Text style={[styles.navText, { color: colors.primary }]}>الآية السابقة</Text>
             </TouchableOpacity>
           )}
           {surahAyahs.length > ayahId && (
-            <TouchableOpacity style={[styles.navBtn, { backgroundColor: colors.primaryLight }]}>
+            <TouchableOpacity
+              style={[styles.navBtn, { backgroundColor: colors.primaryLight }]}
+              onPress={() => router.push(`/tafsir/${surahId}/${ayahId + 1}`)}
+            >
               <Text style={[styles.navText, { color: colors.primary }]}>الآية التالية</Text>
               <Ionicons name="arrow-back" size={20} color={colors.primary} />
             </TouchableOpacity>

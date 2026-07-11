@@ -31,6 +31,7 @@ interface AppContextType {
   dailyProgress: DailyProgress | null;
   fontSize: number;
   showTranslation: boolean;
+  showTafsir: boolean;
   selectedTafsirs: string[];
   setLastRead: (data: LastRead) => void;
   addBookmark: (bookmark: Omit<Bookmark, 'id' | 'timestamp'>) => void;
@@ -38,6 +39,7 @@ interface AppContextType {
   isBookmarked: (surahId: number, ayahNumber: number) => boolean;
   setFontSize: (size: number) => void;
   setShowTranslation: (show: boolean) => void;
+  setShowTafsir: (show: boolean) => void;
   setSelectedTafsirs: (tafsirs: string[]) => void;
   updateDailyProgress: (update: Partial<DailyProgress>) => void;
 }
@@ -50,6 +52,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [dailyProgress, setDailyProgress] = useState<DailyProgress | null>(null);
   const [fontSize, setFontSizeState] = useState(26);
   const [showTranslation, setShowTranslationState] = useState(true);
+  const [showTafsir, setShowTafsirState] = useState(false);
   const [selectedTafsirs, setSelectedTafsirsState] = useState<string[]>(DEFAULT_SELECTED_TAFSIRS);
 
   useEffect(() => {
@@ -58,17 +61,19 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const loadData = async () => {
     try {
-      const [savedLastRead, savedBookmarks, savedFontSize, savedShowTrans, savedTafsirs] = await Promise.all([
+      const [savedLastRead, savedBookmarks, savedFontSize, savedShowTrans, savedShowTafsir, savedTafsirs] = await Promise.all([
         AsyncStorage.getItem('last_read'),
         AsyncStorage.getItem('bookmarks'),
         AsyncStorage.getItem('font_size'),
         AsyncStorage.getItem('show_translation'),
+        AsyncStorage.getItem('show_tafsir'),
         AsyncStorage.getItem('selected_tafsirs'),
       ]);
       if (savedLastRead) setLastReadState(JSON.parse(savedLastRead));
       if (savedBookmarks) setBookmarks(JSON.parse(savedBookmarks));
       if (savedFontSize) setFontSizeState(Number(savedFontSize));
       if (savedShowTrans !== null) setShowTranslationState(savedShowTrans === 'true');
+      if (savedShowTafsir !== null) setShowTafsirState(savedShowTafsir === 'true');
       if (savedTafsirs) setSelectedTafsirsState(JSON.parse(savedTafsirs));
     } catch (e) {
       console.error('Error loading app data:', e);
@@ -111,6 +116,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     AsyncStorage.setItem('show_translation', String(show));
   };
 
+  const setShowTafsir = (show: boolean) => {
+    setShowTafsirState(show);
+    AsyncStorage.setItem('show_tafsir', String(show));
+  };
+
   const setSelectedTafsirs = (tafsirs: string[]) => {
     setSelectedTafsirsState(tafsirs);
     AsyncStorage.setItem('selected_tafsirs', JSON.stringify(tafsirs));
@@ -126,9 +136,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <AppContext.Provider value={{
-      lastRead, bookmarks, dailyProgress, fontSize, showTranslation, selectedTafsirs,
+      lastRead, bookmarks, dailyProgress, fontSize, showTranslation, showTafsir, selectedTafsirs,
       setLastRead, addBookmark, removeBookmark, isBookmarked,
-      setFontSize, setShowTranslation, setSelectedTafsirs, updateDailyProgress,
+      setFontSize, setShowTranslation, setShowTafsir, setSelectedTafsirs, updateDailyProgress,
     }}>
       {children}
     </AppContext.Provider>
