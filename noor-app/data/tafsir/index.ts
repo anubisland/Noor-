@@ -1,30 +1,22 @@
-export { TafsirEntry } from './ibn-kathir';
-export { ibnKathirTafsir } from './ibn-kathir';
-export { sadiTafsir } from './sa3di';
+export type { TafsirEntry } from './types';
+export { ibnkathirTafsir as ibnKathirTafsir } from './ibn-kathir';
+export { sa3diTafsir as sadiTafsir } from './sa3di';
 export { tabariTafsir } from './tabari';
 export { jalalaynTafsir } from './jalalayn';
 export { qurtubiTafsir } from './qurtubi';
 export { baghawiTafsir } from './baghawi';
 export { muyassarTafsir } from './muyassar';
-export { muyassarBatch1 } from './muyassar-batch1';
-export { muyassarBatch2 } from './muyassar-batch2';
-export { muyassarBatch3 } from './muyassar-batch3';
 export { waseetTafsir } from './waseet';
 
-import { ibnKathirTafsir } from './ibn-kathir';
-import { sadiTafsir } from './sa3di';
+import { ibnkathirTafsir as ibnKathirTafsir } from './ibn-kathir';
+import { sa3diTafsir as sadiTafsir } from './sa3di';
 import { tabariTafsir } from './tabari';
 import { jalalaynTafsir } from './jalalayn';
 import { qurtubiTafsir } from './qurtubi';
 import { baghawiTafsir } from './baghawi';
 import { muyassarTafsir } from './muyassar';
-import { muyassarBatch1 } from './muyassar-batch1';
-import { muyassarBatch2 } from './muyassar-batch2';
-import { muyassarBatch3 } from './muyassar-batch3';
 import { waseetTafsir } from './waseet';
-import type { TafsirEntry } from './ibn-kathir';
-
-const allMuyassar = [...muyassarTafsir, ...muyassarBatch1, ...muyassarBatch2, ...muyassarBatch3];
+import type { TafsirEntry } from './types';
 
 const tafsirSources: Record<string, TafsirEntry[]> = {
   'ibn-kathir': ibnKathirTafsir,
@@ -33,7 +25,7 @@ const tafsirSources: Record<string, TafsirEntry[]> = {
   'jalalayn': jalalaynTafsir,
   'qurtubi': qurtubiTafsir,
   'baghawi': baghawiTafsir,
-  'muyassar': allMuyassar,
+  'muyassar': muyassarTafsir,
   'waseet': waseetTafsir,
 };
 
