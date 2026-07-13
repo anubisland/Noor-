@@ -3,13 +3,44 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platfo
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
+import { useApp } from '../../context/AppContext';
 import { Fonts, Spacing, BorderRadius, Shadows } from '../../constants/theme';
 import { srmdnPairs, srmdnCategories } from '../../data/mutashabihat-from-srmdn';
+import { quranData } from '../../data/quran';
+import { surahsMetadata } from '../../data/metadata';
+import { englishTranslation } from '../../data/translations/en';
+import { englishBatch1 } from '../../data/translations/en-batch1';
+import { englishBatch2 } from '../../data/translations/en-batch2';
+import { englishBatch3 } from '../../data/translations/en-batch3';
+
+const allTranslations = [...englishTranslation, ...englishBatch1, ...englishBatch2, ...englishBatch3];
 
 const MUTASHABIHAT_COLOR = '#16A085';
 
+const getAyahText = (surahId: number, ayahNumber: number): string => {
+  const surah = quranData.find(s => s.id === surahId);
+  if (!surah) return '';
+  const ayah = surah.ayahs.find(a => a.ayahNumber === ayahNumber);
+  return ayah?.text || '';
+};
+
+const getTranslation = (surahId: number, ayahNumber: number): string | undefined => {
+  return allTranslations.find(t => t.surahId === surahId && t.ayahNumber === ayahNumber)?.text;
+};
+
+const getSurahName = (surahId: number): string => {
+  const meta = surahsMetadata.find(s => s.id === surahId);
+  return meta?.name || `سورة ${surahId}`;
+};
+
+const numberToArabic = (num: number): string => {
+  const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+  return String(num).split('').map((d) => arabicDigits[parseInt(d)]).join('');
+};
+
 export default function SrmnMutashabihatScreen() {
   const { colors } = useTheme();
+  const { showTranslation } = useApp();
   const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [expandedPair, setExpandedPair] = useState<number | null>(null);
@@ -37,7 +68,7 @@ export default function SrmnMutashabihatScreen() {
       </View>
 
       <View style={styles.chipsWrapper}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chipsContainer}>
+        <View style={styles.chipsContainer}>
           <TouchableOpacity
             style={[styles.chip, { backgroundColor: selectedCategory === null ? MUTASHABIHAT_COLOR : colors.surface, borderColor: MUTASHABIHAT_COLOR }]}
             onPress={() => setSelectedCategory(null)}
@@ -59,7 +90,7 @@ export default function SrmnMutashabihatScreen() {
               </TouchableOpacity>
             );
           })}
-        </ScrollView>
+        </View>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.listContent}>
@@ -70,43 +101,82 @@ export default function SrmnMutashabihatScreen() {
           const [s1, a1] = pair.ayah1.split(':');
           const [s2, a2] = pair.ayah2.split(':');
 
+          const sid1 = parseInt(s1);
+          const sid2 = parseInt(s2);
+          const aid1 = parseInt(a1);
+          const aid2 = parseInt(a2);
+          const ayahText1 = getAyahText(sid1, aid1);
+          const ayahText2 = getAyahText(sid2, aid2);
+          const translation1 = getTranslation(sid1, aid1);
+          const translation2 = getTranslation(sid2, aid2);
+
           return (
-            <TouchableOpacity
+            <View
               key={index}
               style={[styles.pairCard, { backgroundColor: colors.surface, borderColor: catColor + '30' }, Shadows.sm]}
-              onPress={() => togglePair(index)}
-              activeOpacity={0.7}
             >
-              <View style={styles.pairAyahs}>
-                <View style={[styles.ayahBadge, { backgroundColor: catColor + '15' }]}>
-                  <Text style={styles.ayahLabel}>الأولى</Text>
-                  <Text style={[styles.ayahRef, { color: catColor }]}>سورة {s1} - {a1}</Text>
+              {/* Ayah 1 */}
+              <View style={styles.ayahSection}>
+                <View style={[styles.ayahSectionHeader, { backgroundColor: catColor + '12' }]}>
+                  <Text style={[styles.ayahSectionLabel, { color: catColor }]}>الأولى</Text>
+                  <Text style={[styles.ayahSectionRef, { color: catColor }]}>{getSurahName(sid1)} - {aid1}</Text>
                 </View>
-                <Ionicons name="swap-horizontal" size={20} color={catColor} style={styles.swapIcon} />
-                <View style={[styles.ayahBadge, { backgroundColor: catColor + '15' }]}>
-                  <Text style={styles.ayahLabel}>الثانية</Text>
-                  <Text style={[styles.ayahRef, { color: catColor }]}>سورة {s2} - {a2}</Text>
+                <Text style={[styles.ayahText, { color: colors.text }]}>
+                  {ayahText1}
+                  <Text style={styles.ayahNumberInline}>{' ﴿' + numberToArabic(aid1) + '﴾ '}</Text>
+                </Text>
+                {showTranslation && translation1 && (
+                  <View style={[styles.translationSection, { borderTopColor: colors.borderLight }]}>
+                    <Text style={[styles.translationText, { color: colors.textSecondary }]}>{translation1}</Text>
+                  </View>
+                )}
+              </View>
+
+              {/* Swap icon */}
+              <View style={styles.swapRow}>
+                <Ionicons name="swap-horizontal" size={22} color={catColor} />
+              </View>
+
+              {/* Ayah 2 */}
+              <View style={styles.ayahSection}>
+                <View style={[styles.ayahSectionHeader, { backgroundColor: catColor + '12' }]}>
+                  <Text style={[styles.ayahSectionLabel, { color: catColor }]}>الثانية</Text>
+                  <Text style={[styles.ayahSectionRef, { color: catColor }]}>{getSurahName(sid2)} - {aid2}</Text>
                 </View>
+                <Text style={[styles.ayahText, { color: colors.text }]}>
+                  {ayahText2}
+                  <Text style={styles.ayahNumberInline}>{' ﴿' + numberToArabic(aid2) + '﴾ '}</Text>
+                </Text>
+                {showTranslation && translation2 && (
+                  <View style={[styles.translationSection, { borderTopColor: colors.borderLight }]}>
+                    <Text style={[styles.translationText, { color: colors.textSecondary }]}>{translation2}</Text>
+                  </View>
+                )}
               </View>
 
               <View style={[styles.categoryTag, { backgroundColor: catColor + '20' }]}>
                 <Text style={[styles.categoryTagText, { color: catColor }]}>{cat?.name || pair.category}</Text>
               </View>
 
-              {isExpanded && (
-                <View style={[styles.noteContainer, { backgroundColor: colors.surfaceVariant }]}>
-                  <Text style={[styles.noteLabel]}>الفرق بينهما:</Text>
-                  <Text style={[styles.noteText, { color: colors.text }]}>{pair.noteAr}</Text>
-                </View>
-              )}
-
-              <View style={styles.expandHint}>
-                <Ionicons name={isExpanded ? 'chevron-up' : 'chevron-down'} size={16} color={colors.textLight} />
-                <Text style={[styles.expandHintText, { color: colors.textLight }]}>
+              <TouchableOpacity style={styles.noteToggle} onPress={() => togglePair(index)} activeOpacity={0.7}>
+                <Ionicons name={isExpanded ? 'chevron-up' : 'chevron-down'} size={18} color={catColor} />
+                <Text style={[styles.noteToggleText, { color: catColor }]}>
                   {isExpanded ? 'إخفاء الشرح' : 'اضغط لمعرفة الفرق'}
                 </Text>
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+
+              {isExpanded && (
+                <View style={[styles.noteContainer, { backgroundColor: colors.surfaceVariant }]}>
+                  <Text style={styles.noteLabel}>الفرق بينهما:</Text>
+                  <Text style={[styles.noteText, { color: colors.text }]}>{pair.noteAr}</Text>
+                  {showTranslation && pair.noteEn && (
+                    <View style={[styles.noteTranslationSection, { borderTopColor: colors.borderLight }]}>
+                      <Text style={[styles.noteTranslationText, { color: colors.textSecondary }]}>{pair.noteEn}</Text>
+                    </View>
+                  )}
+                </View>
+              )}
+            </View>
           );
         })}
         <View style={{ height: 40 }} />
@@ -135,8 +205,14 @@ const styles = StyleSheet.create({
   },
   headerTitle: { color: '#FFF', fontSize: Fonts.sizes.title, fontWeight: '800', marginTop: Spacing.sm },
   headerSubtitle: { color: 'rgba(255,255,255,0.75)', fontSize: Fonts.sizes.sm, textAlign: 'center' },
-  chipsWrapper: { paddingVertical: Spacing.md },
-  chipsContainer: { paddingHorizontal: Spacing.lg, gap: Spacing.sm, flexDirection: 'row', alignItems: 'center' },
+  headerSource: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: Fonts.sizes.xs,
+    textAlign: 'center',
+    marginTop: 4,
+  },
+  chipsWrapper: { paddingVertical: Spacing.md, paddingHorizontal: Spacing.lg },
+  chipsContainer: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm, alignItems: 'center' },
   chip: {
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.sm,
@@ -151,47 +227,75 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
     borderWidth: 1,
   },
-  pairAyahs: {
+  ayahSection: {
+    marginBottom: Spacing.xs,
+  },
+  ayahSectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
-    marginBottom: Spacing.md,
+    justifyContent: 'space-between',
+    padding: Spacing.sm,
+    borderRadius: BorderRadius.sm,
+    marginBottom: Spacing.sm,
   },
-  ayahBadge: {
-    flex: 1,
-    padding: Spacing.md,
-    borderRadius: BorderRadius.md,
-    alignItems: 'center',
-  },
-  ayahLabel: {
+  ayahSectionLabel: {
     fontSize: Fonts.sizes.xs,
-    color: '#666',
-    marginBottom: 4,
+    fontWeight: '700',
+  },
+  ayahSectionRef: {
+    fontSize: Fonts.sizes.xs,
     fontWeight: '600',
   },
-  ayahRef: {
-    fontSize: Fonts.sizes.md,
-    fontWeight: '700',
+  ayahText: {
+    fontSize: 22,
+    lineHeight: 22 * 2.2,
+    textAlign: 'center',
     writingDirection: 'rtl',
+    paddingHorizontal: Spacing.xs,
   },
-  swapIcon: {
-    marginHorizontal: Spacing.sm,
+  ayahNumberInline: {
+    fontWeight: '700',
+  },
+  swapRow: {
+    alignItems: 'center',
+    marginVertical: Spacing.xs,
+  },
+  translationSection: {
+    padding: Spacing.md,
+    paddingTop: Spacing.sm,
+    borderTopWidth: 1,
+    marginTop: Spacing.sm,
+  },
+  translationText: {
+    fontSize: Fonts.sizes.sm,
+    lineHeight: 22,
+    textAlign: 'left',
   },
   categoryTag: {
     alignSelf: 'center',
     paddingHorizontal: Spacing.md,
     paddingVertical: 4,
     borderRadius: BorderRadius.round,
-    marginBottom: Spacing.sm,
+    marginVertical: Spacing.sm,
   },
   categoryTagText: {
     fontSize: Fonts.sizes.xs,
     fontWeight: '700',
   },
+  noteToggle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: Spacing.xs,
+    paddingVertical: Spacing.sm,
+  },
+  noteToggleText: {
+    fontSize: Fonts.sizes.sm,
+    fontWeight: '600',
+  },
   noteContainer: {
     padding: Spacing.lg,
     borderRadius: BorderRadius.md,
-    marginBottom: Spacing.sm,
   },
   noteLabel: {
     fontSize: Fonts.sizes.sm,
@@ -205,19 +309,15 @@ const styles = StyleSheet.create({
     lineHeight: 26,
     writingDirection: 'rtl',
   },
-  expandHint: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: Spacing.xs,
+  noteTranslationSection: {
+    padding: Spacing.sm,
+    paddingTop: Spacing.sm,
+    borderTopWidth: 1,
+    marginTop: Spacing.sm,
   },
-  expandHintText: {
-    fontSize: Fonts.sizes.xs,
-  },
-  headerSource: {
-    color: 'rgba(255,255,255,0.6)',
-    fontSize: Fonts.sizes.xs,
-    textAlign: 'center',
-    marginTop: 4,
+  noteTranslationText: {
+    fontSize: Fonts.sizes.sm,
+    lineHeight: 22,
+    textAlign: 'left',
   },
 });
