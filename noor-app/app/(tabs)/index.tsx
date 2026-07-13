@@ -47,6 +47,8 @@ export default function HomeScreen() {
     { id: 'mawdui', title: 'الموضوعي', icon: 'grid' as const, color: '#2980B9', route: '/mawdui' as const },
     { id: 'mutashabihat', title: 'المتشابهات', icon: 'git-compare' as const, color: '#16A085', route: '/mutashabihat' as const },
     { id: 'asbab', title: 'أسباب التنزيل', icon: 'time' as const, color: '#8E44AD', route: '/asbab/0' as const },
+    { id: 'duas', title: 'الأدعية', icon: 'hand-left' as const, color: '#1B7F5A', route: '/duas' as const },
+    { id: 'adhkar', title: 'الأذكار', icon: 'moon' as const, color: '#B8860B', route: '/adhkar' as const },
     // Row 3
     { id: 'bookmarks', title: 'المفضلة', icon: 'bookmark' as const, color: '#E67E22', route: '/bookmarks' as const },
     { id: 'search', title: 'البحث', icon: 'search' as const, color: '#C0392B', route: '/search' as const },
@@ -61,22 +63,21 @@ export default function HomeScreen() {
       {/* Header */}
       <View style={[styles.header, { backgroundColor: colors.primary }]}>
         <View style={styles.headerContent}>
-          <View>
-            <Text style={styles.greeting}>{getGreeting()}</Text>
-            <Text style={styles.appName}>نـــور</Text>
-            <Text style={styles.appSubtitle}>القرآن الكريم</Text>
+          <View style={styles.headerTitleWrap}>
+            <Text style={styles.appName}>
+              <Text style={styles.noorGlow}>نـــور</Text>
+              <Text style={styles.appRest}>  القرآن الكريم</Text>
+            </Text>
+            <Text style={styles.bismillah}>﷽</Text>
           </View>
+        </View>
+        <View style={styles.searchRow}>
           <TouchableOpacity
             style={styles.searchBtn}
             onPress={() => router.push('/search')}
           >
             <Ionicons name="search" size={22} color="#FFF" />
           </TouchableOpacity>
-        </View>
-
-        {/* Decorative pattern */}
-        <View style={styles.headerDecor}>
-          <Text style={styles.decorText}>﷽</Text>
         </View>
       </View>
 
@@ -140,12 +141,16 @@ export default function HomeScreen() {
           {features.map((feature) => (
             <TouchableOpacity
               key={feature.id}
-              style={[styles.featureCard, { backgroundColor: colors.surface }, Shadows.sm]}
+              style={[
+                styles.featureCard,
+                feature.id === 'search' && styles.featureCardFull,
+                { backgroundColor: colors.surface }, Shadows.sm,
+              ]}
               onPress={() => router.push(feature.route)}
               activeOpacity={0.7}
             >
               <View style={[styles.featureIcon, { backgroundColor: feature.color + '15' }]}>
-                <Ionicons name={feature.icon} size={28} color={feature.color} />
+                <Ionicons name={feature.icon} size={feature.id === 'search' ? 22 : 28} color={feature.color} />
               </View>
               <Text style={[styles.featureTitle, { color: colors.text }]}>{feature.title}</Text>
             </TouchableOpacity>
@@ -194,27 +199,40 @@ const styles = StyleSheet.create({
   },
   headerContent: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: Spacing.xxl,
+    paddingTop: Spacing.sm,
   },
-  greeting: {
-    color: 'rgba(255,255,255,0.8)',
-    fontSize: Fonts.sizes.md,
+  headerTitleWrap: {
+    alignItems: 'center',
   },
   appName: {
-    color: '#FFF',
     fontSize: 38,
     fontWeight: '800',
-    marginTop: Spacing.xs,
     letterSpacing: 2,
   },
-  appSubtitle: {
-    color: 'rgba(255,255,255,0.95)',
-    fontSize: Fonts.sizes.lg,
-    fontWeight: '600',
-    marginTop: 4,
-    letterSpacing: 1,
+  noorGlow: {
+    color: '#FFD700',
+    textShadowColor: '#FFAA00',
+    textShadowRadius: 18,
+    textShadowOffset: { width: 0, height: 0 },
+  },
+  appRest: {
+    color: '#FFD700',
+    textShadowColor: '#FFAA00',
+    textShadowRadius: 14,
+    textShadowOffset: { width: 0, height: 0 },
+  },
+  bismillah: {
+    color: '#FFFFFF',
+    fontSize: 52,
+    fontWeight: '700',
+    marginTop: Spacing.md,
+    textShadowColor: 'rgba(255,255,255,0.5)',
+    textShadowRadius: 10,
+    textShadowOffset: { width: 0, height: 0 },
+    opacity: 1,
   },
   searchBtn: {
     width: 42,
@@ -224,13 +242,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  headerDecor: {
-    alignItems: 'center',
-    marginTop: Spacing.sm,
-  },
-  decorText: {
-    color: 'rgba(255,255,255,0.5)',
-    fontSize: 40,
+  searchRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingHorizontal: Spacing.xxl,
+    marginTop: Spacing.md,
   },
   scrollContent: {
     paddingTop: Spacing.lg,
@@ -345,6 +361,12 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.sm,
     fontWeight: '600',
     textAlign: 'center',
+  },
+  featureCardFull: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: Spacing.sm,
   },
   statsCard: {
     marginHorizontal: Spacing.lg,

@@ -8,13 +8,15 @@ import { Fonts, Spacing } from '../../constants/theme';
 interface HeaderProps {
   title: string;
   subtitle?: string;
+  source?: string;
   showBack?: boolean;
   rightIcon?: keyof typeof Ionicons.glyphMap;
   onRightPress?: () => void;
+  onBackPress?: () => void;
   transparent?: boolean;
 }
 
-export default function Header({ title, subtitle, showBack = false, rightIcon, onRightPress, transparent = false }: HeaderProps) {
+export default function Header({ title, subtitle, source, showBack = false, rightIcon, onRightPress, onBackPress, transparent = false }: HeaderProps) {
   const { colors, isDark } = useTheme();
   const router = useRouter();
 
@@ -30,7 +32,7 @@ export default function Header({ title, subtitle, showBack = false, rightIcon, o
       <View style={styles.content}>
         <View style={styles.left}>
           {showBack && (
-            <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+            <TouchableOpacity onPress={onBackPress || (() => router.back())} style={styles.backButton}>
               <Ionicons name="arrow-forward" size={24} color="#FFF" />
             </TouchableOpacity>
           )}
@@ -38,6 +40,7 @@ export default function Header({ title, subtitle, showBack = false, rightIcon, o
         <View style={styles.center}>
           <Text style={styles.title} numberOfLines={1}>{title}</Text>
           {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+          {source && <Text style={styles.source}>{source}</Text>}
         </View>
         <View style={styles.right}>
           {rightIcon && onRightPress && (
@@ -83,6 +86,12 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.sm,
     color: 'rgba(255,255,255,0.8)',
     marginTop: 2,
+  },
+  source: {
+    fontSize: Fonts.sizes.xs,
+    color: 'rgba(255,255,255,0.6)',
+    marginTop: 4,
+    textAlign: 'center',
   },
   backButton: {
     padding: Spacing.xs,

@@ -11,6 +11,7 @@ import Header from '../../components/ui/Header';
 import { quranData } from '../../data/quran';
 import { surahsMetadata } from '../../data/metadata';
 import { audioService } from '../../services/audioService';
+import { srmdnLookup } from '../../data/mutashabihat-from-srmdn';
 
 type Mode = 'repetition' | 'fill_blank' | 'ordering' | 'voice_test' | 'tasmi';
 
@@ -438,6 +439,31 @@ export default function MemorizeScreen() {
               </View>
             </View>
 
+            {/* Mutashabihat - Similar Verses */}
+            {(() => {
+              const ayahKey = `${surahId}:${currentAyah}`;
+              const similar = srmdnLookup[ayahKey];
+              if (!similar || similar.length === 0) return null;
+              const [sSim, aSim] = similar[0].ayah.split(':');
+              const surahSim = surahsMetadata.find(s => s.id === parseInt(sSim));
+              return (
+                <TouchableOpacity
+                  style={[styles.similarCard, { backgroundColor: '#16A085' + '12', borderColor: '#16A085' + '40' }]}
+                  activeOpacity={0.7}
+                  onPress={() => {
+                    Alert.alert(
+                      'آية متشابهة',
+                      `سورة ${surahSim?.name || sSim} - الآية ${aSim}\n\n${similar[0].note}`,
+                    );
+                  }}
+                >
+                  <Ionicons name="git-compare" size={18} color="#16A085" />
+                  <Text style={styles.similarText}>آية متشابهة: سورة {surahSim?.name || sSim} - {aSim}</Text>
+                  <Ionicons name="information-circle" size={18} color="#16A085" />
+                </TouchableOpacity>
+              );
+            })()}
+
             <View style={styles.ayahNav}>
               <TouchableOpacity
                 style={[styles.navBtn, { backgroundColor: colors.primary }]}
@@ -860,6 +886,18 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   navBtnText: { color: '#FFF', fontSize: Fonts.sizes.md, fontWeight: '600' },
+  similarCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: Spacing.sm,
+    paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.lg,
+    borderRadius: BorderRadius.lg,
+    borderWidth: 1,
+    marginBottom: Spacing.md,
+  },
+  similarText: { color: '#16A085', fontSize: Fonts.sizes.sm, fontWeight: '700', textAlign: 'center' },
   fillBlankContainer: {
     padding: Spacing.xl,
     borderRadius: BorderRadius.lg,

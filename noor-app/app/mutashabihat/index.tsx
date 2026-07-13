@@ -172,7 +172,7 @@ export default function MutashabihatScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Header title="المتشابهات" subtitle={getSubtitle()} showBack />
+      <Header title="المتشابهات" subtitle={getSubtitle()} source="من كتب التفسير وعلوم القرآن" showBack />
 
       {/* Level Filter */}
       <View style={styles.levelFilter}>

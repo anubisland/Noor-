@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { Fonts, Spacing, BorderRadius, Shadows } from '../../constants/theme';
 import Header from '../../components/ui/Header';
-import { asbabNuzul } from '../../data/asbab-nuzul';
+import { asbabData } from '../../data/asbab-nuzul';
 import { surahsMetadata } from '../../data/metadata';
 
 const { width } = Dimensions.get('window');
@@ -20,7 +20,9 @@ function stripTashkeel(text: string): string {
 
 export default function AsbabNuzulScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const surahId = parseInt(id || '0');
+  const routeSurahId = parseInt(id || '0');
+  const [viewSurahId, setViewSurahId] = useState(0);
+  const surahId = viewSurahId > 0 ? viewSurahId : routeSurahId;
   const { colors } = useTheme();
   const router = useRouter();
   const [expandedId, setExpandedId] = useState<number | null>(null);
@@ -28,14 +30,14 @@ export default function AsbabNuzulScreen() {
   const [surahSearch, setSurahSearch] = useState('');
 
   const entries = surahId > 0
-    ? asbabNuzul.filter((e) => e.surahId === surahId)
-    : asbabNuzul;
+    ? asbabData.filter((e) => e.surahId === surahId)
+    : asbabData;
 
   const surahMeta = surahsMetadata.find((s) => s.id === surahId);
 
   // Get surahs that have asbab entries
   const surahsWithAsbab = useMemo(() => {
-    const ids = new Set(asbabNuzul.map((e) => e.surahId));
+    const ids = new Set(asbabData.map((e) => e.surahId));
     return surahsMetadata.filter((s) => ids.has(s.id));
   }, []);
 
@@ -50,65 +52,66 @@ export default function AsbabNuzulScreen() {
     });
   }, [surahSearch]);
 
-  const getEntryCount = (sId: number) => asbabNuzul.filter((e) => e.surahId === sId).length;
+  const getEntryCount = (sId: number) => asbabData.filter((e) => e.surahId === sId).length;
 
   const selectSurah = (sId: number) => {
     setShowSurahPicker(false);
-    router.push(`/asbab/${sId}`);
+    setViewSurahId(sId);
   };
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Header
-        title="أسباب النزول"
-        subtitle={surahMeta ? surahMeta.name : 'جميع السور'}
+        title={surahMeta ? surahMeta.name : 'أسباب النزول'}
+        subtitle={surahMeta ? 'أسباب النزول' : undefined}
+        source="من كتاب صحيح أسباب النزول • إبراهيم محمد العلي"
         showBack
+        onBackPress={viewSurahId > 0 ? () => setViewSurahId(0) : undefined}
         rightIcon="list-outline"
         onRightPress={() => { setSurahSearch(''); setShowSurahPicker(true); }}
       />
 
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
-        {/* Intro */}
-        <View style={[styles.introCard, { backgroundColor: colors.primaryLight, borderColor: colors.primary }]}>
-          <Ionicons name="time-outline" size={28} color={colors.primary} />
-          <Text style={[styles.introText, { color: colors.text }]}>
-            تعرّف على السياق التاريخي والمكاني والقصص وراء نزول الآيات القرآنية
-          </Text>
-        </View>
-
-        {/* Quick Surah Selection - when showing all */}
-        {surahId === 0 && (
-          <View style={styles.surahChips}>
-            <Text style={[styles.chipsTitle, { color: colors.text }]}>اختر السورة:</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chipsRow}>
-              <TouchableOpacity
-                style={[styles.chip, { backgroundColor: colors.primary }]}
-                onPress={() => router.push('/asbab/0')}
-              >
-                <Text style={[styles.chipText, { color: '#FFF' }]}>الكل</Text>
-              </TouchableOpacity>
-              {surahsWithAsbab.map((s) => (
-                <TouchableOpacity
-                  key={s.id}
-                  style={[styles.chip, { backgroundColor: colors.surfaceVariant, borderColor: colors.border }]}
-                  onPress={() => selectSurah(s.id)}
-                >
-                  <Text style={[styles.chipText, { color: colors.text }]}>{s.name}</Text>
-                  <View style={[styles.chipBadge, { backgroundColor: colors.secondaryLight }]}>
-                    <Text style={[styles.chipBadgeText, { color: colors.secondary }]}>{getEntryCount(s.id)}</Text>
-                  </View>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-            <TouchableOpacity
-              style={[styles.browseBtn, { backgroundColor: colors.secondaryLight }]}
-              onPress={() => { setSurahSearch(''); setShowSurahPicker(true); }}
-            >
-              <Ionicons name="search" size={18} color={colors.secondary} />
-              <Text style={[styles.browseBtnText, { color: colors.secondary }]}>البحث في جميع السور (114)</Text>
-            </TouchableOpacity>
+      {/* Quick Surah Selection & Intro - OUTSIDE ScrollView for gesture fix */}
+      {surahId === 0 && (
+        <View style={styles.chipsOuter}>
+          <View style={[styles.introCard, { backgroundColor: colors.primaryLight, borderColor: colors.primary }]}>
+            <Ionicons name="time-outline" size={22} color={colors.primary} />
+            <Text style={[styles.introText, { color: colors.text }]}>
+              تعرّف على السياق التاريخي والمكاني والقصص وراء نزول الآيات القرآنية
+            </Text>
           </View>
-        )}
+          <Text style={[styles.chipsTitle, { color: colors.text }]}>اختر السورة:</Text>
+          <View style={styles.chipsRow}>
+            <TouchableOpacity
+              style={[styles.chip, { backgroundColor: colors.primary }]}
+              onPress={() => setViewSurahId(0)}
+            >
+              <Text style={[styles.chipText, { color: '#FFF' }]}>الكل</Text>
+            </TouchableOpacity>
+            {surahsWithAsbab.map((s) => (
+              <TouchableOpacity
+                key={s.id}
+                style={[styles.chip, { backgroundColor: colors.surfaceVariant, borderColor: colors.border }]}
+                onPress={() => selectSurah(s.id)}
+              >
+                <Text style={[styles.chipText, { color: colors.text }]}>{s.name}</Text>
+                <View style={[styles.chipBadge, { backgroundColor: colors.secondaryLight }]}>
+                  <Text style={[styles.chipBadgeText, { color: colors.secondary }]}>{getEntryCount(s.id)}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+          <TouchableOpacity
+            style={[styles.browseBtn, { backgroundColor: colors.secondaryLight }]}
+            onPress={() => { setSurahSearch(''); setShowSurahPicker(true); }}
+          >
+            <Ionicons name="search" size={18} color={colors.secondary} />
+            <Text style={[styles.browseBtnText, { color: colors.secondary }]}>البحث في جميع السور (114)</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
 
         {/* Selected surah info */}
         {surahId > 0 && surahMeta && (
@@ -142,7 +145,7 @@ export default function AsbabNuzulScreen() {
             </Text>
             <TouchableOpacity
               style={[styles.browseBtn, { backgroundColor: colors.primaryLight }]}
-              onPress={() => router.push('/asbab/0')}
+              onPress={() => setViewSurahId(0)}
             >
               <Text style={[styles.browseBtnText, { color: colors.primary }]}>عرض جميع أسباب النزول</Text>
             </TouchableOpacity>
@@ -152,10 +155,13 @@ export default function AsbabNuzulScreen() {
         {entries.map((entry, index) => {
           const isExpanded = expandedId === index;
           const entrySurah = surahsMetadata.find((s) => s.id === entry.surahId);
+          const ayahStart = entry.ayahs[0];
+          const ayahEnd = entry.ayahs[entry.ayahs.length - 1];
+          const storyText = entry.occasions[0] || '';
 
           return (
             <TouchableOpacity
-              key={`${entry.surahId}_${entry.ayahStart}_${index}`}
+              key={`${entry.surahId}_${ayahStart}_${index}`}
               activeOpacity={0.8}
               onPress={() => setExpandedId(isExpanded ? null : index)}
               style={[styles.storyCard, { backgroundColor: colors.surface, borderColor: colors.borderLight }, Shadows.md]}
@@ -166,18 +172,13 @@ export default function AsbabNuzulScreen() {
                   <Text style={[styles.storyNumberText, { color: colors.secondary }]}>{index + 1}</Text>
                 </View>
                 <View style={styles.storyHeaderInfo}>
-                  <Text style={[styles.storyTitle, { color: colors.text }]}>{entry.title}</Text>
-                  <Text style={[styles.storyRef, { color: colors.primary }]}>
-                    {entrySurah?.name || `سورة ${entry.surahId}`} - الآيات {entry.ayahStart}
-                    {entry.ayahEnd > entry.ayahStart ? `-${entry.ayahEnd}` : ''}
+                  <Text style={[styles.storyTitle, { color: colors.text }]}>
+                    سبب نزول الآية {ayahStart}{ayahEnd > ayahStart ? `-${ayahEnd}` : ''}
                   </Text>
-                  {entry.theme && (
-                    <View style={[styles.themeBadge, { backgroundColor: entry.era === 'makki' ? colors.warningLight : colors.successLight }]}>
-                      <Text style={[styles.themeBadgeText, { color: entry.era === 'makki' ? colors.warning : colors.success }]}>
-                        {entry.era === 'makki' ? 'مكية' : 'مدنية'} • {entry.theme}
-                      </Text>
-                    </View>
-                  )}
+                  <Text style={[styles.storyRef, { color: colors.primary }]}>
+                    {entrySurah?.name || `سورة ${entry.surahId}`} - الآيات {ayahStart}
+                    {ayahEnd > ayahStart ? `-${ayahEnd}` : ''}
+                  </Text>
                 </View>
                 <Ionicons
                   name={isExpanded ? 'chevron-up' : 'chevron-down'}
@@ -194,66 +195,34 @@ export default function AsbabNuzulScreen() {
                     <View style={styles.narrativeIcon}>
                       <Ionicons name="book-outline" size={20} color={colors.secondary} />
                     </View>
-                    <Text style={[styles.narrativeText, { color: colors.text }]}>{entry.story}</Text>
+                    <Text style={[styles.narrativeText, { color: colors.text }]}>{storyText}</Text>
                   </View>
 
-                  {/* Historical Context */}
-                  {entry.historicalContext && (
+                  {/* Additional occasions */}
+                  {entry.occasions.length > 1 && (
                     <View style={[styles.contextCard, { backgroundColor: colors.surfaceVariant, borderColor: colors.border }]}>
                       <View style={styles.contextHeader}>
-                        <Ionicons name="time" size={18} color={colors.secondary} />
-                        <Text style={[styles.contextTitle, { color: colors.secondary }]}>السياق التاريخي</Text>
+                        <Ionicons name="repeat" size={18} color={colors.secondary} />
+                        <Text style={[styles.contextTitle, { color: colors.secondary }]}>روايات أخرى</Text>
                       </View>
-                      <Text style={[styles.contextText, { color: colors.text }]}>{entry.historicalContext}</Text>
+                      {entry.occasions.slice(1).map((oc, oi) => (
+                        <Text key={oi} style={[styles.contextText, { color: colors.text, marginTop: oi > 0 ? 12 : 0 }]}>
+                          {oi + 1}. {oc}
+                        </Text>
+                      ))}
                     </View>
                   )}
 
-                  {/* Key Figures */}
-                  {entry.keyFigures && entry.keyFigures.length > 0 && (
-                    <View style={styles.figuresSection}>
-                      <Text style={[styles.figuresTitle, { color: colors.textSecondary }]}>الشخصيات الرئيسية:</Text>
-                      <View style={styles.figuresRow}>
-                        {entry.keyFigures.map((figure, fi) => (
-                          <View key={fi} style={[styles.figureBadge, { backgroundColor: colors.primaryLight }]}>
-                            <Ionicons name="person" size={14} color={colors.primary} />
-                            <Text style={[styles.figureBadgeText, { color: colors.primary }]}>{figure}</Text>
-                          </View>
-                        ))}
-                      </View>
+                  {/* Source attribution */}
+                  <View style={[styles.contextCard, { backgroundColor: colors.primaryLight, borderColor: colors.primary }]}>
+                    <View style={styles.contextHeader}>
+                      <Ionicons name="book" size={18} color={colors.primary} />
+                      <Text style={[styles.contextTitle, { color: colors.primary }]}>المصدر</Text>
                     </View>
-                  )}
-
-                  {/* Location & Time */}
-                  <View style={styles.metaSection}>
-                    <View style={[styles.metaItem, { backgroundColor: colors.primaryLight }]}>
-                      <Ionicons name="location" size={18} color={colors.primary} />
-                      <View>
-                        <Text style={[styles.metaLabel, { color: colors.primary }]}>المكان</Text>
-                        <Text style={[styles.metaValue, { color: colors.text }]}>{entry.location}</Text>
-                        <Text style={[styles.metaValueEn, { color: colors.textSecondary }]}>{entry.locationEn}</Text>
-                      </View>
-                    </View>
-                    <View style={[styles.metaItem, { backgroundColor: colors.secondaryLight }]}>
-                      <Ionicons name="calendar" size={18} color={colors.secondary} />
-                      <View>
-                        <Text style={[styles.metaLabel, { color: colors.secondary }]}>الفترة</Text>
-                        <Text style={[styles.metaValue, { color: colors.text }]}>{entry.period}</Text>
-                      </View>
-                    </View>
+                    <Text style={[styles.contextText, { color: colors.text }]}>
+                      كتاب "صحيح أسباب النزول" - إبراهيم محمد العلي
+                    </Text>
                   </View>
-
-                  {/* Map Placeholder */}
-                  {entry.latitude && entry.longitude && (
-                    <View style={[styles.mapPlaceholder, { backgroundColor: colors.surfaceVariant, borderColor: colors.border }]}>
-                      <Ionicons name="map" size={32} color={colors.primary} />
-                      <Text style={[styles.mapText, { color: colors.textSecondary }]}>
-                        {entry.locationEn}
-                      </Text>
-                      <Text style={[styles.mapCoords, { color: colors.textLight }]}>
-                        {entry.latitude?.toFixed(4)}, {entry.longitude?.toFixed(4)}
-                      </Text>
-                    </View>
-                  )}
 
                   {/* Go to Surah button */}
                   <TouchableOpacity
@@ -298,11 +267,11 @@ export default function AsbabNuzulScreen() {
             {/* Show all entries option */}
             <TouchableOpacity
               style={[styles.allEntriesBtn, { backgroundColor: colors.primaryLight }]}
-              onPress={() => { setShowSurahPicker(false); router.push('/asbab/0'); }}
+              onPress={() => { setShowSurahPicker(false); setViewSurahId(0); }}
             >
               <Ionicons name="list" size={20} color={colors.primary} />
               <Text style={[styles.allEntriesText, { color: colors.primary }]}>
-                عرض جميع أسباب النزول ({asbabNuzul.length})
+                عرض جميع أسباب النزول ({asbabData.length})
               </Text>
             </TouchableOpacity>
 
@@ -352,12 +321,16 @@ const styles = StyleSheet.create({
     padding: Spacing.lg,
     borderRadius: BorderRadius.lg,
     borderWidth: 1,
-    marginBottom: Spacing.lg,
+    marginBottom: Spacing.md,
+  },
+  chipsOuter: {
+    padding: Spacing.lg,
+    paddingBottom: 0,
   },
   introText: { flex: 1, fontSize: Fonts.sizes.md, lineHeight: 24 },
   surahChips: { marginBottom: Spacing.lg, gap: Spacing.sm },
   chipsTitle: { fontSize: Fonts.sizes.md, fontWeight: '700', writingDirection: 'rtl' },
-  chipsRow: { gap: Spacing.sm, paddingVertical: Spacing.xs },
+  chipsRow: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm, paddingVertical: Spacing.xs },
   chip: {
     flexDirection: 'row',
     alignItems: 'center',

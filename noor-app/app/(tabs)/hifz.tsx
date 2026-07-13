@@ -47,6 +47,7 @@ export default function HifzScreen() {
     { id: MEMORIZATION_MODES.ORDERING, title: 'الترتيب', icon: 'swap-vertical' as const, color: '#9B59B6', desc: 'رتب الآيات بالتسلسل الصحيح' },
     { id: MEMORIZATION_MODES.VOICE_TEST, title: 'الاختبار الصوتي', icon: 'mic' as const, color: '#E74C3C', desc: 'سجل تلاوتك وقارنها' },
     { id: MEMORIZATION_MODES.TASMI, title: 'التسميع', icon: 'eye-off' as const, color: '#16A085', desc: 'سمّع من حفظك - الآيات مخفية' },
+    { id: 'mutashabihat', title: 'تمييز المتشابهات', icon: 'git-compare' as const, color: '#16A085', desc: 'تعرف على الآيات المتشابهة وفرق بينها', route: '/mutashabihat/srmdn' as const },
   ];
 
   const openSurahPicker = (modeId: string) => {
@@ -117,7 +118,7 @@ export default function HifzScreen() {
           <TouchableOpacity
             key={mode.id}
             style={[styles.modeCard, { backgroundColor: colors.surface }, Shadows.sm]}
-            onPress={() => openSurahPicker(mode.id)}
+            onPress={() => mode.route ? router.push(mode.route) : openSurahPicker(mode.id)}
           >
             <View style={[styles.modeIcon, { backgroundColor: mode.color + '15' }]}>
               <Ionicons name={mode.icon} size={28} color={mode.color} />
