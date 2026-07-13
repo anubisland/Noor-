@@ -36,6 +36,12 @@ jobs:
         working-directory: noor-app
         run: npx expo prebuild --platform android --clean
 
+      - name: Decode release keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 -d > noor-app/android/app/release.keystore
+
       - name: Fix build configuration
         run: |
           echo "org.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m" >> noor-app/android/gradle.properties
@@ -50,6 +56,11 @@ jobs:
 
       - name: Build Android APK
         working-directory: noor-app/android
+        env:
+          RELEASE_KEYSTORE_PATH: app/release.keystore
+          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
         run: |
           chmod +x gradlew
           ./gradlew assembleRelease
