@@ -40,6 +40,8 @@ jobs:
 
       - name: Prepare SPA routing & bypass Jekyll for GitHub Pages
         run: |
+          sed -i 's/<html lang="en">/<html lang="ar" dir="rtl">/g' noor-app/dist/index.html
+          sed -i 's/<style id="expo-reset">/<style id="expo-reset">\n      html, body, #root { direction: rtl !important; text-align: right !important; }\n/g' noor-app/dist/index.html
           cp noor-app/dist/index.html noor-app/dist/404.html
           touch noor-app/dist/.nojekyll
           cp -r noor-app/public/* noor-app/dist/ || true

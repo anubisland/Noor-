@@ -42,6 +42,7 @@ export default function TabLayout() {
           shadowOffset: { width: 0, height: -2 },
           shadowOpacity: 0.05,
           shadowRadius: 4,
+          ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),
         },
         tabBarActiveTintColor: colors.text,
         tabBarInactiveTintColor: colors.textLight,

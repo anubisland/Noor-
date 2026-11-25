@@ -20,6 +20,20 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
+    if (Platform.OS === 'web' && typeof document !== 'undefined') {
+      document.documentElement.setAttribute('dir', 'rtl');
+      document.documentElement.setAttribute('lang', 'ar');
+      document.documentElement.style.direction = 'rtl';
+      if (document.body) {
+        document.body.setAttribute('dir', 'rtl');
+        document.body.style.direction = 'rtl';
+      }
+      const root = document.getElementById('root');
+      if (root) {
+        root.setAttribute('dir', 'rtl');
+        root.style.direction = 'rtl';
+      }
+    }
     I18nManager.allowRTL(true);
     I18nManager.forceRTL(true);
   }, []);
@@ -67,6 +81,12 @@ export default function RootLayout() {
           <meta name="apple-mobile-web-app-title" content="زاد القرآن" />
           <meta name="application-name" content="زاد القرآن الكريم" />
           <meta name="msapplication-TileColor" content="#0D7C5F" />
+          <style>{`
+            html, body, #root {
+              direction: rtl !important;
+              text-align: right !important;
+            }
+          `}</style>
         </Head>
       )}
       <ThemeProvider>

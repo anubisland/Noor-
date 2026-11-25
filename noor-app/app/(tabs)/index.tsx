@@ -249,7 +249,6 @@ export default function HomeScreen() {
                 <Text
                   style={styles.mainAppTitle}
                   numberOfLines={1}
-                  adjustsFontSizeToFit
                 >
                   زاد القرآن الكريم
                 </Text>
@@ -491,6 +490,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 2,
     marginVertical: 4,
+    ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),
   },
   headerBadgeWrapper: {
     width: 54,
@@ -542,14 +542,14 @@ const styles = StyleSheet.create({
   },
   mainAppTitle: {
     fontFamily: 'AmiriQuran',
-    fontSize: 32,
+    fontSize: Platform.OS === 'web' ? 26 : 28,
     color: '#FFF275',
     textAlign: 'center',
-    textShadowColor: '#FFAA00',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 18,
-    fontWeight: '700',
-    lineHeight: 42,
+    textShadowColor: 'rgba(0, 0, 0, 0.45)',
+    textShadowOffset: { width: 0, height: 1.5 },
+    textShadowRadius: 3,
+    lineHeight: Platform.OS === 'web' ? 36 : 40,
+    letterSpacing: 0.5,
   },
   subAppTitle: {
     fontFamily: Fonts.arabic.regular,
@@ -686,6 +686,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: Spacing.sm,
     marginBottom: Spacing.sm,
+    ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),
   },
   featureCard: {
     flex: 1,
@@ -720,6 +721,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.sm,
+    ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),
   },
   fullWidthSearchPlaceholder: {
     fontSize: Fonts.sizes.sm,
@@ -733,6 +735,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginBottom: Spacing.md,
+    ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),
   },
   statItem: {
     alignItems: 'center',
