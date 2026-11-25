@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Stack } from 'expo-router';
-import { I18nManager, View, ActivityIndicator } from 'react-native';
+import Head from 'expo-router/head';
+import { I18nManager, View, ActivityIndicator, Platform } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { ThemeProvider } from '../context/ThemeContext';
@@ -23,6 +24,18 @@ export default function RootLayout() {
     I18nManager.forceRTL(true);
   }, []);
 
+  // Register PWA Service Worker on Web
+  useEffect(() => {
+    if (Platform.OS === 'web' && typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').then(
+          (reg) => console.log('Zad Al-Quran PWA ServiceWorker active with scope:', reg.scope),
+          (err) => console.warn('Zad Al-Quran ServiceWorker registration failed:', err)
+        );
+      });
+    }
+  }, []);
+
   useEffect(() => {
     if (fontsLoaded || fontError) {
       SplashScreen.hideAsync().catch(() => {});
@@ -38,24 +51,41 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider>
-      <AppProvider>
-        <HifzProvider>
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="(tabs)" />
-            <Stack.Screen name="surah/[id]" />
-            <Stack.Screen name="tafsir/[surahId]/[ayahId]" />
-            <Stack.Screen name="memorize/[id]" />
-            <Stack.Screen name="asbab/[id]" />
-            <Stack.Screen name="mutashabihat/index" />
-            <Stack.Screen name="mutashabihat/srmdn" />
-            <Stack.Screen name="duas/index" />
-            <Stack.Screen name="adhkar/index" />
-            <Stack.Screen name="search" options={{ presentation: 'modal' }} />
-            <Stack.Screen name="bookmarks" />
-          </Stack>
-        </HifzProvider>
-      </AppProvider>
-    </ThemeProvider>
+    <>
+      {Platform.OS === 'web' && (
+        <Head>
+          <title>زاد القرآن الكريم - المصحف الشريف</title>
+          <meta name="description" content="تطبيق زاد القرآن الكريم - المصحف الشريف، المتشابهات، التفاسير، وأسباب النزول" />
+          <meta name="theme-color" content="#0D7C5F" />
+          <link rel="manifest" href="./manifest.json" />
+          <link rel="icon" type="image/png" href="./favicon.png" />
+          <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+          <meta name="apple-mobile-web-app-title" content="زاد القرآن" />
+          <meta name="application-name" content="زاد القرآن الكريم" />
+          <meta name="msapplication-TileColor" content="#0D7C5F" />
+        </Head>
+      )}
+      <ThemeProvider>
+        <AppProvider>
+          <HifzProvider>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="(tabs)" />
+              <Stack.Screen name="surah/[id]" />
+              <Stack.Screen name="tafsir/[surahId]/[ayahId]" />
+              <Stack.Screen name="memorize/[id]" />
+              <Stack.Screen name="asbab/[id]" />
+              <Stack.Screen name="mutashabihat/index" />
+              <Stack.Screen name="mutashabihat/srmdn" />
+              <Stack.Screen name="duas/index" />
+              <Stack.Screen name="adhkar/index" />
+              <Stack.Screen name="search" options={{ presentation: 'modal' }} />
+              <Stack.Screen name="bookmarks" />
+            </Stack>
+          </HifzProvider>
+        </AppProvider>
+      </ThemeProvider>
+    </>
   );
 }

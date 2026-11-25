@@ -11,7 +11,12 @@ android/app/src/main/assets/
 android/app/src/main/res/drawable-*/
 android/app/src/main/res/raw/
 
-# Root test files & dumps
+# Web build outputs
+dist/
+web-build/
+noor-app/dist/
+noor-app/web-build/
+
 /*.png
 /*.xml
 /noor-app/*.png
