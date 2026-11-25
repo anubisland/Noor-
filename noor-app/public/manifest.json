@@ -2,36 +2,36 @@
   "name": "زاد القرآن الكريم",
   "short_name": "زاد القرآن",
   "description": "تطبيق زاد القرآن الكريم - المصحف الشريف، المتشابهات، التفاسير، وأسباب النزول",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "/Noor-/",
+  "scope": "/Noor-/",
   "display": "standalone",
   "orientation": "portrait",
   "dir": "rtl",
   "lang": "ar",
-  "background_color": "#0D7C5F",
   "theme_color": "#0D7C5F",
+  "background_color": "#041E11",
   "categories": ["education", "books", "lifestyle"],
   "icons": [
     {
-      "src": "./icons/icon-192.png",
+      "src": "/Noor-/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./icons/icon-maskable-192.png",
+      "src": "/Noor-/icons/icon-maskable-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "./icons/icon-512.png",
+      "src": "/Noor-/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./icons/icon-maskable-512.png",
+      "src": "/Noor-/icons/icon-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

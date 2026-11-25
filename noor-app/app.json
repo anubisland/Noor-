@@ -37,6 +37,9 @@
       "output": "static",
       "favicon": "./public/favicon.png"
     },
+    "experiments": {
+      "baseUrl": "/Noor-"
+    },
     "plugins": [
       "expo-router",
       "expo-font",

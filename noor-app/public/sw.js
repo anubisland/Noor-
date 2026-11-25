@@ -1,14 +1,14 @@
 const CACHE_NAME = 'zad-al-quran-v2.0.0';
 
 const PRECACHE_ASSETS = [
-  './',
-  './index.html',
-  './manifest.json',
-  './favicon.png',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './icons/icon-maskable-192.png',
-  './icons/icon-maskable-512.png'
+  '/Noor-/',
+  '/Noor-/index.html',
+  '/Noor-/manifest.json',
+  '/Noor-/favicon.png',
+  '/Noor-/icons/icon-192.png',
+  '/Noor-/icons/icon-512.png',
+  '/Noor-/icons/icon-maskable-192.png',
+  '/Noor-/icons/icon-maskable-512.png'
 ];
 
 // Install: Cache essential shell
@@ -49,18 +49,28 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Handle navigations (HTML pages)
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(() => {
+        return caches.match('/Noor-/index.html') || caches.match('/Noor-/');
+      })
+    );
+    return;
+  }
+
+  // Handle static assets with Stale-While-Revalidate
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Fetch in background to update cache for next time
+        // Fetch in background to update cache
         fetch(event.request).then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, networkResponse.clone());
+              cache.put(event.request, networkResponse);
             });
           }
-        }).catch(() => {/* Offline fallback */});
-
+        }).catch(() => {});
         return cachedResponse;
       }
 
@@ -75,11 +85,6 @@ self.addEventListener('fetch', (event) => {
         });
 
         return networkResponse;
-      }).catch(() => {
-        // Fallback to cached index for navigation
-        if (event.request.mode === 'navigate') {
-          return caches.match('./index.html') || caches.match('./');
-        }
       });
     })
   );

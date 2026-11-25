@@ -28,7 +28,9 @@ export default function RootLayout() {
   useEffect(() => {
     if (Platform.OS === 'web' && typeof window !== 'undefined' && 'serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').then(
+        const swPath = window.location.pathname.startsWith('/Noor-') ? '/Noor-/sw.js' : './sw.js';
+        const swScope = window.location.pathname.startsWith('/Noor-') ? '/Noor-/' : './';
+        navigator.serviceWorker.register(swPath, { scope: swScope }).then(
           (reg) => console.log('Zad Al-Quran PWA ServiceWorker active with scope:', reg.scope),
           (err) => console.warn('Zad Al-Quran ServiceWorker registration failed:', err)
         );
@@ -57,9 +59,9 @@ export default function RootLayout() {
           <title>زاد القرآن الكريم - المصحف الشريف</title>
           <meta name="description" content="تطبيق زاد القرآن الكريم - المصحف الشريف، المتشابهات، التفاسير، وأسباب النزول" />
           <meta name="theme-color" content="#0D7C5F" />
-          <link rel="manifest" href="./manifest.json" />
-          <link rel="icon" type="image/png" href="./favicon.png" />
-          <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+          <link rel="manifest" href="/Noor-/manifest.json" />
+          <link rel="icon" type="image/png" href="/Noor-/favicon.png" />
+          <link rel="apple-touch-icon" href="/Noor-/icons/icon-192.png" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="default" />
           <meta name="apple-mobile-web-app-title" content="زاد القرآن" />
