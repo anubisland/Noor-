@@ -7,8 +7,19 @@ import { Fonts, Spacing, BorderRadius, Shadows } from '../../constants/theme';
 import Header from '../../components/ui/Header';
 import { asbabData } from '../../data/asbab-nuzul';
 import { surahsMetadata } from '../../data/metadata';
+import { quranData } from '../../data/quran';
+import { audioService } from '../../services/audioService';
 
 const { width } = Dimensions.get('window');
+
+const getAyahObj = (surahId: number, ayahNumber: number) => {
+  const surah = quranData.find((s) => s.id === surahId);
+  return surah?.ayahs.find((a) => a.ayahNumber === ayahNumber);
+};
+
+const getAyahText = (surahId: number, ayahNumber: number): string => {
+  return getAyahObj(surahId, ayahNumber)?.text || '';
+};
 
 function stripTashkeel(text: string): string {
   return text
@@ -190,6 +201,29 @@ export default function AsbabNuzulScreen() {
               {/* Expanded Content */}
               {isExpanded && (
                 <View style={[styles.storyContent, { borderTopColor: colors.borderLight }]}>
+                  {/* Quranic Verse Display */}
+                  <View style={[styles.verseDisplayCard, { backgroundColor: colors.surfaceVariant, borderColor: colors.borderLight }]}>
+                    <View style={styles.verseHeaderRow}>
+                      <View style={styles.verseHeaderBadge}>
+                        <Ionicons name="sparkles" size={14} color={colors.primary} />
+                        <Text style={[styles.verseHeaderBadgeText, { color: colors.primary }]}>الآية الكريمة</Text>
+                      </View>
+                      <TouchableOpacity
+                        style={[styles.verseAudioBtn, { backgroundColor: colors.primaryLight }]}
+                        onPress={() => {
+                          const aObj = getAyahObj(entry.surahId, ayahStart);
+                          if (aObj) audioService.playAyah(aObj.id);
+                        }}
+                      >
+                        <Ionicons name="volume-high" size={16} color={colors.primary} />
+                        <Text style={[styles.verseAudioBtnText, { color: colors.primary }]}>استمع للآية</Text>
+                      </TouchableOpacity>
+                    </View>
+                    <Text style={[styles.verseUthmaniText, { color: colors.text }]}>
+                      {entry.ayahs.map((aNum) => getAyahText(entry.surahId, aNum)).filter(Boolean).join(' ۝ ')} ۝
+                    </Text>
+                  </View>
+
                   {/* Story Narrative */}
                   <View style={styles.narrativeSection}>
                     <View style={styles.narrativeIcon}>
@@ -426,6 +460,45 @@ const styles = StyleSheet.create({
     padding: Spacing.lg,
     borderTopWidth: 1,
     gap: Spacing.lg,
+  },
+  verseDisplayCard: {
+    padding: Spacing.md,
+    borderRadius: BorderRadius.lg,
+    borderWidth: 1,
+    gap: Spacing.sm,
+  },
+  verseHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  verseHeaderBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  verseHeaderBadgeText: {
+    fontSize: Fonts.sizes.xs,
+    fontWeight: '700',
+  },
+  verseAudioBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: 4,
+    borderRadius: BorderRadius.full,
+    gap: 4,
+  },
+  verseAudioBtnText: {
+    fontSize: Fonts.sizes.xs,
+    fontWeight: '600',
+  },
+  verseUthmaniText: {
+    fontSize: 20,
+    fontFamily: Fonts.arabic.quran,
+    lineHeight: 38,
+    textAlign: 'center',
+    writingDirection: 'rtl',
   },
   narrativeSection: {
     flexDirection: 'row',

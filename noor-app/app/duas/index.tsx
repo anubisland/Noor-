@@ -7,6 +7,7 @@ import { Fonts, Spacing, BorderRadius } from '../../constants/theme';
 import { useApp } from '../../context/AppContext';
 import { quranicDuas, duaCategories, QuranicDua } from '../../data/quranic-duas';
 import { quranData } from '../../data/quran';
+import { audioService } from '../../services/audioService';
 
 const DUA_COLOR = '#1B7F5A';
 
@@ -120,9 +121,27 @@ export default function DuasScreen() {
                 key={dua.id}
                 style={[styles.duaCard, { backgroundColor: colors.surface, borderColor: colors.borderLight, borderWidth: 1 }]}
               >
-                {/* Arabic Text - exactly like AyahView/Mushaf */}
+                {/* Card Meta Header with Audio Play */}
+                <View style={styles.cardHeaderRow}>
+                  <Text style={[styles.duaRefText, { color: colors.secondary }]}>
+                    سورة {dua.surahName} • الآية {numberToArabic(dua.ayahNumber)}
+                  </Text>
+                  <TouchableOpacity
+                    style={[styles.playAudioBtn, { backgroundColor: DUA_COLOR + '18' }]}
+                    activeOpacity={0.7}
+                    onPress={() => {
+                      const surah = quranData.find(s => s.id === dua.surahId);
+                      const ayah = surah?.ayahs.find(a => a.ayahNumber === dua.ayahNumber);
+                      if (ayah) audioService.playAyah(ayah.id);
+                    }}
+                  >
+                    <Ionicons name="volume-high" size={17} color={DUA_COLOR} />
+                  </TouchableOpacity>
+                </View>
+
+                {/* Arabic Text - authentic Mushaf Font */}
                 <View style={styles.arabicWrapper}>
-                  <Text style={[styles.arabicText, { color: colors.text, fontSize: 26, lineHeight: 26 * 2.2 }]}>
+                  <Text style={[styles.arabicText, { color: colors.text, fontSize: 24, lineHeight: 24 * 2.2 }]}>
                     {getAyahText(dua.surahId, dua.ayahNumber)}
                     <Text style={[styles.ayahNumber, { color: colors.primary }]}>
                       {' ﴿' + numberToArabic(dua.ayahNumber) + '﴾ '}
@@ -241,9 +260,28 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.md,
   },
   arabicText: {
+    fontFamily: Fonts.arabic.quran,
     textAlign: 'center',
     fontWeight: '400',
     writingDirection: 'rtl',
+  },
+  cardHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.md,
+    paddingTop: Spacing.md,
+  },
+  duaRefText: {
+    fontSize: Fonts.sizes.xs,
+    fontWeight: '700',
+  },
+  playAudioBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   ayahNumber: {
     fontWeight: '700',

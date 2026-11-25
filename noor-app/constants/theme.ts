@@ -62,8 +62,13 @@ export const DarkColors = {
 
 export const Fonts = {
   arabic: {
-    regular: 'System',
-    bold: 'System',
+    regular: 'NotoNaskh',
+    bold: 'Cairo',
+    quran: 'KFGQPC',
+    amiri: 'AmiriQuran',
+    cairo: 'Cairo',
+    naskh: 'NotoNaskh',
+    hafs: 'KFGQPC',
   },
   sizes: {
     xs: 12,

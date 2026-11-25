@@ -6,6 +6,18 @@ import { useTheme } from '../context/ThemeContext';
 import { useApp } from '../context/AppContext';
 import { Fonts, Spacing, BorderRadius, Shadows } from '../constants/theme';
 import Header from '../components/ui/Header';
+import { quranData } from '../data/quran';
+import { audioService } from '../services/audioService';
+
+const toArabicDigits = (num: number): string => {
+  const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+  return String(num).replace(/[0-9]/g, (d) => arabicDigits[parseInt(d, 10)]);
+};
+
+const getAyahObj = (surahId: number, ayahNumber: number) => {
+  const surah = quranData.find((s) => s.id === surahId);
+  return surah?.ayahs.find((a) => a.ayahNumber === ayahNumber);
+};
 
 export default function BookmarksScreen() {
   const { colors } = useTheme();
@@ -14,16 +26,23 @@ export default function BookmarksScreen() {
 
   const sortedBookmarks = [...bookmarks].sort((a, b) => b.timestamp - a.timestamp);
 
+  const handleOpenBookmark = (surahId: number, ayahNumber: number) => {
+    router.push({
+      pathname: `/surah/${surahId}`,
+      params: { initialAyah: ayahNumber.toString() },
+    });
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Header title="المفضلة" subtitle={`${bookmarks.length} عنصر محفوظ`} showBack />
+      <Header title="المفضلة" subtitle={`${bookmarks.length} آية محفوظة`} showBack />
 
       {bookmarks.length === 0 ? (
         <View style={styles.emptyState}>
           <Ionicons name="bookmark-outline" size={64} color={colors.textLight} />
           <Text style={[styles.emptyTitle, { color: colors.text }]}>لا توجد مفضلات</Text>
           <Text style={[styles.emptySubtitle, { color: colors.textSecondary }]}>
-            اضغط على أيقونة الحفظ في أي آية لإضافتها هنا
+            اضغط على أيقونة الحفظ بجوار أي آية لإضافتها إلى المفضلة هنا
           </Text>
         </View>
       ) : (
@@ -31,31 +50,79 @@ export default function BookmarksScreen() {
           data={sortedBookmarks}
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.listContent}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={[styles.bookmarkItem, { backgroundColor: colors.surface, borderColor: colors.borderLight }, Shadows.sm]}
-              onPress={() => router.push(`/surah/${item.surahId}`)}
-            >
-              <View style={[styles.bookmarkIcon, { backgroundColor: colors.secondaryLight }]}>
-                <Ionicons name="bookmark" size={22} color={colors.secondary} />
-              </View>
-              <View style={styles.bookmarkInfo}>
-                <Text style={[styles.bookmarkSurah, { color: colors.text }]}>{item.surahName}</Text>
-                <Text style={[styles.bookmarkAyah, { color: colors.textSecondary }]}>
-                  الآية {item.ayahNumber}
-                </Text>
-                <Text style={[styles.bookmarkDate, { color: colors.textLight }]}>
-                  {new Date(item.timestamp).toLocaleDateString('ar-EG')}
-                </Text>
-              </View>
+          renderItem={({ item }) => {
+            const ayahObj = getAyahObj(item.surahId, item.ayahNumber);
+            const ayahText = ayahObj?.text || '';
+
+            return (
               <TouchableOpacity
-                style={styles.deleteBtn}
-                onPress={() => removeBookmark(item.id)}
+                activeOpacity={0.85}
+                style={[styles.bookmarkCard, { backgroundColor: colors.surface, borderColor: colors.borderLight }, Shadows.sm]}
+                onPress={() => handleOpenBookmark(item.id ? item.surahId : 1, item.ayahNumber)}
               >
-                <Ionicons name="trash-outline" size={20} color={colors.error} />
+                {/* Header row with surah name, ayah number, audio button, and delete */}
+                <View style={styles.headerRow}>
+                  <View style={styles.metaInfo}>
+                    <View style={[styles.iconBadge, { backgroundColor: colors.primaryLight }]}>
+                      <Ionicons name="bookmark" size={18} color={colors.primary} />
+                    </View>
+                    <View>
+                      <Text style={[styles.surahName, { color: colors.text }]}>{item.surahName}</Text>
+                      <Text style={[styles.ayahRef, { color: colors.textSecondary }]}>
+                        الآية {toArabicDigits(item.ayahNumber)}
+                      </Text>
+                    </View>
+                  </View>
+
+                  <View style={styles.actionsRow}>
+                    {ayahObj && (
+                      <TouchableOpacity
+                        style={[styles.actionBtn, { backgroundColor: colors.primaryLight }]}
+                        activeOpacity={0.7}
+                        onPress={() => audioService.playAyah(ayahObj.id)}
+                      >
+                        <Ionicons name="volume-high" size={17} color={colors.primary} />
+                      </TouchableOpacity>
+                    )}
+                    <TouchableOpacity
+                      style={[styles.actionBtn, { backgroundColor: 'rgba(231, 76, 60, 0.12)' }]}
+                      activeOpacity={0.7}
+                      onPress={() => removeBookmark(item.id)}
+                    >
+                      <Ionicons name="trash-outline" size={17} color={colors.error} />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+                {/* Quranic Ayah Text in Authentic Mushaf Font */}
+                {ayahText ? (
+                  <View style={styles.textContainer}>
+                    <Text
+                      numberOfLines={3}
+                      style={[styles.ayahText, { color: colors.text }]}
+                    >
+                      {ayahText} ﴿{toArabicDigits(item.ayahNumber)}﴾
+                    </Text>
+                  </View>
+                ) : null}
+
+                {/* Date footer */}
+                <View style={styles.footerRow}>
+                  <Text style={[styles.dateText, { color: colors.textLight }]}>
+                    {new Date(item.timestamp).toLocaleDateString('ar-EG', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}
+                  </Text>
+                  <View style={styles.viewAyahHint}>
+                    <Text style={[styles.hintText, { color: colors.primary }]}>انتقل إلى الآية</Text>
+                    <Ionicons name="arrow-back" size={14} color={colors.primary} />
+                  </View>
+                </View>
               </TouchableOpacity>
-            </TouchableOpacity>
-          )}
+            );
+          }}
         />
       )}
     </View>
@@ -74,30 +141,79 @@ const styles = StyleSheet.create({
   emptyTitle: { fontSize: Fonts.sizes.xl, fontWeight: '700' },
   emptySubtitle: { fontSize: Fonts.sizes.md, textAlign: 'center' },
   listContent: { padding: Spacing.lg, paddingBottom: 100 },
-  bookmarkItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: Spacing.md,
+  bookmarkCard: {
     borderRadius: BorderRadius.lg,
     borderWidth: 1,
-    marginBottom: Spacing.sm,
+    padding: Spacing.md,
+    marginBottom: Spacing.md,
+    gap: Spacing.sm,
   },
-  bookmarkIcon: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  metaInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+  },
+  iconBadge: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: Spacing.md,
   },
-  bookmarkInfo: {
-    flex: 1,
-    gap: 2,
+  surahName: {
+    fontSize: Fonts.sizes.md,
+    fontWeight: '700',
   },
-  bookmarkSurah: { fontSize: Fonts.sizes.md, fontWeight: '700' },
-  bookmarkAyah: { fontSize: Fonts.sizes.sm },
-  bookmarkDate: { fontSize: Fonts.sizes.xs },
-  deleteBtn: {
-    padding: Spacing.sm,
+  ayahRef: {
+    fontSize: Fonts.sizes.xs,
+    marginTop: 2,
+  },
+  actionsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.xs,
+  },
+  actionBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textContainer: {
+    paddingVertical: Spacing.xs,
+  },
+  ayahText: {
+    fontFamily: Fonts.arabic.quran,
+    fontSize: 20,
+    lineHeight: 38,
+    textAlign: 'right',
+    writingDirection: 'rtl',
+  },
+  footerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(0,0,0,0.05)',
+    paddingTop: Spacing.xs,
+    marginTop: Spacing.xs,
+  },
+  dateText: {
+    fontSize: Fonts.sizes.xs,
+  },
+  viewAyahHint: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  hintText: {
+    fontSize: Fonts.sizes.xs,
+    fontWeight: '700',
   },
 });

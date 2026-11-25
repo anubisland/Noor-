@@ -8,6 +8,15 @@ class AudioService {
   private currentGlobalId: number = 0;
   private statusCallback?: StatusCallback;
   private initialized = false;
+  private reciterBaseUrl: string = AUDIO_BASE_URL;
+
+  setReciterBaseUrl(url: string) {
+    this.reciterBaseUrl = url;
+  }
+
+  getReciterBaseUrl(): string {
+    return this.reciterBaseUrl;
+  }
 
   async init() {
     if (this.initialized) return;
@@ -31,11 +40,12 @@ class AudioService {
     }
   };
 
-  async playAyah(globalAyahId: number): Promise<void> {
+  async playAyah(globalAyahId: number, customBaseUrl?: string): Promise<void> {
     await this.init();
     await this.stop();
 
-    const url = `${AUDIO_BASE_URL}${globalAyahId}.mp3`;
+    const baseUrl = customBaseUrl || this.reciterBaseUrl || AUDIO_BASE_URL;
+    const url = `${baseUrl}${globalAyahId}.mp3`;
 
     try {
       const { sound } = await Audio.Sound.createAsync(

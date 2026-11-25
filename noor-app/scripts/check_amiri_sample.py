@@ -1,0 +1,20 @@
+from fontTools.ttLib import TTFont
+
+amiri = TTFont('noor-app/assets/fonts/AmiriQuran.ttf')
+cmap = amiri.getBestCmap()
+
+sample = "وَٱلَّذِينَ يُؤْمِنُونَ بِمَآ أُنزِلَ إِلَيْكَ وَمَآ أُنزِلَ مِن قَبْلِكَ وَبِٱلْـَٔاخِرَةِ هُمْ يُوقِنُونَ"
+missing = []
+for ch in sample:
+    if ord(ch) not in cmap and ord(ch) > 32:
+        missing.append((ch, f"U+{ord(ch):04X}"))
+
+print("Missing in Amiri for sample 2:4:", missing)
+
+sample2 = "وَإِذْ قُلْنَا لِلْمَلَـٰٓئِكَةِ ٱسْجُدُوا۟ لِـَٔادَمَ"
+missing2 = []
+for ch in sample2:
+    if ord(ch) not in cmap and ord(ch) > 32:
+        missing2.append((ch, f"U+{ord(ch):04X}"))
+
+print("Missing in Amiri for sample 2:34:", missing2)

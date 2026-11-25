@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -10,16 +10,27 @@ import { quranData } from '../../../data/quran';
 import { surahsMetadata } from '../../../data/metadata';
 import { getTafsirForAyah } from '../../../data/tafsir';
 import { ALL_TAFSIR_SOURCES } from '../../../constants/config';
+import { fetchEnglishTafsir } from '../../../services/englishTafsirService';
+
+const toArabicDigits = (num: number): string => {
+  const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+  return String(num).split('').map((d) => arabicDigits[parseInt(d)] || d).join('');
+};
 
 export default function TafsirScreen() {
   const { surahId: sId, ayahId: aId } = useLocalSearchParams<{ surahId: string; ayahId: string }>();
   const surahId = parseInt(sId || '1');
   const ayahId = parseInt(aId || '1');
   const { colors } = useTheme();
-  const { selectedTafsirs } = useApp();
+  const { selectedTafsirs, selectedEnglishTafsir } = useApp();
   const router = useRouter();
   const [selectedSource, setSelectedSource] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'tabs' | 'compare'>('tabs');
+  const [enTafsir, setEnTafsir] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchEnglishTafsir(surahId, ayahId, selectedEnglishTafsir).then(setEnTafsir);
+  }, [surahId, ayahId, selectedEnglishTafsir]);
 
   const surahMeta = surahsMetadata.find((s) => s.id === surahId);
   const surahAyahs = quranData.find((s) => s.id === surahId)?.ayahs || [];
@@ -27,12 +38,25 @@ export default function TafsirScreen() {
 
   // Only show user-selected tafsirs that have data for this ayah
   const activeSources = ALL_TAFSIR_SOURCES.filter((s) => selectedTafsirs.includes(s.id));
-  const tafsirs = activeSources
+  const arabicTafsirs = activeSources
     .map((source) => ({
       ...source,
-      text: getTafsirForAyah(surahId, ayahId, source.id),
+      text: getTafsirForAyah(surahId, ayahId, source.id) || '',
+      isEnglish: false,
     }))
     .filter((t) => t.text);
+
+  const tafsirs = [
+    ...arabicTafsirs,
+    ...(enTafsir ? [{
+      id: `en-${selectedEnglishTafsir}`,
+      name: selectedEnglishTafsir === 'jalalayn' ? 'الجلالين (إنجليزي)' : 'المختصر في التفسير (إنجليزي)',
+      nameEn: selectedEnglishTafsir === 'jalalayn' ? 'Tafsir Al-Jalalayn (English)' : 'Al-Mukhtasar in Tafsir (English)',
+      description: selectedEnglishTafsir === 'jalalayn' ? 'Tafsir Al-Jalalayn English translation' : 'Al-Mukhtasar fi Tafsir al-Qur\'an (English)',
+      text: enTafsir,
+      isEnglish: true,
+    }] : [])
+  ];
 
   const activeSource = selectedSource || (tafsirs[0]?.id ?? '');
   const activeTafsir = tafsirs.find((t) => t.id === activeSource);
@@ -41,7 +65,7 @@ export default function TafsirScreen() {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Header
         title="التفسير المقارن"
-        subtitle={surahMeta ? `${surahMeta.name} - آية ${ayahId}` : ''}
+        subtitle={surahMeta ? `${surahMeta.name} - الآية ${toArabicDigits(ayahId)}` : ''}
         showBack
         rightIcon={viewMode === 'tabs' ? 'git-compare-outline' : 'layers-outline'}
         onRightPress={() => setViewMode(viewMode === 'tabs' ? 'compare' : 'tabs')}
@@ -53,7 +77,7 @@ export default function TafsirScreen() {
           <View style={[styles.ayahCard, { backgroundColor: colors.primaryLight, borderColor: colors.primary }]}>
             <Text style={[styles.ayahText, { color: colors.text }]}>{ayah.text}</Text>
             <Text style={[styles.ayahRef, { color: colors.primary }]}>
-              {surahMeta?.name} - الآية {ayahId}
+              {surahMeta?.name} - الآية {toArabicDigits(ayahId)}
             </Text>
           </View>
         )}
@@ -125,7 +149,13 @@ export default function TafsirScreen() {
                     تفسير {activeTafsir.name}
                   </Text>
                 </View>
-                <Text style={[styles.tafsirText, { color: colors.text }]}>
+                <Text
+                  style={[
+                    styles.tafsirText,
+                    { color: colors.text },
+                    (activeTafsir as any)?.isEnglish && { textAlign: 'left', writingDirection: 'ltr' }
+                  ]}
+                >
                   {activeTafsir.text}
                 </Text>
               </View>
@@ -144,7 +174,13 @@ export default function TafsirScreen() {
                   تفسير {tafsir.name}
                 </Text>
               </View>
-              <Text style={[styles.tafsirText, { color: colors.text }]}>
+              <Text
+                style={[
+                  styles.tafsirText,
+                  { color: colors.text },
+                  (tafsir as any)?.isEnglish && { textAlign: 'left', writingDirection: 'ltr' }
+                ]}
+              >
                 {tafsir.text}
               </Text>
             </View>
@@ -187,17 +223,22 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.lg,
     borderWidth: 1,
     marginBottom: Spacing.lg,
-    alignItems: 'center',
+    width: '100%',
   },
   ayahText: {
-    fontSize: Fonts.sizes.quranLg,
+    fontFamily: Fonts.arabic.quran,
+    fontSize: Fonts.sizes.quran,
     textAlign: 'center',
-    lineHeight: 56,
+    writingDirection: 'rtl',
+    lineHeight: 48,
     marginBottom: Spacing.md,
+    alignSelf: 'stretch',
   },
   ayahRef: {
     fontSize: Fonts.sizes.sm,
     fontWeight: '600',
+    textAlign: 'center',
+    writingDirection: 'rtl',
   },
   viewToggle: {
     flexDirection: 'row',

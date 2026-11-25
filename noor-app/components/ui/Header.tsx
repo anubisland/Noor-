@@ -13,10 +13,21 @@ interface HeaderProps {
   rightIcon?: keyof typeof Ionicons.glyphMap;
   onRightPress?: () => void;
   onBackPress?: () => void;
+  onTitlePress?: () => void;
   transparent?: boolean;
 }
 
-export default function Header({ title, subtitle, source, showBack = false, rightIcon, onRightPress, onBackPress, transparent = false }: HeaderProps) {
+export default function Header({
+  title,
+  subtitle,
+  source,
+  showBack = false,
+  rightIcon,
+  onRightPress,
+  onBackPress,
+  onTitlePress,
+  transparent = false,
+}: HeaderProps) {
   const { colors, isDark } = useTheme();
   const router = useRouter();
 
@@ -37,11 +48,21 @@ export default function Header({ title, subtitle, source, showBack = false, righ
             </TouchableOpacity>
           )}
         </View>
-        <View style={styles.center}>
-          <Text style={styles.title} numberOfLines={1}>{title}</Text>
+        <TouchableOpacity
+          style={styles.center}
+          activeOpacity={onTitlePress ? 0.7 : 1}
+          disabled={!onTitlePress}
+          onPress={onTitlePress}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 4 }}>
+            <Text style={styles.title} numberOfLines={1}>{title}</Text>
+            {onTitlePress && (
+              <Ionicons name="chevron-down" size={16} color="#FFF" style={{ opacity: 0.85 }} />
+            )}
+          </View>
           {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
           {source && <Text style={styles.source}>{source}</Text>}
-        </View>
+        </TouchableOpacity>
         <View style={styles.right}>
           {rightIcon && onRightPress && (
             <TouchableOpacity onPress={onRightPress} style={styles.rightButton}>
@@ -86,6 +107,8 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.sm,
     color: 'rgba(255,255,255,0.8)',
     marginTop: 2,
+    textAlign: 'center',
+    writingDirection: 'rtl',
   },
   source: {
     fontSize: Fonts.sizes.xs,

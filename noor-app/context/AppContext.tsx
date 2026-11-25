@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { DEFAULT_SELECTED_TAFSIRS } from '../constants/config';
+import { DEFAULT_SELECTED_TAFSIRS, DEFAULT_RECITER, RECITERS } from '../constants/config';
+import { EnglishTafsirSource } from '../services/englishTafsirService';
+import { audioService } from '../services/audioService';
 
 interface LastRead {
   surahId: number;
@@ -33,6 +35,8 @@ interface AppContextType {
   showTranslation: boolean;
   showTafsir: boolean;
   selectedTafsirs: string[];
+  selectedEnglishTafsir: EnglishTafsirSource;
+  selectedReciter: string;
   setLastRead: (data: LastRead) => void;
   addBookmark: (bookmark: Omit<Bookmark, 'id' | 'timestamp'>) => void;
   removeBookmark: (id: string) => void;
@@ -41,6 +45,8 @@ interface AppContextType {
   setShowTranslation: (show: boolean) => void;
   setShowTafsir: (show: boolean) => void;
   setSelectedTafsirs: (tafsirs: string[]) => void;
+  setSelectedEnglishTafsir: (source: EnglishTafsirSource) => void;
+  setSelectedReciter: (reciterId: string) => void;
   updateDailyProgress: (update: Partial<DailyProgress>) => void;
 }
 
@@ -54,6 +60,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [showTranslation, setShowTranslationState] = useState(true);
   const [showTafsir, setShowTafsirState] = useState(false);
   const [selectedTafsirs, setSelectedTafsirsState] = useState<string[]>(DEFAULT_SELECTED_TAFSIRS);
+  const [selectedEnglishTafsir, setSelectedEnglishTafsirState] = useState<EnglishTafsirSource>('mukhtasar');
+  const [selectedReciter, setSelectedReciterState] = useState<string>(DEFAULT_RECITER.id);
 
   useEffect(() => {
     loadData();
@@ -61,13 +69,24 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const loadData = async () => {
     try {
-      const [savedLastRead, savedBookmarks, savedFontSize, savedShowTrans, savedShowTafsir, savedTafsirs] = await Promise.all([
+      const [
+        savedLastRead,
+        savedBookmarks,
+        savedFontSize,
+        savedShowTrans,
+        savedShowTafsir,
+        savedTafsirs,
+        savedEnTafsir,
+        savedReciter,
+      ] = await Promise.all([
         AsyncStorage.getItem('last_read'),
         AsyncStorage.getItem('bookmarks'),
         AsyncStorage.getItem('font_size'),
         AsyncStorage.getItem('show_translation'),
         AsyncStorage.getItem('show_tafsir'),
         AsyncStorage.getItem('selected_tafsirs'),
+        AsyncStorage.getItem('selected_english_tafsir'),
+        AsyncStorage.getItem('selected_reciter'),
       ]);
       if (savedLastRead) setLastReadState(JSON.parse(savedLastRead));
       if (savedBookmarks) setBookmarks(JSON.parse(savedBookmarks));
@@ -75,6 +94,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       if (savedShowTrans !== null) setShowTranslationState(savedShowTrans === 'true');
       if (savedShowTafsir !== null) setShowTafsirState(savedShowTafsir === 'true');
       if (savedTafsirs) setSelectedTafsirsState(JSON.parse(savedTafsirs));
+      if (savedEnTafsir === 'mukhtasar' || savedEnTafsir === 'jalalayn') {
+        setSelectedEnglishTafsirState(savedEnTafsir);
+      }
+      if (savedReciter) {
+        setSelectedReciterState(savedReciter);
+        const recObj = RECITERS.find((r) => r.id === savedReciter) || DEFAULT_RECITER;
+        audioService.setReciterBaseUrl(recObj.baseUrl);
+      } else {
+        audioService.setReciterBaseUrl(DEFAULT_RECITER.baseUrl);
+      }
     } catch (e) {
       console.error('Error loading app data:', e);
     }
@@ -126,6 +155,18 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     AsyncStorage.setItem('selected_tafsirs', JSON.stringify(tafsirs));
   };
 
+  const setSelectedEnglishTafsir = (source: EnglishTafsirSource) => {
+    setSelectedEnglishTafsirState(source);
+    AsyncStorage.setItem('selected_english_tafsir', source);
+  };
+
+  const setSelectedReciter = (reciterId: string) => {
+    setSelectedReciterState(reciterId);
+    AsyncStorage.setItem('selected_reciter', reciterId);
+    const recObj = RECITERS.find((r) => r.id === reciterId) || DEFAULT_RECITER;
+    audioService.setReciterBaseUrl(recObj.baseUrl);
+  };
+
   const updateDailyProgress = (update: Partial<DailyProgress>) => {
     const today = new Date().toISOString().split('T')[0];
     const current = dailyProgress?.date === today ? dailyProgress : { date: today, pagesRead: 0, versesMemorized: 0, minutesSpent: 0 };
@@ -136,9 +177,26 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <AppContext.Provider value={{
-      lastRead, bookmarks, dailyProgress, fontSize, showTranslation, showTafsir, selectedTafsirs,
-      setLastRead, addBookmark, removeBookmark, isBookmarked,
-      setFontSize, setShowTranslation, setShowTafsir, setSelectedTafsirs, updateDailyProgress,
+      lastRead,
+      bookmarks,
+      dailyProgress,
+      fontSize,
+      showTranslation,
+      showTafsir,
+      selectedTafsirs,
+      selectedEnglishTafsir,
+      selectedReciter,
+      setLastRead,
+      addBookmark,
+      removeBookmark,
+      isBookmarked,
+      setFontSize,
+      setShowTranslation,
+      setShowTafsir,
+      setSelectedTafsirs,
+      setSelectedEnglishTafsir,
+      setSelectedReciter,
+      updateDailyProgress,
     }}>
       {children}
     </AppContext.Provider>

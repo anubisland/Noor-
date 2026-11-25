@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
 import { BorderRadius, Fonts, Spacing } from '../../constants/theme';
+import { fetchEnglishTafsir } from '../../services/englishTafsirService';
 
 interface TafsirEntry {
   sourceName: string;
@@ -24,18 +25,66 @@ interface AyahViewProps {
   onPlayAudio?: () => void;
   isPlaying?: boolean;
   highlighted?: boolean;
+  showActions?: boolean;
+  onToggleActions?: () => void;
 }
 
 export default function AyahView({
-  surahId, surahName, ayahNumber, arabicText, translation,
-  showTranslation = true, tafsirs, showTafsir = false,
-  fontSize = 26, onPlayAudio, isPlaying, highlighted,
+  surahId,
+  surahName,
+  ayahNumber,
+  arabicText,
+  translation,
+  showTranslation = true,
+  tafsirs,
+  showTafsir = false,
+  fontSize = 26,
+  onPlayAudio,
+  isPlaying,
+  highlighted,
+  showActions,
+  onToggleActions,
 }: AyahViewProps) {
   const { colors } = useTheme();
-  const { addBookmark, removeBookmark, isBookmarked, bookmarks } = useApp();
+  const { addBookmark, removeBookmark, isBookmarked, bookmarks, selectedEnglishTafsir } = useApp();
   const router = useRouter();
-  const [showActions, setShowActions] = useState(false);
+
+  const [internalShowActions, setInternalShowActions] = useState(false);
+  const [localShowTranslation, setLocalShowTranslation] = useState<boolean | null>(null);
+  const [englishTafsirText, setEnglishTafsirText] = useState<string | null>(null);
+
   const bookmarked = isBookmarked(surahId, ayahNumber);
+  const isActionsVisible = showActions !== undefined ? showActions : internalShowActions;
+  const isTranslationVisible = localShowTranslation !== null ? localShowTranslation : showTranslation;
+
+  // Auto-dismiss single-ayah translation when the action bar is dismissed
+  useEffect(() => {
+    if (!isActionsVisible) {
+      setLocalShowTranslation(null);
+    }
+  }, [isActionsVisible]);
+
+  useEffect(() => {
+    if (showTafsir && isTranslationVisible) {
+      let isMounted = true;
+      fetchEnglishTafsir(surahId, ayahNumber, selectedEnglishTafsir).then((txt) => {
+        if (isMounted) {
+          setEnglishTafsirText(txt);
+        }
+      });
+      return () => {
+        isMounted = false;
+      };
+    }
+  }, [showTafsir, isTranslationVisible, surahId, ayahNumber, selectedEnglishTafsir]);
+
+  const handleToggle = () => {
+    if (onToggleActions) {
+      onToggleActions();
+    } else {
+      setInternalShowActions(!internalShowActions);
+    }
+  };
 
   const handleBookmark = () => {
     if (bookmarked) {
@@ -54,7 +103,8 @@ export default function AyahView({
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      onPress={() => setShowActions(!showActions)}
+      onPress={handleToggle}
+      onLongPress={handleToggle}
       style={[
         styles.container,
         {
@@ -83,33 +133,46 @@ export default function AyahView({
       </View>
 
       {/* Translation */}
-      {showTranslation && translation && (
+      {isTranslationVisible && !!translation && (
         <View style={[styles.translationContainer, { borderTopColor: colors.borderLight }]}>
-          <Text style={[styles.translation, { color: colors.textSecondary }]}>
+          <Text style={styles.translation}>
             {translation}
           </Text>
         </View>
       )}
 
-      {/* Tafsir */}
-      {showTafsir && tafsirs && tafsirs.length > 0 && (
+      {/* Tafsir (Arabic and English) */}
+      {showTafsir && (
         <View style={[styles.tafsirContainer, { borderTopColor: colors.borderLight }]}>
-          {tafsirs.map((tafsir, idx) => (
+          {tafsirs && tafsirs.map((tafsir, idx) => (
             <View key={idx} style={[styles.tafsirBlock, idx > 0 && { borderTopWidth: 1, borderTopColor: colors.borderLight }]}>
-              <Text style={[styles.tafsirSource, { color: colors.secondary }]}>
+              <Text style={styles.tafsirSource}>
                 تفسير {tafsir.sourceName}
               </Text>
-              <Text style={[styles.tafsirText, { color: colors.textSecondary }]}>
+              <Text style={styles.tafsirText}>
                 {tafsir.text}
               </Text>
             </View>
           ))}
+
+          {/* English Tafsir when translation is also active */}
+          {isTranslationVisible && !!englishTafsirText && (
+            <View style={[styles.tafsirBlock, { borderTopWidth: 1, borderTopColor: colors.borderLight }]}>
+              <Text style={[styles.tafsirSource, { color: '#2563EB', textAlign: 'center' }]}>
+                {selectedEnglishTafsir === 'jalalayn' ? 'Tafsir Al-Jalalayn (English)' : 'Al-Mukhtasar in Tafsir (English)'}
+              </Text>
+              <Text style={[styles.tafsirText, { textAlign: 'center', writingDirection: 'ltr', color: '#1E293B' }]}>
+                {englishTafsirText}
+              </Text>
+            </View>
+          )}
         </View>
       )}
 
-      {/* Action Buttons */}
-      {showActions && (
+      {/* Action Buttons: تشغيل، تفسير، ترجمة، حفظ */}
+      {isActionsVisible && (
         <View style={[styles.actions, { borderTopColor: colors.borderLight, backgroundColor: colors.surfaceVariant }]}>
+          {/* 1. تشغيل */}
           <TouchableOpacity style={styles.actionBtn} onPress={onPlayAudio}>
             <Ionicons name={isPlaying ? 'pause-circle' : 'play-circle'} size={26} color={colors.primary} />
             <Text style={[styles.actionText, { color: colors.textSecondary }]}>
@@ -117,6 +180,7 @@ export default function AyahView({
             </Text>
           </TouchableOpacity>
 
+          {/* 2. تفسير */}
           <TouchableOpacity
             style={styles.actionBtn}
             onPress={() => router.push(`/tafsir/${surahId}/${ayahNumber}`)}
@@ -125,6 +189,22 @@ export default function AyahView({
             <Text style={[styles.actionText, { color: colors.textSecondary }]}>تفسير</Text>
           </TouchableOpacity>
 
+          {/* 3. ترجمة */}
+          <TouchableOpacity
+            style={styles.actionBtn}
+            onPress={() => setLocalShowTranslation(!isTranslationVisible)}
+          >
+            <Ionicons
+              name={isTranslationVisible ? 'language' : 'language-outline'}
+              size={24}
+              color="#2980B9"
+            />
+            <Text style={[styles.actionText, { color: isTranslationVisible ? '#2980B9' : colors.textSecondary }]}>
+              ترجمة
+            </Text>
+          </TouchableOpacity>
+
+          {/* 4. حفظ */}
           <TouchableOpacity style={styles.actionBtn} onPress={handleBookmark}>
             <Ionicons
               name={bookmarked ? 'bookmark' : 'bookmark-outline'}
@@ -132,14 +212,6 @@ export default function AyahView({
               color={bookmarked ? colors.secondary : colors.textSecondary}
             />
             <Text style={[styles.actionText, { color: colors.textSecondary }]}>حفظ</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.actionBtn}
-            onPress={() => router.push(`/memorize/${surahId}?ayah=${ayahNumber}`)}
-          >
-            <Ionicons name="school-outline" size={24} color={colors.success} />
-            <Text style={[styles.actionText, { color: colors.textSecondary }]}>تحفيظ</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -174,12 +246,15 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.md,
   },
   arabicText: {
+    fontFamily: Fonts.arabic.quran,
     textAlign: 'center',
     fontWeight: '400',
     writingDirection: 'rtl',
   },
   ayahNumber: {
+    fontFamily: Fonts.arabic.quran,
     fontWeight: '700',
+    writingDirection: 'rtl',
   },
   translationContainer: {
     padding: Spacing.lg,
@@ -188,8 +263,11 @@ const styles = StyleSheet.create({
   },
   translation: {
     fontSize: Fonts.sizes.md,
-    lineHeight: 24,
-    textAlign: 'left',
+    lineHeight: 25,
+    textAlign: 'center',
+    color: '#111827',
+    fontWeight: '500',
+    writingDirection: 'ltr',
   },
   tafsirContainer: {
     padding: Spacing.lg,
@@ -203,11 +281,14 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.sm,
     fontWeight: '700',
     marginBottom: 4,
+    color: '#1B7F5A',
   },
   tafsirText: {
-    fontSize: Fonts.sizes.sm,
-    lineHeight: 22,
+    fontSize: Fonts.sizes.md,
+    lineHeight: 26,
     writingDirection: 'rtl',
+    color: '#111827',
+    fontWeight: '400',
   },
   actions: {
     flexDirection: 'row',

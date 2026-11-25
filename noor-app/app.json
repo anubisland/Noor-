@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Noor Islam",
-    "slug": "noor-quran",
-    "version": "1.0.0",
+    "name": "زاد القرآن الكريم",
+    "slug": "zad-al-quran",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "noor",
@@ -22,6 +22,7 @@
       }
     },
     "android": {
+      "versionCode": 2,
       "adaptiveIcon": {
         "backgroundColor": "#0D7C5F"
       },

@@ -5,9 +5,17 @@ node_modules/
 nul
 .claude/
 .vscode/
-*.json
 
 # Bundled React Native assets (generated before APK build)
 android/app/src/main/assets/
 android/app/src/main/res/drawable-*/
 android/app/src/main/res/raw/
+
+# Root test files & dumps
+/*.png
+/*.xml
+/noor-app/*.png
+/noor-app/*.xml
+noor-app/data/tafsir/_temp/
+
+

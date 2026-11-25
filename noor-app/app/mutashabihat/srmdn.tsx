@@ -247,6 +247,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   ayahText: {
+    fontFamily: Fonts.arabic.quran,
     fontSize: 22,
     lineHeight: 22 * 2.2,
     textAlign: 'center',
