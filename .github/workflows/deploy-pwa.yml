@@ -38,12 +38,15 @@ jobs:
 
       - name: Export Static Web App (PWA)
         working-directory: noor-app
+        env:
+          NODE_OPTIONS: "--max-old-space-size=8192"
         run: npx expo export -p web
 
       - name: Prepare SPA routing & bypass Jekyll for GitHub Pages
         run: |
           cp noor-app/dist/index.html noor-app/dist/404.html
           touch noor-app/dist/.nojekyll
+          cp -r noor-app/public/* noor-app/dist/ || true
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
