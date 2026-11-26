@@ -693,8 +693,7 @@ const styles = StyleSheet.create({
   },
   sectionHeaderWrapper: {
     width: '100%',
-    alignSelf: 'stretch',
-    alignItems: 'flex-end',
+    flexDirection: 'row',
     paddingHorizontal: Spacing.md,
     marginTop: Spacing.xs,
     marginBottom: Spacing.xs,
@@ -702,8 +701,6 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: Fonts.sizes.lg,
     fontWeight: '800',
-    writingDirection: 'rtl',
-    textAlign: 'right',
   },
   featuresContainer: {
     paddingHorizontal: Spacing.md,

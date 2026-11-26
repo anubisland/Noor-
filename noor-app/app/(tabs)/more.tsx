@@ -236,15 +236,13 @@ const styles = StyleSheet.create({
   sectionHeaderWrapper: {
     width: '100%',
     alignSelf: 'stretch',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
     paddingHorizontal: Spacing.xxl,
     marginBottom: Spacing.xs,
   },
   sectionTitle: {
     fontSize: Fonts.sizes.xl,
     fontWeight: '800',
-    writingDirection: 'rtl',
-    textAlign: 'right',
   },
   settingItem: {
     flexDirection: 'row',
@@ -278,8 +276,6 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.sm,
     fontWeight: '700',
     marginTop: 2,
-    writingDirection: 'rtl',
-    textAlign: 'right',
   },
   tafsirItem: {
     flexDirection: 'row',
@@ -293,23 +289,17 @@ const styles = StyleSheet.create({
   },
   tafsirInfo: {
     flex: 1,
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
     gap: 2,
     marginHorizontal: Spacing.sm,
   },
   tafsirName: {
     fontSize: Fonts.sizes.md,
     fontWeight: '800',
-    textAlign: 'right',
-    writingDirection: 'rtl',
-    width: '100%',
   },
   tafsirDesc: {
     fontSize: 13,
     fontWeight: '700',
-    textAlign: 'right',
-    writingDirection: 'rtl',
-    width: '100%',
   },
   appInfo: {
     alignItems: 'center',
