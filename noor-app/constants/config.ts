@@ -1,6 +1,8 @@
+import { Platform } from 'react-native';
+
 export const APP_CONFIG = {
-  name: 'زاد القرآن الكريم',
-  nameEn: 'Zad Al-Quran',
+  name: Platform.OS === 'web' ? 'نور القرآن الكريم' : 'زاد القرآن الكريم',
+  nameEn: Platform.OS === 'web' ? 'Noor Al-Quran' : 'Zad Al-Quran',
   version: '2.0.5',
   description: 'تطبيق شامل لخدمة القرآن الكريم وتدبر آياته',
   totalSurahs: 114,

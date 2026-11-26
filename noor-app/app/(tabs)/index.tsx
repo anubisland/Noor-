@@ -249,7 +249,7 @@ export default function HomeScreen() {
                 <Text
                   style={styles.mainAppTitle}
                 >
-                  زاد القرآن الكريم
+                  {Platform.OS === 'web' ? 'نور القرآن الكريم' : 'زاد القرآن الكريم'}
                 </Text>
                 <Text style={styles.subAppTitle}>
                   المصحف الشريف • تلاوة وتفسير وتدبر
