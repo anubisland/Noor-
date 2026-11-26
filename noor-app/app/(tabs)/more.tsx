@@ -236,11 +236,11 @@ const styles = StyleSheet.create({
   sectionHeaderWrapper: {
     width: '100%',
     alignSelf: 'stretch',
+    alignItems: 'flex-end',
     paddingHorizontal: Spacing.xxl,
     marginBottom: Spacing.xs,
   },
   sectionTitle: {
-    width: '100%',
     fontSize: Fonts.sizes.xl,
     fontWeight: '800',
     writingDirection: 'rtl',
@@ -275,7 +275,6 @@ const styles = StyleSheet.create({
   },
   fontBtnText: { fontSize: Fonts.sizes.xl, fontWeight: '800' },
   tafsirHint: {
-    width: '100%',
     fontSize: Fonts.sizes.sm,
     fontWeight: '700',
     marginTop: 2,
@@ -294,6 +293,7 @@ const styles = StyleSheet.create({
   },
   tafsirInfo: {
     flex: 1,
+    alignItems: 'flex-end',
     gap: 2,
     marginHorizontal: Spacing.sm,
   },
