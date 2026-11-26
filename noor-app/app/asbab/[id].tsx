@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, Modal, FlatList, TextInput } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, Modal, FlatList, TextInput, I18nManager } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
@@ -432,7 +432,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
   },
   storyHeader: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     padding: Spacing.lg,
     gap: Spacing.md,
@@ -444,18 +444,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  storyNumberText: { fontSize: Fonts.sizes.md, fontWeight: '700' },
-  storyHeaderInfo: { flex: 1, gap: 4 },
-  storyTitle: { fontSize: Fonts.sizes.md, fontWeight: '700', writingDirection: 'rtl' },
-  storyRef: { fontSize: Fonts.sizes.sm, fontWeight: '500' },
+  storyNumberText: { fontSize: Fonts.sizes.md, fontWeight: '800' },
+  storyHeaderInfo: { flex: 1, gap: 4, alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end' },
+  storyTitle: { fontSize: Fonts.sizes.md, fontWeight: '800', textAlign: 'right', writingDirection: 'rtl', alignSelf: 'stretch' },
+  storyRef: { fontSize: Fonts.sizes.sm, fontWeight: '700', textAlign: 'right', writingDirection: 'rtl', alignSelf: 'stretch' },
   themeBadge: {
-    alignSelf: 'flex-start',
+    alignSelf: I18nManager.isRTL ? 'flex-start' : 'flex-end',
     paddingHorizontal: Spacing.sm,
     paddingVertical: 2,
     borderRadius: BorderRadius.full,
     marginTop: 4,
   },
-  themeBadgeText: { fontSize: Fonts.sizes.xs, fontWeight: '600' },
+  themeBadgeText: { fontSize: Fonts.sizes.xs, fontWeight: '700' },
   storyContent: {
     padding: Spacing.lg,
     borderTopWidth: 1,
@@ -468,21 +468,21 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   verseHeaderRow: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   verseHeaderBadge: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     gap: 4,
   },
   verseHeaderBadgeText: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   verseAudioBtn: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     paddingHorizontal: Spacing.sm,
     paddingVertical: 4,
@@ -491,7 +491,7 @@ const styles = StyleSheet.create({
   },
   verseAudioBtnText: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   verseUthmaniText: {
     fontSize: 20,
@@ -499,9 +499,10 @@ const styles = StyleSheet.create({
     lineHeight: 38,
     textAlign: 'center',
     writingDirection: 'rtl',
+    fontWeight: '700',
   },
   narrativeSection: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     gap: Spacing.md,
   },
   narrativeIcon: { marginTop: 4 },
@@ -509,7 +510,10 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: Fonts.sizes.md,
     lineHeight: 28,
+    textAlign: 'right',
     writingDirection: 'rtl',
+    fontWeight: '600',
+    color: '#1E293B',
   },
   contextCard: {
     padding: Spacing.md,
@@ -518,18 +522,21 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   contextHeader: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     gap: Spacing.sm,
   },
-  contextTitle: { fontSize: Fonts.sizes.sm, fontWeight: '700' },
+  contextTitle: { fontSize: Fonts.sizes.sm, fontWeight: '800', textAlign: 'right', writingDirection: 'rtl' },
   contextText: {
     fontSize: Fonts.sizes.sm,
     lineHeight: 24,
+    textAlign: 'right',
     writingDirection: 'rtl',
+    fontWeight: '600',
+    color: '#1E293B',
   },
   figuresSection: { gap: Spacing.sm },
-  figuresTitle: { fontSize: Fonts.sizes.sm, fontWeight: '600' },
+  figuresTitle: { fontSize: Fonts.sizes.sm, fontWeight: '800', textAlign: 'right', writingDirection: 'rtl' },
   figuresRow: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.xs },
   figureBadge: {
     flexDirection: 'row',

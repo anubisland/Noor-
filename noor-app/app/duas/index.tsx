@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platform } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platform, I18nManager } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
@@ -244,6 +244,7 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.lg,
     fontWeight: '800',
     writingDirection: 'rtl',
+    textAlign: 'right',
   },
   surahDividerLine: {
     flex: 1,
@@ -262,11 +263,12 @@ const styles = StyleSheet.create({
   arabicText: {
     fontFamily: Fonts.arabic.quran,
     textAlign: 'center',
-    fontWeight: '400',
+    fontWeight: '700',
     writingDirection: 'rtl',
+    color: '#0F172A',
   },
   cardHeaderRow: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: Spacing.md,
@@ -274,7 +276,9 @@ const styles = StyleSheet.create({
   },
   duaRefText: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '700',
+    fontWeight: '800',
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   playAudioBtn: {
     width: 32,
@@ -294,6 +298,9 @@ const styles = StyleSheet.create({
   translationText: {
     fontSize: Fonts.sizes.md,
     lineHeight: 24,
-    textAlign: 'left',
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    fontWeight: '600',
+    color: '#1E293B',
   },
 });

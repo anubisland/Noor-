@@ -9,6 +9,7 @@ import {
   Modal,
   TextInput,
   Dimensions,
+  I18nManager,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
@@ -838,7 +839,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.sm,
   },
   surahSelectBtn: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     padding: Spacing.md,
     borderRadius: BorderRadius.lg,
@@ -854,18 +855,26 @@ const styles = StyleSheet.create({
   },
   surahNumText: {
     fontSize: Fonts.sizes.sm,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   surahSelectDetails: {
     flex: 1,
+    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
   },
   surahSelectName: {
     fontSize: Fonts.sizes.md,
-    fontWeight: '700',
+    fontWeight: '800',
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    alignSelf: 'stretch',
   },
   surahSelectCount: {
     fontSize: Fonts.sizes.xs,
+    fontWeight: '700',
     marginTop: 2,
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    alignSelf: 'stretch',
   },
   waqarCard: {
     padding: Spacing.md,
@@ -874,7 +883,7 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
   },
   waqarSourceHeader: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -886,7 +895,7 @@ const styles = StyleSheet.create({
   },
   waqarAyahBadgeText: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   waqarMutsCount: {
     flex: 1,
@@ -894,7 +903,9 @@ const styles = StyleSheet.create({
   },
   waqarMutsCountText: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '600',
+    fontWeight: '700',
+    textAlign: 'center',
+    writingDirection: 'rtl',
   },
   waqarAudioBtn: {
     width: 32,
@@ -911,11 +922,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   waqarSourceText: {
-    fontSize: 19,
+    fontSize: 20,
     fontFamily: Fonts.arabic.quran,
-    lineHeight: 36,
-    textAlign: 'center',
+    lineHeight: 38,
+    textAlign: 'right',
     writingDirection: 'rtl',
+    fontWeight: '700',
+    color: '#0F172A',
   },
   waqarMutsContainer: {
     gap: Spacing.sm,
@@ -925,7 +938,9 @@ const styles = StyleSheet.create({
   },
   waqarMutsHeader: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '700',
+    fontWeight: '800',
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   waqarMutItem: {
     padding: Spacing.sm,
@@ -934,25 +949,29 @@ const styles = StyleSheet.create({
     gap: Spacing.xs,
   },
   waqarMutMetaRow: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   waqarMutRef: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     gap: 4,
   },
   waqarMutSurahName: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '700',
-  },
-  waqarMutText: {
-    fontSize: 17,
-    fontFamily: Fonts.arabic.quran,
-    lineHeight: 32,
+    fontWeight: '800',
     textAlign: 'right',
     writingDirection: 'rtl',
+  },
+  waqarMutText: {
+    fontSize: 18,
+    fontFamily: Fonts.arabic.quran,
+    lineHeight: 34,
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    fontWeight: '600',
+    color: '#1E293B',
   },
   // --- Rules Styles ---
   chipsRowContainer: {
@@ -971,7 +990,7 @@ const styles = StyleSheet.create({
   },
   categoryChipText: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   ruleCard: {
     padding: Spacing.md,
@@ -980,7 +999,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   ruleCardHeader: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -991,10 +1010,13 @@ const styles = StyleSheet.create({
   },
   catBadgeText: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   pairIndexText: {
     fontSize: Fonts.sizes.xs,
+    fontWeight: '700',
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   ruleAyahBox: {
     padding: Spacing.sm,
@@ -1002,13 +1024,15 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   ruleAyahMetaRow: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   ruleAyahRef: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '700',
+    fontWeight: '800',
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   ruleAyahText: {
     fontSize: 18,
@@ -1016,13 +1040,15 @@ const styles = StyleSheet.create({
     lineHeight: 34,
     textAlign: 'right',
     writingDirection: 'rtl',
+    fontWeight: '700',
+    color: '#0F172A',
   },
   swapDivider: {
     alignItems: 'center',
     marginVertical: -2,
   },
   ruleNoteToggle: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: Spacing.xs,
@@ -1031,7 +1057,7 @@ const styles = StyleSheet.create({
   },
   ruleNoteToggleText: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   ruleNoteCard: {
     padding: Spacing.md,
@@ -1040,18 +1066,23 @@ const styles = StyleSheet.create({
     gap: Spacing.xs,
   },
   ruleNoteHeader: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     gap: Spacing.xs,
   },
   ruleNoteTitle: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '700',
+    fontWeight: '800',
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   ruleNoteBody: {
     fontSize: Fonts.sizes.sm,
     lineHeight: 24,
     writingDirection: 'rtl',
+    textAlign: 'right',
+    fontWeight: '600',
+    color: '#1E293B',
   },
   // --- Thematic Styles ---
   levelFilterRow: {
@@ -1071,7 +1102,7 @@ const styles = StyleSheet.create({
   activeThematicLevelBtn: {},
   thematicLevelText: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   thematicCard: {
     padding: Spacing.md,
@@ -1080,7 +1111,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   thematicHeader: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     gap: Spacing.sm,
   },
@@ -1091,12 +1122,14 @@ const styles = StyleSheet.create({
   },
   thematicLevelBadgeText: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   thematicTitle: {
     flex: 1,
     fontSize: Fonts.sizes.md,
-    fontWeight: '700',
+    fontWeight: '800',
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   thematicContent: {
     borderTopWidth: 1,
@@ -1107,6 +1140,9 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.sm,
     lineHeight: 22,
     writingDirection: 'rtl',
+    textAlign: 'right',
+    fontWeight: '600',
+    color: '#1E293B',
   },
   thematicVerseCard: {
     padding: Spacing.sm,
@@ -1115,13 +1151,15 @@ const styles = StyleSheet.create({
     gap: Spacing.xs,
   },
   thematicVerseMetaRow: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   thematicVerseSurah: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '700',
+    fontWeight: '800',
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   thematicVerseText: {
     fontSize: 18,
@@ -1129,12 +1167,14 @@ const styles = StyleSheet.create({
     lineHeight: 34,
     textAlign: 'right',
     writingDirection: 'rtl',
+    fontWeight: '700',
+    color: '#0F172A',
   },
   highlightWord: {
     fontWeight: 'bold',
   },
   thematicTipCard: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     padding: Spacing.md,
     borderRadius: BorderRadius.md,
     borderWidth: 1,
@@ -1143,15 +1183,21 @@ const styles = StyleSheet.create({
   thematicTipBody: {
     flex: 1,
     gap: 2,
+    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
   },
   thematicTipLabel: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '700',
+    fontWeight: '800',
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   thematicTipText: {
     fontSize: Fonts.sizes.sm,
     lineHeight: 22,
     writingDirection: 'rtl',
+    textAlign: 'right',
+    fontWeight: '600',
+    color: '#1E293B',
   },
   // --- Empty & Modal Styles ---
   emptyContainer: {

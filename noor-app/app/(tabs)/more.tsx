@@ -227,10 +227,11 @@ const styles = StyleSheet.create({
   scrollContent: { paddingTop: Spacing.lg },
   sectionTitle: {
     fontSize: Fonts.sizes.xl,
-    fontWeight: '700',
+    fontWeight: '800',
     marginHorizontal: Spacing.xxl,
     marginBottom: Spacing.md,
     writingDirection: 'rtl',
+    textAlign: 'right',
   },
   settingItem: {
     flexDirection: 'row',
@@ -265,6 +266,7 @@ const styles = StyleSheet.create({
     marginHorizontal: Spacing.xxl,
     marginBottom: Spacing.md,
     writingDirection: 'rtl',
+    textAlign: 'right',
   },
   tafsirItem: {
     flexDirection: 'row',

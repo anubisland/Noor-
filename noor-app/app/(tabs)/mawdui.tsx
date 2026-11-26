@@ -9,6 +9,7 @@ import {
   Platform,
   FlatList,
   TextInput,
+  I18nManager,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -612,7 +613,7 @@ const styles = StyleSheet.create({
 
   // Search Bar
   searchBarBox: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     marginHorizontal: Spacing.md,
     marginTop: Spacing.md,
@@ -623,10 +624,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     gap: Spacing.sm,
   },
-  searchInput: { flex: 1, fontSize: Fonts.sizes.sm },
+  searchInput: { flex: 1, fontSize: Fonts.sizes.sm, textAlign: 'right', writingDirection: 'rtl' },
   qpListContent: { paddingHorizontal: Spacing.md, paddingBottom: 60 },
   qpItem: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     padding: Spacing.md,
     borderRadius: BorderRadius.lg,
@@ -641,11 +642,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  qpInfo: { flex: 1 },
-  qpName: { fontSize: Fonts.sizes.sm, fontWeight: '700', lineHeight: 22, textAlign: 'right' },
-  qpMeta: { fontSize: Fonts.sizes.xs, fontWeight: '600', marginTop: 2, textAlign: 'right' },
+  qpInfo: { flex: 1, alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end' },
+  qpName: { fontSize: Fonts.sizes.sm, fontWeight: '700', lineHeight: 22, textAlign: 'right', writingDirection: 'rtl', alignSelf: 'stretch' },
+  qpMeta: { fontSize: Fonts.sizes.xs, fontWeight: '600', marginTop: 2, textAlign: 'right', writingDirection: 'rtl', alignSelf: 'stretch' },
   emptyState: { alignItems: 'center', justifyContent: 'center', paddingVertical: 60, gap: Spacing.sm },
-  emptyText: { fontSize: Fonts.sizes.sm, fontWeight: '600' },
+  emptyText: { fontSize: Fonts.sizes.sm, fontWeight: '600', textAlign: 'center', writingDirection: 'rtl' },
 
   // Topic Details
   topicHeader: {
@@ -667,7 +668,7 @@ const styles = StyleSheet.create({
   topicTitleEn: { color: 'rgba(255,255,255,0.85)', fontSize: Fonts.sizes.sm },
   topicDescription: { color: 'rgba(255,255,255,0.8)', fontSize: Fonts.sizes.xs, textAlign: 'center', lineHeight: 18 },
   topicContent: { padding: Spacing.md },
-  sectionHeading: { fontSize: Fonts.sizes.lg, fontWeight: '700', marginBottom: Spacing.sm, writingDirection: 'rtl' },
+  sectionHeading: { fontSize: Fonts.sizes.lg, fontWeight: '700', marginBottom: Spacing.sm, writingDirection: 'rtl', textAlign: 'right' },
   verseCard: {
     padding: Spacing.md,
     borderRadius: BorderRadius.lg,
@@ -683,18 +684,18 @@ const styles = StyleSheet.create({
     writingDirection: 'rtl',
   },
   verseFooter: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderTopWidth: 1,
     borderTopColor: 'rgba(0,0,0,0.06)',
     paddingTop: Spacing.sm,
   },
-  verseRefBox: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  verseRef: { fontSize: Fonts.sizes.xs, fontWeight: '700' },
-  verseActions: { flexDirection: 'row', gap: Spacing.xs },
+  verseRefBox: { flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse', alignItems: 'center', gap: 4 },
+  verseRef: { fontSize: Fonts.sizes.xs, fontWeight: '700', textAlign: 'right', writingDirection: 'rtl' },
+  verseActions: { flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse', gap: Spacing.xs },
   actionPill: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     gap: 4,
     paddingVertical: 5,
@@ -709,13 +710,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   hadithHeaderRow: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: Spacing.sm,
   },
   narratorBadge: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     gap: 5,
     paddingHorizontal: 9,
@@ -747,14 +748,14 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.sm,
   },
   hadithSourceRow: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     gap: 6,
     paddingVertical: 5,
     paddingHorizontal: 9,
     borderRadius: BorderRadius.md,
     backgroundColor: 'rgba(191, 149, 63, 0.08)',
-    alignSelf: 'flex-start',
+    alignSelf: I18nManager.isRTL ? 'flex-start' : 'flex-end',
   },
   hadithSourceText: {
     fontSize: 11.5,
@@ -764,5 +765,5 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   emptyDetail: { alignItems: 'center', paddingVertical: 40, gap: Spacing.md, paddingHorizontal: Spacing.lg },
-  emptyDetailText: { fontSize: Fonts.sizes.sm, textAlign: 'center', lineHeight: 22 },
+  emptyDetailText: { fontSize: Fonts.sizes.sm, textAlign: 'right', lineHeight: 22, writingDirection: 'rtl' },
 });

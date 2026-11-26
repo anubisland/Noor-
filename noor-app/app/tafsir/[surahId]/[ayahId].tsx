@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, I18nManager } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../../context/ThemeContext';
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.lg,
   },
   tafsirHeader: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     gap: Spacing.sm,
     padding: Spacing.md,
@@ -286,13 +286,18 @@ const styles = StyleSheet.create({
   },
   tafsirName: {
     fontSize: Fonts.sizes.md,
-    fontWeight: '700',
+    fontWeight: '800',
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   tafsirText: {
     fontSize: Fonts.sizes.md,
     lineHeight: 30,
     padding: Spacing.lg,
     writingDirection: 'rtl',
+    textAlign: 'right',
+    fontWeight: '600',
+    color: '#111827',
   },
   navigation: {
     flexDirection: 'row',

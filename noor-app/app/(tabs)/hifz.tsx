@@ -297,10 +297,11 @@ const styles = StyleSheet.create({
   reviewText: { fontSize: Fonts.sizes.sm, fontWeight: '500' },
   heading: {
     fontSize: Fonts.sizes.xl,
-    fontWeight: '700',
+    fontWeight: '800',
     marginHorizontal: Spacing.xxl,
     marginBottom: Spacing.md,
     writingDirection: 'rtl',
+    textAlign: 'right',
   },
   modesContainer: {
     paddingHorizontal: Spacing.lg,

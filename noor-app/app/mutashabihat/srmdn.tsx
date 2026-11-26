@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platform } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platform, I18nManager } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xs,
   },
   ayahSectionHeader: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: Spacing.sm,
@@ -240,11 +240,15 @@ const styles = StyleSheet.create({
   },
   ayahSectionLabel: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '700',
+    fontWeight: '800',
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   ayahSectionRef: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '600',
+    fontWeight: '700',
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   ayahText: {
     fontFamily: Fonts.arabic.quran,
@@ -270,7 +274,9 @@ const styles = StyleSheet.create({
   translationText: {
     fontSize: Fonts.sizes.sm,
     lineHeight: 22,
-    textAlign: 'left',
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    fontWeight: '600',
   },
   categoryTag: {
     alignSelf: 'center',
@@ -284,7 +290,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   noteToggle: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     justifyContent: 'center',
     gap: Spacing.xs,
@@ -292,7 +298,7 @@ const styles = StyleSheet.create({
   },
   noteToggleText: {
     fontSize: Fonts.sizes.sm,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   noteContainer: {
     padding: Spacing.lg,
@@ -300,15 +306,18 @@ const styles = StyleSheet.create({
   },
   noteLabel: {
     fontSize: Fonts.sizes.sm,
-    fontWeight: '700',
+    fontWeight: '800',
     color: '#16A085',
     marginBottom: Spacing.xs,
     writingDirection: 'rtl',
+    textAlign: 'right',
   },
   noteText: {
     fontSize: Fonts.sizes.md,
     lineHeight: 26,
     writingDirection: 'rtl',
+    textAlign: 'right',
+    fontWeight: '600',
   },
   noteTranslationSection: {
     padding: Spacing.sm,
@@ -319,6 +328,8 @@ const styles = StyleSheet.create({
   noteTranslationText: {
     fontSize: Fonts.sizes.sm,
     lineHeight: 22,
-    textAlign: 'left',
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    fontWeight: '600',
   },
 });
