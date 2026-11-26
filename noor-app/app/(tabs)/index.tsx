@@ -459,7 +459,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(212, 175, 55, 0.45)',
     borderRadius: BorderRadius.lg,
-    paddingVertical: 8,
+    paddingVertical: 12,
     paddingHorizontal: Spacing.md,
     alignItems: 'center',
     backgroundColor: 'rgba(11, 77, 47, 0.92)',
@@ -516,6 +516,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     minWidth: 0,
     overflow: 'visible',
+    gap: 4,
   },
   mushafIconButton: {
     padding: 2,
@@ -550,7 +551,8 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 10,
     fontWeight: '700',
-    lineHeight: Platform.OS === 'web' ? 32 : 38,
+    lineHeight: 38,
+    marginBottom: 2,
     overflow: 'visible',
   },
   subAppTitle: {
@@ -559,7 +561,8 @@ const styles = StyleSheet.create({
     color: '#FFE8A3',
     fontWeight: '600',
     textAlign: 'center',
-    marginTop: 2,
+    marginTop: 4,
+    lineHeight: 18,
   },
   scrollContent: {
     paddingTop: Spacing.sm,
@@ -693,10 +696,12 @@ const styles = StyleSheet.create({
   featureCard: {
     flex: 1,
     alignItems: 'center',
-    paddingVertical: Spacing.md,
+    justifyContent: 'center',
+    paddingVertical: 14,
     paddingHorizontal: 2,
     borderRadius: BorderRadius.lg,
     borderWidth: 1.2,
+    minHeight: 96,
     gap: Spacing.xs,
   },
   featureIcon: {
