@@ -15,6 +15,8 @@ SplashScreen.preventAutoHideAsync().catch(() => {});
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
     ...Ionicons.font,
+    Ionicons: require('../assets/fonts/Ionicons.ttf'),
+    ionicons: require('../assets/fonts/Ionicons.ttf'),
     AmiriQuran: require('../assets/fonts/AmiriQuran.ttf'),
     Cairo: require('../assets/fonts/Cairo-Bold.ttf'),
     NotoNaskh: require('../assets/fonts/NotoNaskhArabic.ttf'),

@@ -56,9 +56,6 @@ jobs:
             <item android:drawable="@color/splashscreen_background" />
           </layer-list>
           SPLASH
-          mkdir -p noor-app/android/app/src/main/assets/fonts
-          cp noor-app/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/*.ttf noor-app/android/app/src/main/assets/fonts/ || true
-          cp noor-app/assets/fonts/* noor-app/android/app/src/main/assets/fonts/ || true
           python3 noor-app/scripts/patch-android.py
 
       - name: Build Android APK

@@ -2,7 +2,7 @@
   "expo": {
     "name": "زاد القرآن الكريم",
     "slug": "zad-al-quran",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "noor",
@@ -22,7 +22,7 @@
       }
     },
     "android": {
-      "versionCode": 8,
+      "versionCode": 9,
       "supportsRtl": true,
       "adaptiveIcon": {
         "backgroundColor": "#0D7C5F"
@@ -43,7 +43,18 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/AmiriQuran.ttf",
+            "./assets/fonts/Cairo-Bold.ttf",
+            "./assets/fonts/KFGQPC-Hafs.otf",
+            "./assets/fonts/NotoNaskhArabic.ttf",
+            "./assets/fonts/Ionicons.ttf"
+          ]
+        }
+      ],
       [
         "expo-speech-recognition",
         {

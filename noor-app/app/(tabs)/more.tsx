@@ -43,7 +43,9 @@ export default function MoreScreen() {
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         {/* Settings */}
-        <Text style={[styles.sectionTitle, { color: colors.text }]}>الإعدادات</Text>
+        <View style={styles.sectionHeaderWrapper}>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>الإعدادات</Text>
+        </View>
 
         {/* Dark Mode */}
         <View style={[styles.settingItem, { backgroundColor: colors.surface, borderColor: colors.borderLight }]}>
@@ -110,10 +112,12 @@ export default function MoreScreen() {
         </View>
 
         {/* Reciter Selection (اختيار القارئ) */}
-        <Text style={[styles.sectionTitle, { color: colors.text, marginTop: Spacing.xl }]}>القارئ</Text>
-        <Text style={[styles.tafsirHint, { color: colors.textSecondary }]}>
-          اختر القارئ المعتمد لتلاوة القرآن في جميع شاشات التطبيق
-        </Text>
+        <View style={[styles.sectionHeaderWrapper, { marginTop: Spacing.xl }]}>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>القارئ</Text>
+          <Text style={[styles.tafsirHint, { color: colors.textSecondary }]}>
+            اختر القارئ المعتمد لتلاوة القرآن في جميع شاشات التطبيق
+          </Text>
+        </View>
         {RECITERS.map((reciter) => {
           const isSelected = selectedReciter === reciter.id;
           return (
@@ -146,10 +150,12 @@ export default function MoreScreen() {
         })}
 
         {/* Tafsir Selection */}
-        <Text style={[styles.sectionTitle, { color: colors.text, marginTop: Spacing.xl }]}>التفاسير</Text>
-        <Text style={[styles.tafsirHint, { color: colors.textSecondary }]}>
-          اختر 3 تفاسير لعرضها ({selectedTafsirs.length}/3)
-        </Text>
+        <View style={[styles.sectionHeaderWrapper, { marginTop: Spacing.xl }]}>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>التفاسير</Text>
+          <Text style={[styles.tafsirHint, { color: colors.textSecondary }]}>
+            اختر 3 تفاسير لعرضها ({selectedTafsirs.length}/3)
+          </Text>
+        </View>
         {ALL_TAFSIR_SOURCES.map((source) => {
           const isSelected = selectedTafsirs.includes(source.id);
           const canSelect = selectedTafsirs.length < 3 || isSelected;
@@ -185,7 +191,9 @@ export default function MoreScreen() {
         })}
 
         {/* About App */}
-        <Text style={[styles.sectionTitle, { color: colors.text, marginTop: Spacing.xl }]}>حول التطبيق</Text>
+        <View style={[styles.sectionHeaderWrapper, { marginTop: Spacing.xl }]}>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>حول التطبيق</Text>
+        </View>
         <View style={[styles.settingItem, { backgroundColor: colors.surface, borderColor: colors.borderLight }]}>
           <View style={styles.settingLeft}>
             <Ionicons name="information-circle-outline" size={22} color={colors.primary} />
@@ -225,14 +233,17 @@ const styles = StyleSheet.create({
   headerTitle: { color: '#FFF', fontSize: Fonts.sizes.title, fontWeight: '800' },
   headerSubtitle: { color: 'rgba(255,255,255,0.7)', fontSize: Fonts.sizes.sm },
   scrollContent: { paddingTop: Spacing.lg },
+  sectionHeaderWrapper: {
+    width: '100%',
+    alignItems: 'flex-end',
+    paddingHorizontal: Spacing.xxl,
+    marginBottom: Spacing.xs,
+  },
   sectionTitle: {
     fontSize: Fonts.sizes.xl,
     fontWeight: '800',
-    marginHorizontal: Spacing.xxl,
-    marginBottom: Spacing.md,
     writingDirection: 'rtl',
     textAlign: 'right',
-    alignSelf: 'stretch',
   },
   settingItem: {
     flexDirection: 'row',
@@ -265,14 +276,14 @@ const styles = StyleSheet.create({
   tafsirHint: {
     fontSize: Fonts.sizes.sm,
     fontWeight: '700',
-    marginHorizontal: Spacing.xxl,
-    marginBottom: Spacing.md,
+    marginTop: 2,
     writingDirection: 'rtl',
     textAlign: 'right',
   },
   tafsirItem: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     marginHorizontal: Spacing.lg,
     marginBottom: Spacing.sm,
     padding: Spacing.md,
@@ -282,14 +293,14 @@ const styles = StyleSheet.create({
   tafsirInfo: {
     flex: 1,
     gap: 2,
-    alignItems: 'stretch',
+    alignItems: 'flex-end',
+    marginHorizontal: Spacing.sm,
   },
   tafsirName: {
     fontSize: Fonts.sizes.md,
     fontWeight: '800',
     textAlign: 'right',
     writingDirection: 'rtl',
-    alignSelf: 'stretch',
     width: '100%',
   },
   tafsirDesc: {
@@ -297,7 +308,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textAlign: 'right',
     writingDirection: 'rtl',
-    alignSelf: 'stretch',
     width: '100%',
   },
   appInfo: {

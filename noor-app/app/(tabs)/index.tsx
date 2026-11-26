@@ -337,7 +337,9 @@ export default function HomeScreen() {
         )}
 
         {/* Features Grid - 3x3 Symmetrical Rows with Calm Soft Color Palettes */}
-        <Text style={[styles.sectionTitle, { color: colors.text }]}>الأقسام</Text>
+        <View style={styles.sectionHeaderWrapper}>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>الأقسام</Text>
+        </View>
         <View style={styles.featuresContainer}>
           {featureRows.map((row, rowIndex) => (
             <View key={rowIndex} style={styles.featureRow}>
@@ -384,7 +386,9 @@ export default function HomeScreen() {
         </TouchableOpacity>
 
         {/* Stats */}
-        <Text style={[styles.sectionTitle, { color: colors.text }]}>إحصائياتك</Text>
+        <View style={styles.sectionHeaderWrapper}>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>إحصائياتك</Text>
+        </View>
         <View style={[styles.statsCard, { backgroundColor: colors.surface }, Shadows.sm]}>
           <View style={styles.statItem}>
             <Text style={[styles.statNumber, { color: colors.primary }]}>{stats.totalVerses}</Text>
@@ -687,15 +691,18 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     writingDirection: 'rtl',
   },
+  sectionHeaderWrapper: {
+    width: '100%',
+    alignItems: 'flex-end',
+    paddingHorizontal: Spacing.md,
+    marginTop: Spacing.xs,
+    marginBottom: Spacing.xs,
+  },
   sectionTitle: {
     fontSize: Fonts.sizes.lg,
     fontWeight: '800',
-    marginHorizontal: Spacing.md,
-    marginBottom: Spacing.xs,
-    marginTop: Spacing.xs,
     writingDirection: 'rtl',
     textAlign: 'right',
-    alignSelf: 'stretch',
   },
   featuresContainer: {
     paddingHorizontal: Spacing.md,
