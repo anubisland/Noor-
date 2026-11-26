@@ -235,11 +235,12 @@ const styles = StyleSheet.create({
   scrollContent: { paddingTop: Spacing.lg },
   sectionHeaderWrapper: {
     width: '100%',
-    alignItems: 'flex-end',
+    alignSelf: 'stretch',
     paddingHorizontal: Spacing.xxl,
     marginBottom: Spacing.xs,
   },
   sectionTitle: {
+    width: '100%',
     fontSize: Fonts.sizes.xl,
     fontWeight: '800',
     writingDirection: 'rtl',
@@ -274,6 +275,7 @@ const styles = StyleSheet.create({
   },
   fontBtnText: { fontSize: Fonts.sizes.xl, fontWeight: '800' },
   tafsirHint: {
+    width: '100%',
     fontSize: Fonts.sizes.sm,
     fontWeight: '700',
     marginTop: 2,

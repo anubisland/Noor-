@@ -693,12 +693,13 @@ const styles = StyleSheet.create({
   },
   sectionHeaderWrapper: {
     width: '100%',
-    alignItems: 'flex-end',
+    alignSelf: 'stretch',
     paddingHorizontal: Spacing.md,
     marginTop: Spacing.xs,
     marginBottom: Spacing.xs,
   },
   sectionTitle: {
+    width: '100%',
     fontSize: Fonts.sizes.lg,
     fontWeight: '800',
     writingDirection: 'rtl',
