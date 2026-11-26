@@ -53,7 +53,13 @@ export default function DuasScreen() {
         <View style={styles.topBar}>
           <TouchableOpacity
             style={styles.backButton}
-            onPress={() => router.back()}
+            onPress={() => {
+              if (router.canGoBack()) {
+                router.back();
+              } else {
+                router.replace('/');
+              }
+            }}
           >
             <Ionicons name="arrow-forward" size={26} color="#FFF" />
           </TouchableOpacity>

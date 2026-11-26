@@ -78,6 +78,11 @@ jobs:
           echo "tag=${TAG}" >> $GITHUB_OUTPUT
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
 
+      - name: Prepare APK Assets
+        run: |
+          APK_DIR="noor-app/android/app/build/outputs/apk/release"
+          cp "$APK_DIR/app-release.apk" "$APK_DIR/Zad-Al-Quran-${{ steps.tag.outputs.tag }}.apk"
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
@@ -97,7 +102,9 @@ jobs:
             - **تصحيح تمارين التحفيظ وإكمال الفراغات**: معالجة ترتيب الكلمات واتجاه العرض من اليمين إلى اليسار وتصحيح مطابقة إكمال الفراغات.
 
             **Package:** com.anubisland.noor.quran
-          files: noor-app/android/app/build/outputs/apk/release/app-release.apk
+          files: |
+            noor-app/android/app/build/outputs/apk/release/app-release.apk
+            noor-app/android/app/build/outputs/apk/release/Zad-Al-Quran-${{ steps.tag.outputs.tag }}.apk
           draft: false
           prerelease: false
         env:

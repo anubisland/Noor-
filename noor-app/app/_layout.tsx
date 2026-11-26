@@ -9,6 +9,10 @@ import { ThemeProvider } from '../context/ThemeContext';
 import { AppProvider } from '../context/AppContext';
 import { HifzProvider } from '../context/HifzContext';
 
+// Force RTL immediately at bundle evaluation time
+I18nManager.allowRTL(true);
+I18nManager.forceRTL(true);
+
 // Keep splash screen visible while loading resources
 SplashScreen.preventAutoHideAsync().catch(() => {});
 

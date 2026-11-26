@@ -59,7 +59,16 @@ export default function SrmnMutashabihatScreen() {
       <StatusBar barStyle="light-content" backgroundColor={MUTASHABIHAT_COLOR} />
       <View style={[styles.header, { backgroundColor: MUTASHABIHAT_COLOR }]}>
         <View style={styles.topBar}>
-          <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => {
+              if (router.canGoBack()) {
+                router.back();
+              } else {
+                router.replace('/');
+              }
+            }}
+          >
             <Ionicons name="arrow-forward" size={26} color="#FFF" />
           </TouchableOpacity>
         </View>

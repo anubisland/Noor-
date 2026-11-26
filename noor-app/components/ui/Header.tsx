@@ -43,7 +43,16 @@ export default function Header({
       <View style={styles.content}>
         <View style={styles.left}>
           {showBack && (
-            <TouchableOpacity onPress={onBackPress || (() => router.back())} style={styles.backButton}>
+            <TouchableOpacity
+              onPress={onBackPress || (() => {
+                if (router.canGoBack()) {
+                  router.back();
+                } else {
+                  router.replace('/');
+                }
+              })}
+              style={styles.backButton}
+            >
               <Ionicons name="arrow-forward" size={24} color="#FFF" />
             </TouchableOpacity>
           )}
