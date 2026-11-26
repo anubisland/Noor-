@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platform, Switch } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platform, Switch, I18nManager } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
@@ -244,13 +244,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   settingLeft: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     gap: Spacing.md,
   },
-  settingText: { fontSize: Fonts.sizes.md, fontWeight: '500' },
+  settingText: { fontSize: Fonts.sizes.md, fontWeight: '800' },
   fontControls: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     gap: Spacing.sm,
   },
   fontBtn: {
@@ -260,33 +260,42 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  fontBtnText: { fontSize: Fonts.sizes.xl, fontWeight: '700' },
+  fontBtnText: { fontSize: Fonts.sizes.xl, fontWeight: '800' },
   tafsirHint: {
     fontSize: Fonts.sizes.sm,
+    fontWeight: '700',
     marginHorizontal: Spacing.xxl,
     marginBottom: Spacing.md,
     writingDirection: 'rtl',
     textAlign: 'right',
   },
   tafsirItem: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     marginHorizontal: Spacing.lg,
     marginBottom: Spacing.sm,
     padding: Spacing.md,
     borderRadius: BorderRadius.lg,
-    borderWidth: 1,
+    borderWidth: 1.5,
   },
   tafsirInfo: {
     flex: 1,
     gap: 2,
+    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
   },
   tafsirName: {
     fontSize: Fonts.sizes.md,
-    fontWeight: '600',
+    fontWeight: '800',
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    alignSelf: 'stretch',
   },
   tafsirDesc: {
-    fontSize: Fonts.sizes.xs,
+    fontSize: 13,
+    fontWeight: '700',
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    alignSelf: 'stretch',
   },
   appInfo: {
     alignItems: 'center',
@@ -296,7 +305,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     gap: Spacing.xs,
   },
-  appName: { fontSize: 30, fontWeight: '800' },
-  appVersion: { fontSize: Fonts.sizes.sm },
+  appName: { fontSize: 30, fontWeight: '900' },
+  appVersion: { fontSize: 14, fontWeight: '800' },
   appDesc: { fontSize: Fonts.sizes.sm, textAlign: 'center' },
 });
