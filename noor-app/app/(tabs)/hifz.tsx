@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platform, Dimensions, Modal, FlatList, TextInput } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platform, Dimensions, Modal, FlatList, TextInput, I18nManager } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
   headerSubtitle: { color: 'rgba(255,255,255,0.7)', fontSize: Fonts.sizes.sm },
   scrollContent: { paddingTop: Spacing.lg },
   statsRow: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     paddingHorizontal: Spacing.lg,
     gap: Spacing.sm,
     marginBottom: Spacing.lg,
@@ -309,7 +309,7 @@ const styles = StyleSheet.create({
     ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),
   },
   modeRow: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     gap: Spacing.sm,
     marginBottom: Spacing.sm,
     ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),
@@ -319,7 +319,7 @@ const styles = StyleSheet.create({
     padding: Spacing.lg,
     borderRadius: BorderRadius.lg,
     gap: Spacing.sm,
-    alignItems: 'flex-start',
+    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
   },
   modeIcon: {
     width: 50,
@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
   modeTitle: { fontSize: Fonts.sizes.md, fontWeight: '700', writingDirection: 'rtl', textAlign: 'right' },
   modeDesc: { fontSize: Fonts.sizes.xs, lineHeight: 18, writingDirection: 'rtl', textAlign: 'right' },
   surahItem: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     marginHorizontal: Spacing.lg,
     marginBottom: Spacing.sm,
@@ -346,12 +346,29 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: Spacing.md,
+    marginHorizontal: Spacing.xs,
   },
-  surahNumberText: { fontSize: Fonts.sizes.sm, fontWeight: '700' },
-  surahInfo: { flex: 1, marginHorizontal: Spacing.sm },
-  surahName: { fontSize: Fonts.sizes.md, fontWeight: '600', writingDirection: 'rtl', textAlign: 'right' },
-  surahMeta: { fontSize: Fonts.sizes.xs, marginTop: 2, writingDirection: 'rtl', textAlign: 'right' },
+  surahNumberText: { fontSize: Fonts.sizes.sm, fontWeight: '800' },
+  surahInfo: {
+    flex: 1,
+    marginHorizontal: Spacing.sm,
+    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
+  },
+  surahName: {
+    fontSize: 16,
+    fontWeight: '800',
+    writingDirection: 'rtl',
+    textAlign: 'right',
+    alignSelf: 'stretch',
+  },
+  surahMeta: {
+    fontSize: Fonts.sizes.xs,
+    fontWeight: '700',
+    marginTop: 2,
+    writingDirection: 'rtl',
+    textAlign: 'right',
+    alignSelf: 'stretch',
+  },
   progressContainer: { alignItems: 'center', gap: 4, width: 60 },
   progressBg: { width: '100%', height: 6, borderRadius: 3 },
   progressFill: { height: '100%', borderRadius: 3 },
@@ -406,7 +423,7 @@ const styles = StyleSheet.create({
     writingDirection: 'rtl',
   },
   pickerItem: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
@@ -418,12 +435,29 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: Spacing.md,
+    marginHorizontal: Spacing.xs,
   },
-  pickerNumberText: { fontSize: Fonts.sizes.sm, fontWeight: '700' },
-  pickerInfo: { flex: 1, marginHorizontal: Spacing.sm },
-  pickerName: { fontSize: Fonts.sizes.md, fontWeight: '600' },
-  pickerMeta: { fontSize: Fonts.sizes.xs, marginTop: 2 },
+  pickerNumberText: { fontSize: Fonts.sizes.sm, fontWeight: '800' },
+  pickerInfo: {
+    flex: 1,
+    marginHorizontal: Spacing.sm,
+    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
+  },
+  pickerName: {
+    fontSize: Fonts.sizes.md,
+    fontWeight: '800',
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    alignSelf: 'stretch',
+  },
+  pickerMeta: {
+    fontSize: Fonts.sizes.xs,
+    fontWeight: '600',
+    marginTop: 2,
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    alignSelf: 'stretch',
+  },
   pickerProgress: {
     paddingHorizontal: Spacing.sm,
     paddingVertical: 2,
