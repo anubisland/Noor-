@@ -12,6 +12,7 @@ import { HifzProvider } from '../context/HifzContext';
 // Force RTL immediately at bundle evaluation time
 I18nManager.allowRTL(true);
 I18nManager.forceRTL(true);
+I18nManager.swapLeftAndRightInRTL(true);
 
 // Keep splash screen visible while loading resources
 SplashScreen.preventAutoHideAsync().catch(() => {});

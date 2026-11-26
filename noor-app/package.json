@@ -1,6 +1,6 @@
 {
   "name": "noor-quran",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "description": "تطبيق زاد القرآن الكريم",
   "main": "expo-router/entry",
   "scripts": {
@@ -22,6 +22,7 @@
     "expo-haptics": "~14.0.0",
     "expo-linear-gradient": "~14.0.2",
     "expo-linking": "~7.0.0",
+    "expo-localization": "~16.0.1",
     "expo-router": "~4.0.0",
     "expo-speech-recognition": "^3.1.3",
     "expo-splash-screen": "~0.29.0",

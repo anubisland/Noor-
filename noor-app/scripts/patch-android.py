@@ -21,6 +21,24 @@ if os.path.exists(main_app_path):
 else:
     print(f'Warning: {main_app_path} not found')
 
+# 1.1 Patch MainActivity.kt for DecorView RTL
+main_activity_path = 'noor-app/android/app/src/main/java/com/anubisland/noor/quran/MainActivity.kt'
+if os.path.exists(main_activity_path):
+    with open(main_activity_path, 'r', encoding='utf-8') as f:
+        m_code = f.read()
+    if 'LAYOUT_DIRECTION_RTL' not in m_code:
+        m_code = m_code.replace(
+            'super.onCreate(null)',
+            'super.onCreate(null)\n    window.decorView.layoutDirection = android.view.View.LAYOUT_DIRECTION_RTL'
+        )
+        with open(main_activity_path, 'w', encoding='utf-8') as f:
+            f.write(m_code)
+        print('Patched MainActivity.kt for DecorView RTL successfully')
+    else:
+        print('MainActivity.kt already has LAYOUT_DIRECTION_RTL')
+else:
+    print(f'Warning: {main_activity_path} not found')
+
 # 2. Patch AndroidManifest.xml for RTL
 manifest_path = 'noor-app/android/app/src/main/AndroidManifest.xml'
 if os.path.exists(manifest_path):

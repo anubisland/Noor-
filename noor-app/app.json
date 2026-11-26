@@ -2,7 +2,7 @@
   "expo": {
     "name": "زاد القرآن الكريم",
     "slug": "zad-al-quran",
-    "version": "2.1.6",
+    "version": "2.1.7",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "noor",
@@ -22,7 +22,7 @@
       }
     },
     "android": {
-      "versionCode": 14,
+      "versionCode": 15,
       "supportsRtl": true,
       "adaptiveIcon": {
         "backgroundColor": "#0D7C5F"
@@ -60,6 +60,13 @@
         {
           "microphonePermission": "يحتاج التطبيق للميكروفون لاختبار التسميع",
           "speechRecognitionPermission": "يحتاج التطبيق للتعرف على الكلام لمقارنة التلاوة"
+        }
+      ],
+      [
+        "expo-localization",
+        {
+          "supportsRTL": true,
+          "forcesRTL": true
         }
       ]
     ],
