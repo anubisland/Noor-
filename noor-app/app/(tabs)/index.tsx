@@ -388,22 +388,22 @@ export default function HomeScreen() {
         <View style={[styles.statsCard, { backgroundColor: colors.surface }, Shadows.sm]}>
           <View style={styles.statItem}>
             <Text style={[styles.statNumber, { color: colors.primary }]}>{stats.totalVerses}</Text>
-            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>آية محفوظة</Text>
+            <Text style={styles.statLabel}>آية محفوظة</Text>
           </View>
           <View style={[styles.statDivider, { backgroundColor: colors.border }]} />
           <View style={styles.statItem}>
             <Text style={[styles.statNumber, { color: colors.secondary }]}>{stats.totalSurahs}</Text>
-            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>سورة</Text>
+            <Text style={styles.statLabel}>سورة</Text>
           </View>
           <View style={[styles.statDivider, { backgroundColor: colors.border }]} />
           <View style={styles.statItem}>
             <Text style={[styles.statNumber, { color: colors.success }]}>{stats.streakDays}</Text>
-            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>يوم متتالي</Text>
+            <Text style={styles.statLabel}>يوم متتالي</Text>
           </View>
           <View style={[styles.statDivider, { backgroundColor: colors.border }]} />
           <View style={styles.statItem}>
             <Text style={[styles.statNumber, { color: colors.info }]}>{Math.round(stats.averageAccuracy)}%</Text>
-            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>نسبة الدقة</Text>
+            <Text style={styles.statLabel}>نسبة الدقة</Text>
           </View>
         </View>
 
@@ -459,7 +459,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(212, 175, 55, 0.45)',
     borderRadius: BorderRadius.lg,
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: Spacing.md,
     alignItems: 'center',
     backgroundColor: 'rgba(11, 77, 47, 0.92)',
@@ -516,15 +516,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     minWidth: 0,
     overflow: 'visible',
-    gap: 4,
+    gap: 8,
   },
   mushafIconButton: {
     padding: 2,
   },
   mushafIconCircle: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 52,
+    height: 52,
+    borderRadius: 26,
     borderWidth: 1.5,
     borderColor: 'rgba(255, 224, 102, 0.75)',
     backgroundColor: 'rgba(11, 77, 47, 0.9)',
@@ -544,25 +544,25 @@ const styles = StyleSheet.create({
   },
   mainAppTitle: {
     fontFamily: 'AmiriQuran',
-    fontSize: 32,
+    fontSize: 36,
     color: '#FFF275',
     textAlign: 'center',
     textShadowColor: '#FFAA00',
     textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 18,
+    textShadowRadius: 20,
     fontWeight: '700',
-    lineHeight: 44,
-    marginBottom: 2,
+    lineHeight: 50,
+    marginBottom: 4,
     overflow: 'visible',
   },
   subAppTitle: {
     fontFamily: Fonts.arabic.regular,
-    fontSize: 12.5,
-    color: '#FFE8A3',
-    fontWeight: '600',
+    fontSize: 13.5,
+    color: '#FFF0B8',
+    fontWeight: '700',
     textAlign: 'center',
-    marginTop: 4,
-    lineHeight: 18,
+    marginTop: 6,
+    lineHeight: 20,
   },
   scrollContent: {
     paddingTop: Spacing.sm,
@@ -588,37 +588,42 @@ const styles = StyleSheet.create({
     borderBottomColor: '#F5EACF',
   },
   dailyVerseTitle: {
-    fontSize: Fonts.sizes.md,
-    fontWeight: '700',
-    color: '#B8860B',
+    fontSize: 17,
+    fontWeight: '800',
+    color: '#9A6B00',
   },
   dailyVerseArabic: {
-    fontSize: 22,
+    fontSize: 25,
     fontFamily: Fonts.arabic.quran,
     textAlign: 'center',
-    lineHeight: 38,
+    lineHeight: 46,
     marginVertical: Spacing.xs,
-    color: '#1A202C',
+    fontWeight: '700',
+    color: '#0F172A',
+    textShadowColor: 'rgba(0, 0, 0, 0.08)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 1,
   },
   dailyVerseTranslation: {
-    fontSize: Fonts.sizes.sm,
+    fontSize: 14.5,
+    fontWeight: '600',
     textAlign: 'center',
-    lineHeight: 20,
+    lineHeight: 22,
     marginBottom: Spacing.xs,
-    color: '#5A6A80',
+    color: '#334155',
   },
   dailyVerseBadge: {
     alignSelf: 'center',
     backgroundColor: '#FBF3DC',
     paddingHorizontal: Spacing.md,
-    paddingVertical: 3,
+    paddingVertical: 4,
     borderRadius: BorderRadius.full,
   },
   dailyVerseSurah: {
-    fontSize: Fonts.sizes.xs,
+    fontSize: 13,
     textAlign: 'center',
-    fontWeight: '700',
-    color: '#975A16',
+    fontWeight: '800',
+    color: '#874D0E',
   },
   lastReadCard: {
     marginHorizontal: Spacing.md,
@@ -712,9 +717,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   featureTitle: {
-    fontSize: Fonts.sizes.sm,
-    fontWeight: '700',
+    fontSize: 14.5,
+    fontWeight: '800',
     textAlign: 'center',
+    color: '#111827',
   },
   fullWidthSearchCard: {
     marginHorizontal: Spacing.md,
@@ -749,11 +755,13 @@ const styles = StyleSheet.create({
     gap: Spacing.xs,
   },
   statNumber: {
-    fontSize: Fonts.sizes.xl,
-    fontWeight: '800',
+    fontSize: 22,
+    fontWeight: '900',
   },
   statLabel: {
-    fontSize: Fonts.sizes.xs,
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#1F2937',
   },
   statDivider: {
     width: 1,

@@ -1,7 +1,7 @@
 export const APP_CONFIG = {
   name: 'زاد القرآن الكريم',
   nameEn: 'Zad Al-Quran',
-  version: '2.0.4',
+  version: '2.0.5',
   description: 'تطبيق شامل لخدمة القرآن الكريم وتدبر آياته',
   totalSurahs: 114,
   totalJuz: 30,
