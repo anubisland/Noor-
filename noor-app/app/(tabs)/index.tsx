@@ -248,7 +248,6 @@ export default function HomeScreen() {
               <View style={styles.headerCenterColumn}>
                 <Text
                   style={styles.mainAppTitle}
-                  numberOfLines={1}
                 >
                   زاد القرآن الكريم
                 </Text>
@@ -514,7 +513,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 4,
+    paddingHorizontal: 2,
+    minWidth: 0,
+    overflow: 'visible',
   },
   mushafIconButton: {
     padding: 2,
@@ -542,14 +543,15 @@ const styles = StyleSheet.create({
   },
   mainAppTitle: {
     fontFamily: 'AmiriQuran',
-    fontSize: Platform.OS === 'web' ? 26 : 28,
+    fontSize: Platform.OS === 'web' ? 22 : 26,
     color: '#FFF275',
     textAlign: 'center',
-    textShadowColor: 'rgba(0, 0, 0, 0.45)',
-    textShadowOffset: { width: 0, height: 1.5 },
-    textShadowRadius: 3,
-    lineHeight: Platform.OS === 'web' ? 36 : 40,
-    letterSpacing: 0.5,
+    textShadowColor: '#FFAA00',
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 10,
+    fontWeight: '700',
+    lineHeight: Platform.OS === 'web' ? 32 : 38,
+    overflow: 'visible',
   },
   subAppTitle: {
     fontFamily: Fonts.arabic.regular,
