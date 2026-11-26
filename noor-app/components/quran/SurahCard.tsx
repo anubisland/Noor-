@@ -44,9 +44,8 @@ export default function SurahCard({ id, name, nameEn, nameTranslation, versesCou
         </View>
       </View>
 
-      <View style={styles.right}>
-        <Text style={[styles.surahNameDecor, { color: colors.primary }]}>{name}</Text>
-        <Ionicons name="chevron-back" size={18} color={colors.textLight} />
+      <View style={styles.chevronContainer}>
+        <Ionicons name="chevron-back" size={20} color={colors.textLight} />
       </View>
     </TouchableOpacity>
   );
@@ -77,21 +76,20 @@ const styles = StyleSheet.create({
   info: {
     flex: 1,
     marginHorizontal: Spacing.sm,
-    alignItems: 'flex-start',
   },
   nameAr: {
+    width: '100%',
     fontSize: 19,
     fontWeight: '800',
     writingDirection: 'rtl',
     textAlign: 'right',
-    alignSelf: 'stretch',
   },
   nameEn: {
+    width: '100%',
     fontSize: Fonts.sizes.sm,
     fontWeight: '600',
     marginTop: 2,
     textAlign: 'right',
-    alignSelf: 'stretch',
   },
   metaRow: {
     flexDirection: 'row',
@@ -104,13 +102,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#4B5563',
   },
-  right: {
+  chevronContainer: {
+    width: 32,
+    height: 32,
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: Spacing.xs,
-  },
-  surahNameDecor: {
-    fontSize: 24,
-    fontWeight: '300',
-    opacity: 0.15,
   },
 });

@@ -295,7 +295,6 @@ const styles = StyleSheet.create({
   tafsirInfo: {
     flex: 1,
     gap: 2,
-    alignItems: 'flex-end',
     marginHorizontal: Spacing.sm,
   },
   tafsirName: {
