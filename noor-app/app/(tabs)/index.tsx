@@ -695,6 +695,7 @@ const styles = StyleSheet.create({
     marginTop: Spacing.xs,
     writingDirection: 'rtl',
     textAlign: 'right',
+    alignSelf: 'stretch',
   },
   featuresContainer: {
     paddingHorizontal: Spacing.md,

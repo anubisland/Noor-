@@ -56,6 +56,33 @@ jobs:
             <item android:drawable="@color/splashscreen_background" />
           </layer-list>
           SPLASH
+          mkdir -p noor-app/android/app/src/main/assets/fonts
+          cp noor-app/node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/*.ttf noor-app/android/app/src/main/assets/fonts/ || true
+          cp noor-app/assets/fonts/* noor-app/android/app/src/main/assets/fonts/ || true
+          python3 -c "
+import os
+path = 'noor-app/android/app/src/main/java/com/anubisland/noor/quran/MainApplication.kt'
+if os.path.exists(path):
+    with open(path, 'r') as f:
+        code = f.read()
+    if 'i18nUtil' not in code:
+        code = code.replace('super.onCreate()', 'super.onCreate()\n    val i18nUtil = com.facebook.react.modules.i18nmanager.I18nUtil.getInstance()\n    i18nUtil.allowRTL(this, true)\n    i18nUtil.forceRTL(this, true)')
+        with open(path, 'w') as f:
+            f.write(code)
+    print('Patched MainApplication.kt for RTL successfully')
+"
+          python3 -c "
+import os
+path = 'noor-app/android/app/src/main/AndroidManifest.xml'
+if os.path.exists(path):
+    with open(path, 'r') as f:
+        xml = f.read()
+    if 'android:supportsRtl=\"true\"' not in xml:
+        xml = xml.replace('<application', '<application android:supportsRtl=\"true\"')
+        with open(path, 'w') as f:
+            f.write(xml)
+    print('Patched AndroidManifest.xml for RTL successfully')
+"
 
       - name: Build Android APK
         working-directory: noor-app/android

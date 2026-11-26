@@ -3,6 +3,7 @@ import { Stack } from 'expo-router';
 import Head from 'expo-router/head';
 import { I18nManager, View, ActivityIndicator, Platform } from 'react-native';
 import { useFonts } from 'expo-font';
+import { Ionicons } from '@expo/vector-icons';
 import * as SplashScreen from 'expo-splash-screen';
 import { ThemeProvider } from '../context/ThemeContext';
 import { AppProvider } from '../context/AppContext';
@@ -13,6 +14,7 @@ SplashScreen.preventAutoHideAsync().catch(() => {});
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
+    ...Ionicons.font,
     AmiriQuran: require('../assets/fonts/AmiriQuran.ttf'),
     Cairo: require('../assets/fonts/Cairo-Bold.ttf'),
     NotoNaskh: require('../assets/fonts/NotoNaskhArabic.ttf'),

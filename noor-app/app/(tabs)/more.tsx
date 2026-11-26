@@ -232,6 +232,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
     writingDirection: 'rtl',
     textAlign: 'right',
+    alignSelf: 'stretch',
   },
   settingItem: {
     flexDirection: 'row',
@@ -281,7 +282,7 @@ const styles = StyleSheet.create({
   tafsirInfo: {
     flex: 1,
     gap: 2,
-    alignItems: 'flex-start',
+    alignItems: 'stretch',
   },
   tafsirName: {
     fontSize: Fonts.sizes.md,
@@ -289,6 +290,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     writingDirection: 'rtl',
     alignSelf: 'stretch',
+    width: '100%',
   },
   tafsirDesc: {
     fontSize: 13,
@@ -296,6 +298,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     writingDirection: 'rtl',
     alignSelf: 'stretch',
+    width: '100%',
   },
   appInfo: {
     alignItems: 'center',
