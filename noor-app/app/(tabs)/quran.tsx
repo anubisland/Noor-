@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, FlatList, StatusBar, Platform, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, StatusBar, Platform, TouchableOpacity, I18nManager } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   pageCard: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     padding: Spacing.md,
     marginHorizontal: Spacing.lg,
@@ -328,23 +328,32 @@ const styles = StyleSheet.create({
   },
   pageNumberText: {
     fontSize: Fonts.sizes.md,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   pageCardInfo: {
     flex: 1,
     marginHorizontal: Spacing.md,
+    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
   },
   pageSurahsText: {
     fontSize: Fonts.sizes.md,
-    fontWeight: '700',
+    fontWeight: '800',
     fontFamily: Fonts.arabic.bold,
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    alignSelf: 'stretch',
   },
   pageJuzText: {
     fontSize: Fonts.sizes.xs,
+    fontWeight: '700',
     marginTop: 2,
+    color: '#4B5563',
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    alignSelf: 'stretch',
   },
   filterContainer: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     paddingHorizontal: Spacing.lg,
     gap: Spacing.sm,
     marginVertical: Spacing.sm,
@@ -357,7 +366,7 @@ const styles = StyleSheet.create({
   },
   filterText: {
     fontSize: Fonts.sizes.sm,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   listContent: {
     paddingVertical: Spacing.sm,

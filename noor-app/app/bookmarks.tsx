@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, I18nManager } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../context/ThemeContext';
@@ -149,12 +149,12 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   headerRow: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   metaInfo: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     gap: Spacing.sm,
   },
@@ -167,11 +167,14 @@ const styles = StyleSheet.create({
   },
   surahName: {
     fontSize: Fonts.sizes.md,
-    fontWeight: '700',
+    fontWeight: '800',
+    textAlign: 'right',
   },
   ayahRef: {
     fontSize: Fonts.sizes.xs,
     marginTop: 2,
+    textAlign: 'right',
+    fontWeight: '600',
   },
   actionsRow: {
     flexDirection: 'row',
@@ -196,7 +199,7 @@ const styles = StyleSheet.create({
     writingDirection: 'rtl',
   },
   footerRow: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderTopWidth: 1,
@@ -206,9 +209,10 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: Fonts.sizes.xs,
+    fontWeight: '600',
   },
   viewAyahHint: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     gap: 4,
   },

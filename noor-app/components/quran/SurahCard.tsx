@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, I18nManager } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
@@ -54,7 +54,7 @@ export default function SurahCard({ id, name, nameEn, nameTranslation, versesCou
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     padding: Spacing.md,
     marginHorizontal: Spacing.lg,
@@ -68,33 +68,41 @@ const styles = StyleSheet.create({
     borderRadius: 21,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: Spacing.md,
+    marginHorizontal: Spacing.xs,
   },
   number: {
     fontSize: Fonts.sizes.md,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   info: {
     flex: 1,
     marginHorizontal: Spacing.sm,
+    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
   },
   nameAr: {
-    fontSize: Fonts.sizes.lg,
-    fontWeight: '700',
+    fontSize: 19,
+    fontWeight: '800',
     writingDirection: 'rtl',
+    textAlign: 'right',
+    alignSelf: 'stretch',
   },
   nameEn: {
     fontSize: Fonts.sizes.sm,
+    fontWeight: '600',
     marginTop: 2,
+    textAlign: 'right',
+    alignSelf: 'stretch',
   },
   metaRow: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     marginTop: Spacing.xs,
     gap: Spacing.sm,
   },
   meta: {
     fontSize: Fonts.sizes.xs,
+    fontWeight: '700',
+    color: '#4B5563',
   },
   right: {
     alignItems: 'center',

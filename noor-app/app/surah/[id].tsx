@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Modal, TextInput, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Modal, TextInput, NativeSyntheticEvent, NativeScrollEvent, I18nManager } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
@@ -858,8 +858,8 @@ export default function SurahScreen() {
                     </View>
 
                     {/* 2. Surah Name & Metadata (Middle) */}
-                    <View style={{ flex: 1, alignItems: 'flex-start', marginHorizontal: 12 }}>
-                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                    <View style={{ flex: 1, alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end', marginHorizontal: 12 }}>
+                      <View style={{ flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse', alignItems: 'center', gap: 6 }}>
                         <Text style={[styles.surahPickerNameText, { color: isCurrent ? '#1B7F5A' : colors.text }]}>
                           {item.name}
                         </Text>
@@ -869,7 +869,7 @@ export default function SurahScreen() {
                           </View>
                         )}
                       </View>
-                      <Text style={[styles.surahPickerMetaText, { color: colors.textLight, textAlign: 'right' }]}>
+                      <Text style={[styles.surahPickerMetaText, { color: colors.textSecondary }]}>
                         {item.nameEn} • {item.revelationType === 'meccan' ? 'مكية' : 'مدنية'} • {item.versesCount} آية • الجزء {item.juz[0]}
                       </Text>
                     </View>
@@ -1023,7 +1023,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   surahModalHeader: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: Spacing.lg,
@@ -1036,15 +1036,20 @@ const styles = StyleSheet.create({
   },
   surahModalTitle: {
     fontSize: Fonts.sizes.lg,
-    fontWeight: '700',
+    fontWeight: '800',
     fontFamily: Fonts.arabic.bold,
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   surahModalSubtitle: {
     fontSize: Fonts.sizes.xs,
+    fontWeight: '700',
     marginTop: 2,
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   surahSearchBox: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     marginHorizontal: Spacing.lg,
     marginVertical: Spacing.md,
@@ -1062,7 +1067,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   surahPickerCard: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 10,
@@ -1080,16 +1085,21 @@ const styles = StyleSheet.create({
   },
   surahPickerNumberText: {
     fontSize: Fonts.sizes.sm,
-    fontWeight: '700',
+    fontWeight: '800',
   },
   surahPickerNameText: {
     fontSize: Fonts.sizes.md,
     fontFamily: Fonts.arabic.bold,
-    fontWeight: '700',
+    fontWeight: '800',
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   surahPickerMetaText: {
     fontSize: Fonts.sizes.xs,
+    fontWeight: '700',
     marginTop: 2,
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   surahPickerPageBadge: {
     paddingHorizontal: 8,

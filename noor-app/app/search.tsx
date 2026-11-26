@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar, Platform } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar, Platform, I18nManager } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../context/ThemeContext';
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.lg,
   },
   headerRow: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     gap: Spacing.md,
   },
@@ -198,6 +198,8 @@ const styles = StyleSheet.create({
   listContent: { padding: Spacing.md, paddingBottom: 100 },
   resultCount: {
     fontSize: Fonts.sizes.sm,
+    fontWeight: '700',
+    textAlign: 'right',
     marginBottom: Spacing.sm,
     marginHorizontal: Spacing.sm,
   },
@@ -208,7 +210,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.sm,
   },
   resultHeader: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     gap: Spacing.sm,
     marginBottom: Spacing.sm,
@@ -220,7 +222,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  resultRef: { fontSize: Fonts.sizes.sm, fontWeight: '600' },
+  resultRef: { fontSize: Fonts.sizes.sm, fontWeight: '700', textAlign: 'right' },
   resultText: {
     fontSize: Fonts.sizes.lg,
     lineHeight: 32,

@@ -41,9 +41,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: Fonts.sizes.xs,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   textMd: {
     fontSize: Fonts.sizes.sm,
+    fontWeight: '700',
   },
 });

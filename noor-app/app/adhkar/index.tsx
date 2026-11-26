@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platform } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platform, I18nManager } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
@@ -200,14 +200,14 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
   },
   categoryHeader: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: Spacing.lg,
     borderRadius: BorderRadius.lg,
   },
   categoryHeaderLeft: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     gap: Spacing.md,
     flex: 1,
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   },
   categoryName: {
     fontSize: Fonts.sizes.lg,
-    fontWeight: '700',
+    fontWeight: '800',
     writingDirection: 'rtl',
     textAlign: 'right',
   },
@@ -232,6 +232,7 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.xs,
     marginTop: 2,
     textAlign: 'right',
+    fontWeight: '600',
   },
   entriesContainer: {
     paddingHorizontal: Spacing.md,
@@ -239,7 +240,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   entryCard: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     padding: Spacing.lg,
     borderRadius: BorderRadius.md,
     gap: Spacing.md,
@@ -263,13 +264,13 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.lg,
     lineHeight: Fonts.lineHeights.relaxed * Fonts.sizes.lg,
     writingDirection: 'rtl',
-    textAlign: 'justify',
-    fontWeight: '400',
+    textAlign: 'right',
+    fontWeight: '600',
   },
   counterRow: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     gap: Spacing.sm,
     marginTop: Spacing.sm,
   },

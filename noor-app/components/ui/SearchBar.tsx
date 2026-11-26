@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, I18nManager } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { BorderRadius, Fonts, Spacing } from '../../constants/theme';
@@ -38,7 +38,7 @@ export default function SearchBar({ value, onChangeText, placeholder = 'ابحث
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
     alignItems: 'center',
     borderRadius: BorderRadius.lg,
     paddingHorizontal: Spacing.md,
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     marginVertical: Spacing.sm,
   },
   icon: {
-    marginLeft: Spacing.sm,
+    marginHorizontal: Spacing.xs,
   },
   input: {
     flex: 1,
@@ -56,5 +56,6 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.xs,
     paddingHorizontal: Spacing.sm,
     writingDirection: 'rtl',
+    textAlign: 'right',
   },
 });
