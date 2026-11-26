@@ -333,7 +333,6 @@ const styles = StyleSheet.create({
   pageCardInfo: {
     flex: 1,
     marginHorizontal: Spacing.md,
-    alignItems: 'flex-start',
   },
   pageSurahsText: {
     fontSize: Fonts.sizes.md,
@@ -341,7 +340,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.arabic.bold,
     textAlign: 'right',
     writingDirection: 'rtl',
-    alignSelf: 'stretch',
+    width: '100%',
   },
   pageJuzText: {
     fontSize: Fonts.sizes.xs,
@@ -350,7 +349,7 @@ const styles = StyleSheet.create({
     color: '#4B5563',
     textAlign: 'right',
     writingDirection: 'rtl',
-    alignSelf: 'stretch',
+    width: '100%',
   },
   filterContainer: {
     flexDirection: 'row',

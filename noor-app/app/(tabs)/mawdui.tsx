@@ -282,9 +282,11 @@ export default function MawduiScreen() {
               <Text style={[styles.hadithText, { color: colors.text }]}>{hadith.text}</Text>
 
               {/* Sanad / Takhrij / Source */}
-              <View style={styles.hadithSourceRow}>
-                <Ionicons name="checkmark-circle" size={14} color="#B8860B" />
-                <Text style={styles.hadithSourceText}>{hadith.source}</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <View style={styles.hadithSourceRow}>
+                  <Ionicons name="checkmark-circle" size={14} color="#B8860B" />
+                  <Text style={styles.hadithSourceText}>{hadith.source}</Text>
+                </View>
               </View>
             </View>
           ))}
@@ -642,9 +644,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  qpInfo: { flex: 1, alignItems: 'flex-start' },
-  qpName: { fontSize: Fonts.sizes.sm, fontWeight: '700', lineHeight: 22, textAlign: 'right', writingDirection: 'rtl', alignSelf: 'stretch' },
-  qpMeta: { fontSize: Fonts.sizes.xs, fontWeight: '600', marginTop: 2, textAlign: 'right', writingDirection: 'rtl', alignSelf: 'stretch' },
+  qpInfo: { flex: 1 },
+  qpName: { fontSize: Fonts.sizes.sm, fontWeight: '700', lineHeight: 22, textAlign: 'right', writingDirection: 'rtl', width: '100%' },
+  qpMeta: { fontSize: Fonts.sizes.xs, fontWeight: '600', marginTop: 2, textAlign: 'right', writingDirection: 'rtl', width: '100%' },
   emptyState: { alignItems: 'center', justifyContent: 'center', paddingVertical: 60, gap: Spacing.sm },
   emptyText: { fontSize: Fonts.sizes.sm, fontWeight: '600', textAlign: 'center', writingDirection: 'rtl' },
 
@@ -755,7 +757,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 9,
     borderRadius: BorderRadius.md,
     backgroundColor: 'rgba(191, 149, 63, 0.08)',
-    alignSelf: 'flex-start',
   },
   hadithSourceText: {
     fontSize: 11.5,

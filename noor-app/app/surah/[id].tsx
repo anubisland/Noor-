@@ -858,7 +858,7 @@ export default function SurahScreen() {
                     </View>
 
                     {/* 2. Surah Name & Metadata (Middle) */}
-                    <View style={{ flex: 1, alignItems: 'flex-start', marginHorizontal: 12 }}>
+                    <View style={{ flex: 1, marginHorizontal: 12 }}>
                       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
                         <Text style={[styles.surahPickerNameText, { color: isCurrent ? '#1B7F5A' : colors.text }]}>
                           {item.name}

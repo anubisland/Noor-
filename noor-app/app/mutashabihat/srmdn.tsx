@@ -58,9 +58,11 @@ export default function SrmnMutashabihatScreen() {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <StatusBar barStyle="light-content" backgroundColor={MUTASHABIHAT_COLOR} />
       <View style={[styles.header, { backgroundColor: MUTASHABIHAT_COLOR }]}>
-        <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
-          <Ionicons name="arrow-forward" size={26} color="#FFF" />
-        </TouchableOpacity>
+        <View style={styles.topBar}>
+          <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+            <Ionicons name="arrow-forward" size={26} color="#FFF" />
+          </TouchableOpacity>
+        </View>
         <Ionicons name="git-compare" size={32} color="#FFF" />
         <Text style={styles.headerTitle}>تمييز المتشابهات</Text>
         <Text style={styles.headerSubtitle}>{srmdnPairs.length} زوجاً مع شرح الفرق</Text>
@@ -190,18 +192,20 @@ const styles = StyleSheet.create({
   header: {
     paddingTop: Platform.OS === 'ios' ? 50 : (StatusBar.currentHeight || 0) + 10,
     paddingBottom: Spacing.xxl,
-    paddingHorizontal: Spacing.xxl,
+    paddingHorizontal: Spacing.lg,
     alignItems: 'center',
     gap: Spacing.xs,
     borderBottomLeftRadius: BorderRadius.xl,
     borderBottomRightRadius: BorderRadius.xl,
   },
-  backBtn: {
-    position: 'absolute',
-    top: Platform.OS === 'ios' ? 50 : (StatusBar.currentHeight || 0) + 10,
-    right: Spacing.lg,
-    padding: Spacing.sm,
-    zIndex: 10,
+  topBar: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    marginBottom: Spacing.xs,
+  },
+  backButton: {
+    padding: Spacing.xs,
   },
   headerTitle: { color: '#FFF', fontSize: Fonts.sizes.title, fontWeight: '800', marginTop: Spacing.sm },
   headerSubtitle: { color: 'rgba(255,255,255,0.75)', fontSize: Fonts.sizes.sm, textAlign: 'center' },

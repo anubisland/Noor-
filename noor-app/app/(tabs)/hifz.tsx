@@ -112,7 +112,9 @@ export default function HifzScreen() {
       )}
 
       {/* Memorization Modes */}
-      <Text style={[styles.heading, { color: colors.text }]}>أوضاع الحفظ</Text>
+      <View style={styles.sectionHeaderWrapper}>
+        <Text style={[styles.heading, { color: colors.text }]}>أوضاع الحفظ</Text>
+      </View>
       <View style={styles.modesContainer}>
         {[0, 2, 4].map((startIndex) => (
           <View key={startIndex} style={styles.modeRow}>
@@ -122,8 +124,10 @@ export default function HifzScreen() {
                 style={[styles.modeCard, { backgroundColor: colors.surface }, Shadows.sm]}
                 onPress={() => mode.route ? router.push(mode.route) : openSurahPicker(mode.id)}
               >
-                <View style={[styles.modeIcon, { backgroundColor: mode.color + '15' }]}>
-                  <Ionicons name={mode.icon} size={28} color={mode.color} />
+                <View style={styles.modeIconRow}>
+                  <View style={[styles.modeIcon, { backgroundColor: mode.color + '15' }]}>
+                    <Ionicons name={mode.icon} size={28} color={mode.color} />
+                  </View>
                 </View>
                 <Text style={[styles.modeTitle, { color: colors.text }]}>{mode.title}</Text>
                 <Text style={[styles.modeDesc, { color: colors.textSecondary }]}>{mode.desc}</Text>
@@ -134,7 +138,9 @@ export default function HifzScreen() {
       </View>
 
       {/* Suggested Surahs */}
-      <Text style={[styles.heading, { color: colors.text }]}>ابدأ بحفظ</Text>
+      <View style={styles.sectionHeaderWrapper}>
+        <Text style={[styles.heading, { color: colors.text }]}>ابدأ بحفظ</Text>
+      </View>
       {shortSurahs.slice(0, 10).map((surah) => {
         const progress = getMemorizationProgress(surah.id);
         return (
@@ -295,11 +301,16 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
   },
   reviewText: { fontSize: 15, fontWeight: '700', textAlign: 'right' },
+  sectionHeaderWrapper: {
+    width: '100%',
+    flexDirection: 'row',
+    paddingHorizontal: Spacing.lg,
+    marginTop: Spacing.sm,
+    marginBottom: Spacing.xs,
+  },
   heading: {
     fontSize: 22,
     fontWeight: '900',
-    marginHorizontal: Spacing.xxl,
-    marginBottom: Spacing.md,
     writingDirection: 'rtl',
     textAlign: 'right',
   },
@@ -319,7 +330,10 @@ const styles = StyleSheet.create({
     padding: Spacing.lg,
     borderRadius: BorderRadius.lg,
     gap: Spacing.sm,
-    alignItems: 'flex-start',
+  },
+  modeIconRow: {
+    flexDirection: 'row',
+    width: '100%',
   },
   modeIcon: {
     width: 50,
@@ -328,8 +342,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  modeTitle: { fontSize: 17, fontWeight: '900', writingDirection: 'rtl', textAlign: 'right' },
-  modeDesc: { fontSize: 13.5, fontWeight: '700', lineHeight: 20, writingDirection: 'rtl', textAlign: 'right' },
+  modeTitle: { fontSize: 17, fontWeight: '900', writingDirection: 'rtl', textAlign: 'right', width: '100%' },
+  modeDesc: { fontSize: 13.5, fontWeight: '700', lineHeight: 20, writingDirection: 'rtl', textAlign: 'right', width: '100%' },
   surahItem: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -352,14 +366,13 @@ const styles = StyleSheet.create({
   surahInfo: {
     flex: 1,
     marginHorizontal: Spacing.sm,
-    alignItems: 'flex-start',
   },
   surahName: {
     fontSize: 18,
     fontWeight: '900',
     writingDirection: 'rtl',
     textAlign: 'right',
-    alignSelf: 'stretch',
+    width: '100%',
   },
   surahMeta: {
     fontSize: 14,
@@ -367,7 +380,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
     writingDirection: 'rtl',
     textAlign: 'right',
-    alignSelf: 'stretch',
+    width: '100%',
   },
   progressContainer: { alignItems: 'center', gap: 4, width: 60 },
   progressBg: { width: '100%', height: 7, borderRadius: 3.5 },
@@ -441,14 +454,13 @@ const styles = StyleSheet.create({
   pickerInfo: {
     flex: 1,
     marginHorizontal: Spacing.sm,
-    alignItems: 'flex-start',
   },
   pickerName: {
     fontSize: Fonts.sizes.md,
     fontWeight: '800',
     textAlign: 'right',
     writingDirection: 'rtl',
-    alignSelf: 'stretch',
+    width: '100%',
   },
   pickerMeta: {
     fontSize: Fonts.sizes.xs,
@@ -456,7 +468,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
     textAlign: 'right',
     writingDirection: 'rtl',
-    alignSelf: 'stretch',
+    width: '100%',
   },
   pickerProgress: {
     paddingHorizontal: Spacing.sm,

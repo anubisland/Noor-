@@ -859,14 +859,13 @@ const styles = StyleSheet.create({
   },
   surahSelectDetails: {
     flex: 1,
-    alignItems: 'flex-start',
   },
   surahSelectName: {
     fontSize: Fonts.sizes.md,
     fontWeight: '800',
     textAlign: 'right',
     writingDirection: 'rtl',
-    alignSelf: 'stretch',
+    width: '100%',
   },
   surahSelectCount: {
     fontSize: Fonts.sizes.xs,
@@ -874,7 +873,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
     textAlign: 'right',
     writingDirection: 'rtl',
-    alignSelf: 'stretch',
+    width: '100%',
   },
   waqarCard: {
     padding: Spacing.md,
@@ -1183,7 +1182,6 @@ const styles = StyleSheet.create({
   thematicTipBody: {
     flex: 1,
     gap: 2,
-    alignItems: 'flex-start',
   },
   thematicTipLabel: {
     fontSize: Fonts.sizes.xs,
