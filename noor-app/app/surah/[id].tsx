@@ -434,19 +434,19 @@ export default function SurahScreen() {
       <View style={[styles.toolbarContainer, { backgroundColor: '#EAF6EE', borderBottomColor: '#C6E7D0' }]}>
         {viewMode === 'mushaf' ? (
           <View style={styles.mushafToolbarRow}>
-            {/* Next Surah (RTL reading order) */}
+            {/* Previous Surah (RTL reading order - on the right) */}
             <TouchableOpacity
               style={[
                 styles.toolbarPill,
-                surahId >= 114 ? styles.toolbarPillDisabled : styles.toolbarPillInactive,
+                surahId <= 1 ? styles.toolbarPillDisabled : styles.toolbarPillInactive,
               ]}
-              disabled={surahId >= 114}
-              onPress={handleNextSurah}
+              disabled={surahId <= 1}
+              onPress={handlePreviousSurah}
             >
-              <Text style={[styles.toolbarPillText, { color: surahId >= 114 ? '#9CA3AF' : '#1B7F5A' }]}>
-                التالية
+              <Ionicons name="arrow-forward" size={16} color={surahId <= 1 ? '#9CA3AF' : '#1B7F5A'} />
+              <Text style={[styles.toolbarPillText, { color: surahId <= 1 ? '#9CA3AF' : '#1B7F5A' }]}>
+                السابقة
               </Text>
-              <Ionicons name="arrow-forward" size={16} color={surahId >= 114 ? '#9CA3AF' : '#1B7F5A'} />
             </TouchableOpacity>
 
             {/* Surah Index Selector */}
@@ -460,19 +460,19 @@ export default function SurahScreen() {
               </Text>
             </TouchableOpacity>
 
-            {/* Previous Surah (RTL reading order) */}
+            {/* Next Surah (RTL reading order - on the left) */}
             <TouchableOpacity
               style={[
                 styles.toolbarPill,
-                surahId <= 1 ? styles.toolbarPillDisabled : styles.toolbarPillInactive,
+                surahId >= 114 ? styles.toolbarPillDisabled : styles.toolbarPillInactive,
               ]}
-              disabled={surahId <= 1}
-              onPress={handlePreviousSurah}
+              disabled={surahId >= 114}
+              onPress={handleNextSurah}
             >
-              <Ionicons name="arrow-back" size={16} color={surahId <= 1 ? '#9CA3AF' : '#1B7F5A'} />
-              <Text style={[styles.toolbarPillText, { color: surahId <= 1 ? '#9CA3AF' : '#1B7F5A' }]}>
-                السابقة
+              <Text style={[styles.toolbarPillText, { color: surahId >= 114 ? '#9CA3AF' : '#1B7F5A' }]}>
+                التالية
               </Text>
+              <Ionicons name="arrow-back" size={16} color={surahId >= 114 ? '#9CA3AF' : '#1B7F5A'} />
             </TouchableOpacity>
 
             {/* Toggle to List View */}
@@ -785,6 +785,13 @@ export default function SurahScreen() {
           <View style={[styles.surahModalContainer, { backgroundColor: colors.surface }]}>
             {/* Modal Header */}
             <View style={[styles.surahModalHeader, { borderBottomColor: colors.borderLight }]}>
+              <View style={{ width: 36 }} />
+              <View style={{ alignItems: 'center' }}>
+                <Text style={[styles.surahModalTitle, { color: colors.primary }]}>فهرس سور القرآن الكريم</Text>
+                <Text style={[styles.surahModalSubtitle, { color: colors.textLight }]}>
+                  {viewMode === 'mushaf' ? 'اختر سورة لفتحها في المصحف مباشرة' : 'اختر سورة للقراءة'}
+                </Text>
+              </View>
               <TouchableOpacity
                 onPress={() => {
                   setShowSurahPicker(false);
@@ -794,13 +801,6 @@ export default function SurahScreen() {
               >
                 <Ionicons name="close" size={24} color={colors.textSecondary} />
               </TouchableOpacity>
-              <View style={{ alignItems: 'center' }}>
-                <Text style={[styles.surahModalTitle, { color: colors.primary }]}>فهرس سور القرآن الكريم</Text>
-                <Text style={[styles.surahModalSubtitle, { color: colors.textLight }]}>
-                  {viewMode === 'mushaf' ? 'اختر سورة لفتحها في المصحف مباشرة' : 'اختر سورة للقراءة'}
-                </Text>
-              </View>
-              <View style={{ width: 36 }} />
             </View>
 
             {/* Search Input */}
@@ -840,28 +840,7 @@ export default function SurahScreen() {
                     ]}
                     onPress={() => handleSelectSurah(item.id)}
                   >
-                    <View style={styles.surahPickerPageBadge}>
-                      <Text style={[styles.surahPickerPageText, { color: isCurrent ? '#1B7F5A' : colors.textSecondary }]}>
-                        ص {item.page}
-                      </Text>
-                    </View>
-
-                    <View style={{ flex: 1, alignItems: 'flex-end', marginRight: 12 }}>
-                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                        {isCurrent && (
-                          <View style={styles.currentBadge}>
-                            <Text style={styles.currentBadgeText}>الحالية</Text>
-                          </View>
-                        )}
-                        <Text style={[styles.surahPickerNameText, { color: isCurrent ? '#1B7F5A' : colors.text }]}>
-                          {item.name}
-                        </Text>
-                      </View>
-                      <Text style={[styles.surahPickerMetaText, { color: colors.textLight }]}>
-                        {item.nameEn} • {item.revelationType === 'meccan' ? 'مكية' : 'مدنية'} • {item.versesCount} آية • الجزء {item.juz[0]}
-                      </Text>
-                    </View>
-
+                    {/* 1. Surah Number Circle (Right side in RTL) */}
                     <View
                       style={[
                         styles.surahPickerNumberCircle,
@@ -875,6 +854,30 @@ export default function SurahScreen() {
                         ]}
                       >
                         {item.id}
+                      </Text>
+                    </View>
+
+                    {/* 2. Surah Name & Metadata (Middle) */}
+                    <View style={{ flex: 1, alignItems: 'flex-start', marginHorizontal: 12 }}>
+                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                        <Text style={[styles.surahPickerNameText, { color: isCurrent ? '#1B7F5A' : colors.text }]}>
+                          {item.name}
+                        </Text>
+                        {isCurrent && (
+                          <View style={styles.currentBadge}>
+                            <Text style={styles.currentBadgeText}>الحالية</Text>
+                          </View>
+                        )}
+                      </View>
+                      <Text style={[styles.surahPickerMetaText, { color: colors.textLight, textAlign: 'right' }]}>
+                        {item.nameEn} • {item.revelationType === 'meccan' ? 'مكية' : 'مدنية'} • {item.versesCount} آية • الجزء {item.juz[0]}
+                      </Text>
+                    </View>
+
+                    {/* 3. Page Badge (Left side in RTL) */}
+                    <View style={styles.surahPickerPageBadge}>
+                      <Text style={[styles.surahPickerPageText, { color: isCurrent ? '#1B7F5A' : colors.textSecondary }]}>
+                        ص {item.page}
                       </Text>
                     </View>
                   </TouchableOpacity>
@@ -1055,6 +1058,8 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: Fonts.sizes.sm,
     fontFamily: Fonts.arabic.regular,
+    writingDirection: 'rtl',
+    textAlign: 'right',
   },
   surahPickerCard: {
     flexDirection: 'row',

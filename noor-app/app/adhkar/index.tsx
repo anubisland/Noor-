@@ -200,14 +200,14 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
   },
   categoryHeader: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: Spacing.lg,
     borderRadius: BorderRadius.lg,
   },
   categoryHeaderLeft: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.md,
     flex: 1,
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   entryCard: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     padding: Spacing.lg,
     borderRadius: BorderRadius.md,
     gap: Spacing.md,

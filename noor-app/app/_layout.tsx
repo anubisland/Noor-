@@ -45,7 +45,10 @@ export default function RootLayout() {
         const swPath = window.location.pathname.startsWith('/Noor-') ? '/Noor-/sw.js' : './sw.js';
         const swScope = window.location.pathname.startsWith('/Noor-') ? '/Noor-/' : './';
         navigator.serviceWorker.register(swPath, { scope: swScope }).then(
-          (reg) => console.log('Zad Al-Quran PWA ServiceWorker active with scope:', reg.scope),
+          (reg) => {
+            reg.update();
+            console.log('Zad Al-Quran PWA ServiceWorker active with scope:', reg.scope);
+          },
           (err) => console.warn('Zad Al-Quran ServiceWorker registration failed:', err)
         );
       });

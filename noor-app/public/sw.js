@@ -1,4 +1,4 @@
-const CACHE_NAME = 'zad-al-quran-v2.0.2';
+const CACHE_NAME = 'zad-al-quran-v2.0.4';
 
 const PRECACHE_ASSETS = [
   '/Noor-/',
