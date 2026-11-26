@@ -1,6 +1,6 @@
 {
   "name": "noor-quran",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "تطبيق زاد القرآن الكريم",
   "main": "expo-router/entry",
   "scripts": {
