@@ -113,19 +113,23 @@ export default function HifzScreen() {
 
       {/* Memorization Modes */}
       <Text style={[styles.heading, { color: colors.text }]}>أوضاع الحفظ</Text>
-      <View style={styles.modesGrid}>
-        {modes.map((mode) => (
-          <TouchableOpacity
-            key={mode.id}
-            style={[styles.modeCard, { backgroundColor: colors.surface }, Shadows.sm]}
-            onPress={() => mode.route ? router.push(mode.route) : openSurahPicker(mode.id)}
-          >
-            <View style={[styles.modeIcon, { backgroundColor: mode.color + '15' }]}>
-              <Ionicons name={mode.icon} size={28} color={mode.color} />
-            </View>
-            <Text style={[styles.modeTitle, { color: colors.text }]}>{mode.title}</Text>
-            <Text style={[styles.modeDesc, { color: colors.textSecondary }]}>{mode.desc}</Text>
-          </TouchableOpacity>
+      <View style={styles.modesContainer}>
+        {[0, 2, 4].map((startIndex) => (
+          <View key={startIndex} style={styles.modeRow}>
+            {modes.slice(startIndex, startIndex + 2).map((mode) => (
+              <TouchableOpacity
+                key={mode.id}
+                style={[styles.modeCard, { backgroundColor: colors.surface }, Shadows.sm]}
+                onPress={() => mode.route ? router.push(mode.route) : openSurahPicker(mode.id)}
+              >
+                <View style={[styles.modeIcon, { backgroundColor: mode.color + '15' }]}>
+                  <Ionicons name={mode.icon} size={28} color={mode.color} />
+                </View>
+                <Text style={[styles.modeTitle, { color: colors.text }]}>{mode.title}</Text>
+                <Text style={[styles.modeDesc, { color: colors.textSecondary }]}>{mode.desc}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         ))}
       </View>
 
@@ -298,18 +302,23 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
     writingDirection: 'rtl',
   },
-  modesGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+  modesContainer: {
     paddingHorizontal: Spacing.lg,
-    gap: Spacing.sm,
     marginBottom: Spacing.xl,
+    ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),
+  },
+  modeRow: {
+    flexDirection: 'row',
+    gap: Spacing.sm,
+    marginBottom: Spacing.sm,
+    ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),
   },
   modeCard: {
-    width: (width - Spacing.lg * 2 - Spacing.sm) / 2,
+    flex: 1,
     padding: Spacing.lg,
     borderRadius: BorderRadius.lg,
     gap: Spacing.sm,
+    alignItems: 'flex-start',
   },
   modeIcon: {
     width: 50,
@@ -318,8 +327,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  modeTitle: { fontSize: Fonts.sizes.md, fontWeight: '700' },
-  modeDesc: { fontSize: Fonts.sizes.xs, lineHeight: 18 },
+  modeTitle: { fontSize: Fonts.sizes.md, fontWeight: '700', writingDirection: 'rtl', textAlign: 'right' },
+  modeDesc: { fontSize: Fonts.sizes.xs, lineHeight: 18, writingDirection: 'rtl', textAlign: 'right' },
   surahItem: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -328,6 +337,7 @@ const styles = StyleSheet.create({
     padding: Spacing.md,
     borderRadius: BorderRadius.lg,
     borderWidth: 1,
+    ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),
   },
   surahNumber: {
     width: 38,
@@ -339,8 +349,8 @@ const styles = StyleSheet.create({
   },
   surahNumberText: { fontSize: Fonts.sizes.sm, fontWeight: '700' },
   surahInfo: { flex: 1, marginHorizontal: Spacing.sm },
-  surahName: { fontSize: Fonts.sizes.md, fontWeight: '600' },
-  surahMeta: { fontSize: Fonts.sizes.xs, marginTop: 2 },
+  surahName: { fontSize: Fonts.sizes.md, fontWeight: '600', writingDirection: 'rtl', textAlign: 'right' },
+  surahMeta: { fontSize: Fonts.sizes.xs, marginTop: 2, writingDirection: 'rtl', textAlign: 'right' },
   progressContainer: { alignItems: 'center', gap: 4, width: 60 },
   progressBg: { width: '100%', height: 6, borderRadius: 3 },
   progressFill: { height: '100%', borderRadius: 3 },
