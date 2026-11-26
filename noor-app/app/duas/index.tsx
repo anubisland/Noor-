@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     color: '#0F172A',
   },
   cardHeaderRow: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: Spacing.md,

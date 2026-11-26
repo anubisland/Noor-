@@ -38,7 +38,7 @@ export default function SearchBar({ value, onChangeText, placeholder = 'ابحث
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     borderRadius: BorderRadius.lg,
     paddingHorizontal: Spacing.md,

@@ -244,13 +244,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   settingLeft: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.md,
   },
   settingText: { fontSize: Fonts.sizes.md, fontWeight: '800' },
   fontControls: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     gap: Spacing.sm,
   },
   fontBtn: {
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   tafsirItem: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: Spacing.lg,
     marginBottom: Spacing.sm,
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
   tafsirInfo: {
     flex: 1,
     gap: 2,
-    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
+    alignItems: 'flex-start',
   },
   tafsirName: {
     fontSize: Fonts.sizes.md,

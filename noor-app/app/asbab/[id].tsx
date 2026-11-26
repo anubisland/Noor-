@@ -432,7 +432,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
   },
   storyHeader: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     padding: Spacing.lg,
     gap: Spacing.md,
@@ -445,11 +445,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   storyNumberText: { fontSize: Fonts.sizes.md, fontWeight: '800' },
-  storyHeaderInfo: { flex: 1, gap: 4, alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end' },
+  storyHeaderInfo: { flex: 1, gap: 4, alignItems: 'flex-start' },
   storyTitle: { fontSize: Fonts.sizes.md, fontWeight: '800', textAlign: 'right', writingDirection: 'rtl', alignSelf: 'stretch' },
   storyRef: { fontSize: Fonts.sizes.sm, fontWeight: '700', textAlign: 'right', writingDirection: 'rtl', alignSelf: 'stretch' },
   themeBadge: {
-    alignSelf: I18nManager.isRTL ? 'flex-start' : 'flex-end',
+    alignSelf: 'flex-start',
     paddingHorizontal: Spacing.sm,
     paddingVertical: 2,
     borderRadius: BorderRadius.full,
@@ -468,12 +468,12 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   verseHeaderRow: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   verseHeaderBadge: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
   },
@@ -482,7 +482,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   verseAudioBtn: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: Spacing.sm,
     paddingVertical: 4,
@@ -502,7 +502,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   narrativeSection: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     gap: Spacing.md,
   },
   narrativeIcon: { marginTop: 4 },
@@ -522,7 +522,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   contextHeader: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.sm,
   },

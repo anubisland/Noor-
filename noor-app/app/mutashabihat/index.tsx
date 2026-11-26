@@ -839,7 +839,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.sm,
   },
   surahSelectBtn: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     padding: Spacing.md,
     borderRadius: BorderRadius.lg,
@@ -859,7 +859,7 @@ const styles = StyleSheet.create({
   },
   surahSelectDetails: {
     flex: 1,
-    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
+    alignItems: 'flex-start',
   },
   surahSelectName: {
     fontSize: Fonts.sizes.md,
@@ -883,7 +883,7 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
   },
   waqarSourceHeader: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -949,12 +949,12 @@ const styles = StyleSheet.create({
     gap: Spacing.xs,
   },
   waqarMutMetaRow: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   waqarMutRef: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
   },
@@ -999,7 +999,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   ruleCardHeader: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -1024,7 +1024,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   ruleAyahMetaRow: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -1048,7 +1048,7 @@ const styles = StyleSheet.create({
     marginVertical: -2,
   },
   ruleNoteToggle: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: Spacing.xs,
@@ -1066,7 +1066,7 @@ const styles = StyleSheet.create({
     gap: Spacing.xs,
   },
   ruleNoteHeader: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.xs,
   },
@@ -1111,7 +1111,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   thematicHeader: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.sm,
   },
@@ -1151,7 +1151,7 @@ const styles = StyleSheet.create({
     gap: Spacing.xs,
   },
   thematicVerseMetaRow: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -1174,7 +1174,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   thematicTipCard: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     padding: Spacing.md,
     borderRadius: BorderRadius.md,
     borderWidth: 1,
@@ -1183,7 +1183,7 @@ const styles = StyleSheet.create({
   thematicTipBody: {
     flex: 1,
     gap: 2,
-    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
+    alignItems: 'flex-start',
   },
   thematicTipLabel: {
     fontSize: Fonts.sizes.xs,

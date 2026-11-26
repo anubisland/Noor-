@@ -24,7 +24,7 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
         {
           backgroundColor: colors.surface,
           borderTopColor: colors.border,
-          flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+          flexDirection: 'row',
         },
       ]}
     >

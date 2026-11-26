@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   pageCard: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     padding: Spacing.md,
     marginHorizontal: Spacing.lg,
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
   pageCardInfo: {
     flex: 1,
     marginHorizontal: Spacing.md,
-    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
+    alignItems: 'flex-start',
   },
   pageSurahsText: {
     fontSize: Fonts.sizes.md,
@@ -353,7 +353,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   filterContainer: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     paddingHorizontal: Spacing.lg,
     gap: Spacing.sm,
     marginVertical: Spacing.sm,

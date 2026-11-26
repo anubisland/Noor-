@@ -858,8 +858,8 @@ export default function SurahScreen() {
                     </View>
 
                     {/* 2. Surah Name & Metadata (Middle) */}
-                    <View style={{ flex: 1, alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end', marginHorizontal: 12 }}>
-                      <View style={{ flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse', alignItems: 'center', gap: 6 }}>
+                    <View style={{ flex: 1, alignItems: 'flex-start', marginHorizontal: 12 }}>
+                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
                         <Text style={[styles.surahPickerNameText, { color: isCurrent ? '#1B7F5A' : colors.text }]}>
                           {item.name}
                         </Text>
@@ -1023,7 +1023,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   surahModalHeader: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: Spacing.lg,
@@ -1049,7 +1049,7 @@ const styles = StyleSheet.create({
     writingDirection: 'rtl',
   },
   surahSearchBox: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: Spacing.lg,
     marginVertical: Spacing.md,
@@ -1067,7 +1067,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   surahPickerCard: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 10,

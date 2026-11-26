@@ -613,7 +613,7 @@ const styles = StyleSheet.create({
 
   // Search Bar
   searchBarBox: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: Spacing.md,
     marginTop: Spacing.md,
@@ -627,7 +627,7 @@ const styles = StyleSheet.create({
   searchInput: { flex: 1, fontSize: Fonts.sizes.sm, textAlign: 'right', writingDirection: 'rtl' },
   qpListContent: { paddingHorizontal: Spacing.md, paddingBottom: 60 },
   qpItem: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     padding: Spacing.md,
     borderRadius: BorderRadius.lg,
@@ -642,7 +642,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  qpInfo: { flex: 1, alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end' },
+  qpInfo: { flex: 1, alignItems: 'flex-start' },
   qpName: { fontSize: Fonts.sizes.sm, fontWeight: '700', lineHeight: 22, textAlign: 'right', writingDirection: 'rtl', alignSelf: 'stretch' },
   qpMeta: { fontSize: Fonts.sizes.xs, fontWeight: '600', marginTop: 2, textAlign: 'right', writingDirection: 'rtl', alignSelf: 'stretch' },
   emptyState: { alignItems: 'center', justifyContent: 'center', paddingVertical: 60, gap: Spacing.sm },
@@ -684,18 +684,18 @@ const styles = StyleSheet.create({
     writingDirection: 'rtl',
   },
   verseFooter: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderTopWidth: 1,
     borderTopColor: 'rgba(0,0,0,0.06)',
     paddingTop: Spacing.sm,
   },
-  verseRefBox: { flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse', alignItems: 'center', gap: 4 },
+  verseRefBox: { flexDirection: 'row', alignItems: 'center', gap: 4 },
   verseRef: { fontSize: Fonts.sizes.xs, fontWeight: '700', textAlign: 'right', writingDirection: 'rtl' },
-  verseActions: { flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse', gap: Spacing.xs },
+  verseActions: { flexDirection: 'row', gap: Spacing.xs },
   actionPill: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
     paddingVertical: 5,
@@ -710,13 +710,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   hadithHeaderRow: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: Spacing.sm,
   },
   narratorBadge: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
     paddingHorizontal: 9,
@@ -748,14 +748,14 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.sm,
   },
   hadithSourceRow: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
     paddingVertical: 5,
     paddingHorizontal: 9,
     borderRadius: BorderRadius.md,
     backgroundColor: 'rgba(191, 149, 63, 0.08)',
-    alignSelf: I18nManager.isRTL ? 'flex-start' : 'flex-end',
+    alignSelf: 'flex-start',
   },
   hadithSourceText: {
     fontSize: 11.5,

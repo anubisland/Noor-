@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.md,
   },
   content: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: Spacing.lg,
     minHeight: 44,

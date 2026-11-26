@@ -54,7 +54,7 @@ export default function SurahCard({ id, name, nameEn, nameTranslation, versesCou
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     padding: Spacing.md,
     marginHorizontal: Spacing.lg,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   info: {
     flex: 1,
     marginHorizontal: Spacing.sm,
-    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
+    alignItems: 'flex-start',
   },
   nameAr: {
     fontSize: 19,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   metaRow: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     marginTop: Spacing.xs,
     gap: Spacing.sm,

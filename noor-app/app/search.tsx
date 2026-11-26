@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.lg,
   },
   headerRow: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.md,
   },
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.sm,
   },
   resultHeader: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.sm,
     marginBottom: Spacing.sm,

@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
   headerSubtitle: { color: 'rgba(255,255,255,0.7)', fontSize: Fonts.sizes.sm },
   scrollContent: { paddingTop: Spacing.lg },
   statsRow: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     paddingHorizontal: Spacing.lg,
     gap: Spacing.sm,
     marginBottom: Spacing.lg,
@@ -281,14 +281,14 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.lg,
   },
   sectionHeader: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.sm,
     marginBottom: Spacing.sm,
   },
   sectionTitle: { fontSize: Fonts.sizes.md, fontWeight: '800', textAlign: 'right' },
   reviewItem: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: Spacing.sm,
@@ -309,7 +309,7 @@ const styles = StyleSheet.create({
     ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),
   },
   modeRow: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     gap: Spacing.sm,
     marginBottom: Spacing.sm,
     ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),
@@ -319,7 +319,7 @@ const styles = StyleSheet.create({
     padding: Spacing.lg,
     borderRadius: BorderRadius.lg,
     gap: Spacing.sm,
-    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
+    alignItems: 'flex-start',
   },
   modeIcon: {
     width: 50,
@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
   modeTitle: { fontSize: 17, fontWeight: '900', writingDirection: 'rtl', textAlign: 'right' },
   modeDesc: { fontSize: 13.5, fontWeight: '700', lineHeight: 20, writingDirection: 'rtl', textAlign: 'right' },
   surahItem: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: Spacing.lg,
     marginBottom: Spacing.sm,
@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
   surahInfo: {
     flex: 1,
     marginHorizontal: Spacing.sm,
-    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
+    alignItems: 'flex-start',
   },
   surahName: {
     fontSize: 18,
@@ -374,7 +374,7 @@ const styles = StyleSheet.create({
   progressFill: { height: '100%', borderRadius: 3.5 },
   progressText: { fontSize: 13, fontWeight: '800' },
   browseAllBtn: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: Spacing.lg,
@@ -423,7 +423,7 @@ const styles = StyleSheet.create({
     writingDirection: 'rtl',
   },
   pickerItem: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
@@ -441,7 +441,7 @@ const styles = StyleSheet.create({
   pickerInfo: {
     flex: 1,
     marginHorizontal: Spacing.sm,
-    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
+    alignItems: 'flex-start',
   },
   pickerName: {
     fontSize: Fonts.sizes.md,

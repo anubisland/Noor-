@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.lg,
   },
   tafsirHeader: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.sm,
     padding: Spacing.md,

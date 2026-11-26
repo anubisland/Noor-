@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xs,
   },
   ayahSectionHeader: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: Spacing.sm,
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   noteToggle: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: Spacing.xs,

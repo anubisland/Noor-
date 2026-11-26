@@ -149,12 +149,12 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   headerRow: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   metaInfo: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.sm,
   },
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     writingDirection: 'rtl',
   },
   footerRow: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderTopWidth: 1,
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   viewAyahHint: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
   },

@@ -630,7 +630,7 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.lg,
     paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.sm,
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     borderWidth: 1.5,
@@ -639,7 +639,7 @@ const styles = StyleSheet.create({
     borderColor: '#A3E4D7',
   },
   lastReadContent: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.md,
   },
@@ -653,7 +653,7 @@ const styles = StyleSheet.create({
   },
   lastReadInfo: {
     gap: 2,
-    alignItems: I18nManager.isRTL ? 'flex-start' : 'flex-end',
+    alignItems: 'flex-start',
   },
   lastReadLabel: {
     fontSize: Fonts.sizes.xs,
@@ -674,7 +674,7 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.lg,
     paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.sm,
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.sm,
     borderWidth: 1,
@@ -739,7 +739,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
   },
   searchInnerRow: {
-    flexDirection: I18nManager.isRTL ? 'row' : 'row-reverse',
+    flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.sm,
     ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),

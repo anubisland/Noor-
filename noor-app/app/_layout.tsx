@@ -73,16 +73,16 @@ export default function RootLayout() {
     <>
       {Platform.OS === 'web' && (
         <Head>
-          <title>زاد القرآن الكريم - المصحف الشريف</title>
-          <meta name="description" content="تطبيق زاد القرآن الكريم - المصحف الشريف، المتشابهات، التفاسير، وأسباب النزول" />
+          <title>نور القرآن الكريم - المصحف الشريف</title>
+          <meta name="description" content="تطبيق نور القرآن الكريم - المصحف الشريف، المتشابهات، التفاسير، وأسباب النزول" />
           <meta name="theme-color" content="#0D7C5F" />
           <link rel="manifest" href="/Noor-/manifest.json" />
           <link rel="icon" type="image/png" href="/Noor-/favicon.png" />
           <link rel="apple-touch-icon" href="/Noor-/icons/icon-192.png" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-          <meta name="apple-mobile-web-app-title" content="زاد القرآن" />
-          <meta name="application-name" content="زاد القرآن الكريم" />
+          <meta name="apple-mobile-web-app-title" content="نور القرآن" />
+          <meta name="application-name" content="نور القرآن الكريم" />
           <meta name="msapplication-TileColor" content="#0D7C5F" />
           <style>{`
             html, body, #root {
