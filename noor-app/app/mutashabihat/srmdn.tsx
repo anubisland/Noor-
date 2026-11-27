@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
-import { Fonts, Spacing, BorderRadius, Shadows, rtlRow } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlText } from '../../constants/theme';
 import { srmdnPairs, srmdnCategories } from '../../data/mutashabihat-from-srmdn';
 import { quranData } from '../../data/quran';
 import { surahsMetadata } from '../../data/metadata';
@@ -254,13 +254,13 @@ const styles = StyleSheet.create({
   ayahSectionLabel: {
     fontSize: Fonts.sizes.xs,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   ayahSectionRef: {
     fontSize: Fonts.sizes.xs,
     fontWeight: '700',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   ayahText: {
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
   translationText: {
     fontSize: Fonts.sizes.sm,
     lineHeight: 22,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     fontWeight: '600',
   },
@@ -323,13 +323,13 @@ const styles = StyleSheet.create({
     color: '#16A085',
     marginBottom: Spacing.xs,
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
   },
   noteText: {
     fontSize: Fonts.sizes.md,
     lineHeight: 26,
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
     fontWeight: '600',
   },
   noteTranslationSection: {
@@ -341,7 +341,7 @@ const styles = StyleSheet.create({
   noteTranslationText: {
     fontSize: Fonts.sizes.sm,
     lineHeight: 22,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     fontWeight: '600',
   },

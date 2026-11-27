@@ -2,7 +2,7 @@ import React from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, I18nManager } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
-import { BorderRadius, Fonts, Spacing, rtlRow } from '../../constants/theme';
+import {  BorderRadius, Fonts, Spacing, rtlRow, rtlText } from '../../constants/theme';
 
 interface SearchBarProps {
   value: string;
@@ -56,6 +56,6 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.xs,
     paddingHorizontal: Spacing.sm,
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
   },
 });

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platfo
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
-import { Fonts, Spacing, BorderRadius, rtlRow } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, rtlRow, rtlText } from '../../constants/theme';
 import { useApp } from '../../context/AppContext';
 import { quranicDuas, duaCategories, QuranicDua } from '../../data/quranic-duas';
 import { quranData } from '../../data/quran';
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.lg,
     fontWeight: '800',
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
   },
   surahDividerLine: {
     flex: 1,
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
   duaRefText: {
     fontSize: Fonts.sizes.xs,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   playAudioBtn: {
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
   translationText: {
     fontSize: Fonts.sizes.md,
     lineHeight: 24,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     fontWeight: '600',
     color: '#1E293B',

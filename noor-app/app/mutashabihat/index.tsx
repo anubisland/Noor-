@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
-import { Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
 import Header from '../../components/ui/Header';
 import { mutashabihatData, MutashabihatGroup } from '../../data/mutashabihat';
 import { mutashabihatByAyah } from '../../data/mutashabihat-from-waqar';
@@ -864,7 +864,7 @@ const styles = StyleSheet.create({
   surahSelectName: {
     fontSize: Fonts.sizes.md,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     width: '100%',
   },
@@ -872,7 +872,7 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.xs,
     fontWeight: '700',
     marginTop: 2,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     width: '100%',
   },
@@ -925,7 +925,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: Fonts.arabic.quran,
     lineHeight: 38,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     fontWeight: '700',
     color: '#0F172A',
@@ -939,7 +939,7 @@ const styles = StyleSheet.create({
   waqarMutsHeader: {
     fontSize: Fonts.sizes.xs,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   waqarMutItem: {
@@ -961,14 +961,14 @@ const styles = StyleSheet.create({
   waqarMutSurahName: {
     fontSize: Fonts.sizes.xs,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   waqarMutText: {
     fontSize: 18,
     fontFamily: Fonts.arabic.quran,
     lineHeight: 34,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     fontWeight: '600',
     color: '#1E293B',
@@ -1015,7 +1015,7 @@ const styles = StyleSheet.create({
   pairIndexText: {
     fontSize: Fonts.sizes.xs,
     fontWeight: '700',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   ruleAyahBox: {
@@ -1031,14 +1031,14 @@ const styles = StyleSheet.create({
   ruleAyahRef: {
     fontSize: Fonts.sizes.xs,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   ruleAyahText: {
     fontSize: 18,
     fontFamily: Fonts.arabic.quran,
     lineHeight: 34,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     fontWeight: '700',
     color: '#0F172A',
@@ -1073,14 +1073,14 @@ const styles = StyleSheet.create({
   ruleNoteTitle: {
     fontSize: Fonts.sizes.xs,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   ruleNoteBody: {
     fontSize: Fonts.sizes.sm,
     lineHeight: 24,
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
     fontWeight: '600',
     color: '#1E293B',
   },
@@ -1128,7 +1128,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: Fonts.sizes.md,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   thematicContent: {
@@ -1140,7 +1140,7 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.sm,
     lineHeight: 22,
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
     fontWeight: '600',
     color: '#1E293B',
   },
@@ -1158,14 +1158,14 @@ const styles = StyleSheet.create({
   thematicVerseSurah: {
     fontSize: Fonts.sizes.xs,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   thematicVerseText: {
     fontSize: 18,
     fontFamily: Fonts.arabic.quran,
     lineHeight: 34,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     fontWeight: '700',
     color: '#0F172A',
@@ -1188,14 +1188,14 @@ const styles = StyleSheet.create({
   thematicTipLabel: {
     fontSize: Fonts.sizes.xs,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   thematicTipText: {
     fontSize: Fonts.sizes.sm,
     lineHeight: 22,
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
     fontWeight: '600',
     color: '#1E293B',
   },

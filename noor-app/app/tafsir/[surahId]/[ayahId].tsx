@@ -4,7 +4,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../../context/ThemeContext';
 import { useApp } from '../../../context/AppContext';
-import { Fonts, Spacing, BorderRadius, Shadows, rtlRow } from '../../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlText } from '../../../constants/theme';
 import Header from '../../../components/ui/Header';
 import { quranData } from '../../../data/quran';
 import { surahsMetadata } from '../../../data/metadata';
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
   tafsirName: {
     fontSize: Fonts.sizes.md,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   tafsirText: {
@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     padding: Spacing.lg,
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
     fontWeight: '600',
     color: '#111827',
   },

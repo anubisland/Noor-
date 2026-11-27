@@ -8,7 +8,10 @@ export const isRTL = Platform.OS === 'web' || I18nManager.isRTL;
 export const rtlRow: 'row' | 'row-reverse' = (Platform.OS === 'web' || I18nManager.isRTL) ? 'row' : 'row-reverse';
 export const rtlAlign: 'flex-start' | 'flex-end' = (Platform.OS === 'web' || I18nManager.isRTL) ? 'flex-start' : 'flex-end';
 export const rtlFlexStart: 'flex-start' | 'flex-end' = (Platform.OS === 'web' || I18nManager.isRTL) ? 'flex-start' : 'flex-end';
-export const rtlFlexEnd: 'flex-start' | 'flex-end' = (Platform.OS === 'web' || I18nManager.isRTL) ? 'flex-end' : 'flex-start';
+// Android swaps textAlign left<->right when native RTL is active (ReactTextShadowNode),
+// so 'left' renders on the right there. Web keeps physical alignment.
+export const rtlText: 'left' | 'right' = (Platform.OS !== 'web' && I18nManager.isRTL) ? 'left' : 'right';
+export const rtlFlexEnd:'flex-start' | 'flex-end' = (Platform.OS === 'web' || I18nManager.isRTL) ? 'flex-end' : 'flex-start';
 
 export const Colors = {
   primary: '#0D7C5F',

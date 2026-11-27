@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platfo
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
-import { Fonts, Spacing, BorderRadius, Shadows, rtlRow } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlText } from '../../constants/theme';
 import { adhkarData } from '../../data/adhkar';
 
 const ADHKAR_COLOR = '#0D7C5F';
@@ -236,12 +236,12 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.lg,
     fontWeight: '800',
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
   },
   categoryCount: {
     fontSize: Fonts.sizes.xs,
     marginTop: 2,
-    textAlign: 'right',
+    textAlign: rtlText,
     fontWeight: '600',
   },
   entriesContainer: {
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.lg,
     lineHeight: Fonts.lineHeights.relaxed * Fonts.sizes.lg,
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
     fontWeight: '600',
   },
   counterRow: {

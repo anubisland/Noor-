@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platfo
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
-import { Fonts, Spacing, BorderRadius, rtlRow, rtlAlign } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
 import { ALL_TAFSIR_SOURCES, RECITERS, APP_CONFIG } from '../../constants/config';
 
 const toArabicDigits = (str: string) => str.replace(/[0-9]/g, (d) => ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'][parseInt(d, 10)]);
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: Fonts.sizes.xl,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     width: '100%',
   },
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.sm,
     fontWeight: '700',
     marginTop: 2,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     width: '100%',
   },
@@ -302,14 +302,14 @@ const styles = StyleSheet.create({
   tafsirName: {
     fontSize: Fonts.sizes.md,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     width: '100%',
   },
   tafsirDesc: {
     fontSize: 13,
     fontWeight: '700',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     width: '100%',
   },

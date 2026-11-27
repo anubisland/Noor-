@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar, Platform
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../context/ThemeContext';
-import { Fonts, Spacing, BorderRadius, Shadows, rtlRow } from '../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlText } from '../constants/theme';
 import SearchBar from '../components/ui/SearchBar';
 import { quranData } from '../data/quran';
 import { surahsMetadata } from '../data/metadata';
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   resultCount: {
     fontSize: Fonts.sizes.sm,
     fontWeight: '700',
-    textAlign: 'right',
+    textAlign: rtlText,
     marginBottom: Spacing.sm,
     marginHorizontal: Spacing.sm,
   },
@@ -222,11 +222,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  resultRef: { fontSize: Fonts.sizes.sm, fontWeight: '700', textAlign: 'right' },
+  resultRef: { fontSize: Fonts.sizes.sm, fontWeight: '700', textAlign: rtlText },
   resultText: {
     fontSize: Fonts.sizes.lg,
     lineHeight: 32,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   highlight: { fontWeight: '700' },

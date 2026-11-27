@@ -14,7 +14,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
-import { Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
 import { quranTopics, QuranTopic } from '../../data/topics';
 import { quranpediaTopics, QPTopic } from '../../data/topics-from-quranpedia';
 import { quranData } from '../../data/quran';
@@ -626,7 +626,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     gap: Spacing.sm,
   },
-  searchInput: { flex: 1, fontSize: Fonts.sizes.sm, textAlign: 'right', writingDirection: 'rtl' },
+  searchInput: { flex: 1, fontSize: Fonts.sizes.sm, textAlign: rtlText, writingDirection: 'rtl' },
   qpListContent: { paddingHorizontal: Spacing.md, paddingBottom: 60 },
   qpItem: {
     flexDirection: rtlRow,
@@ -645,8 +645,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   qpInfo: { flex: 1, alignItems: rtlAlign },
-  qpName: { fontSize: Fonts.sizes.sm, fontWeight: '700', lineHeight: 22, textAlign: 'right', writingDirection: 'rtl', width: '100%' },
-  qpMeta: { fontSize: Fonts.sizes.xs, fontWeight: '600', marginTop: 2, textAlign: 'right', writingDirection: 'rtl', width: '100%' },
+  qpName: { fontSize: Fonts.sizes.sm, fontWeight: '700', lineHeight: 22, textAlign: rtlText, writingDirection: 'rtl', width: '100%' },
+  qpMeta: { fontSize: Fonts.sizes.xs, fontWeight: '600', marginTop: 2, textAlign: rtlText, writingDirection: 'rtl', width: '100%' },
   emptyState: { alignItems: 'center', justifyContent: 'center', paddingVertical: 60, gap: Spacing.sm },
   emptyText: { fontSize: Fonts.sizes.sm, fontWeight: '600', textAlign: 'center', writingDirection: 'rtl' },
 
@@ -670,7 +670,7 @@ const styles = StyleSheet.create({
   topicTitleEn: { color: 'rgba(255,255,255,0.85)', fontSize: Fonts.sizes.sm },
   topicDescription: { color: 'rgba(255,255,255,0.8)', fontSize: Fonts.sizes.xs, textAlign: 'center', lineHeight: 18 },
   topicContent: { padding: Spacing.md },
-  sectionHeading: { fontSize: Fonts.sizes.lg, fontWeight: '700', marginBottom: Spacing.sm, writingDirection: 'rtl', textAlign: 'right' },
+  sectionHeading: { fontSize: Fonts.sizes.lg, fontWeight: '700', marginBottom: Spacing.sm, writingDirection: 'rtl', textAlign: rtlText },
   verseCard: {
     padding: Spacing.md,
     borderRadius: BorderRadius.lg,
@@ -694,7 +694,7 @@ const styles = StyleSheet.create({
     paddingTop: Spacing.sm,
   },
   verseRefBox: { flexDirection: rtlRow, alignItems: 'center', gap: 4 },
-  verseRef: { fontSize: Fonts.sizes.xs, fontWeight: '700', textAlign: 'right', writingDirection: 'rtl' },
+  verseRef: { fontSize: Fonts.sizes.xs, fontWeight: '700', textAlign: rtlText, writingDirection: 'rtl' },
   verseActions: { flexDirection: rtlRow, gap: Spacing.xs },
   actionPill: {
     flexDirection: rtlRow,
@@ -745,7 +745,7 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.md,
     lineHeight: 28,
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
     color: '#2C3E50',
     marginBottom: Spacing.sm,
   },
@@ -764,8 +764,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#996515',
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
   },
   emptyDetail: { alignItems: 'center', paddingVertical: 40, gap: Spacing.md, paddingHorizontal: Spacing.lg },
-  emptyDetailText: { fontSize: Fonts.sizes.sm, textAlign: 'right', lineHeight: 22, writingDirection: 'rtl' },
+  emptyDetailText: { fontSize: Fonts.sizes.sm, textAlign: rtlText, lineHeight: 22, writingDirection: 'rtl' },
 });

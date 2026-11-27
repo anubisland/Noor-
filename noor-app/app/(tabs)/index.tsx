@@ -7,7 +7,7 @@ import Svg, { Polygon, Line, Circle, G } from 'react-native-svg';
 import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
 import { useHifz } from '../../context/HifzContext';
-import { Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
 
 // Authentic Islamic 8-Pointed Star Arabesque Lattice Vector Component
 const ArabesquePattern = () => {
@@ -663,14 +663,14 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.xs,
     fontWeight: '800',
     color: '#117A65',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   lastReadSurah: {
     fontSize: Fonts.sizes.md,
     fontWeight: '800',
     color: '#164E3D',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   reviewAlert: {
@@ -688,7 +688,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: Fonts.sizes.sm,
     fontWeight: '700',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   sectionHeaderWrapper: {
@@ -753,7 +753,7 @@ const styles = StyleSheet.create({
   fullWidthSearchPlaceholder: {
     fontSize: 14,
     fontWeight: '700',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   statsCard: {

@@ -4,7 +4,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
-import { Fonts, Spacing, BorderRadius, rtlRow, rtlAlign } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
 import Header from '../../components/ui/Header';
 import AyahView from '../../components/quran/AyahView';
 import MushafPageView, { getPageItemDimensions } from '../../components/quran/MushafPageView';
@@ -1038,14 +1038,14 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.lg,
     fontWeight: '800',
     fontFamily: Fonts.arabic.bold,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   surahModalSubtitle: {
     fontSize: Fonts.sizes.xs,
     fontWeight: '700',
     marginTop: 2,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   surahSearchBox: {
@@ -1064,7 +1064,7 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.sm,
     fontFamily: Fonts.arabic.regular,
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
   },
   surahPickerCard: {
     flexDirection: rtlRow,
@@ -1091,14 +1091,14 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.md,
     fontFamily: Fonts.arabic.bold,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   surahPickerMetaText: {
     fontSize: Fonts.sizes.xs,
     fontWeight: '700',
     marginTop: 2,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   surahPickerPageBadge: {

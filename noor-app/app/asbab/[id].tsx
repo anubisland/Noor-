@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, Modal
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
-import { Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
 import Header from '../../components/ui/Header';
 import { asbabData } from '../../data/asbab-nuzul';
 import { surahsMetadata } from '../../data/metadata';
@@ -446,8 +446,8 @@ const styles = StyleSheet.create({
   },
   storyNumberText: { fontSize: Fonts.sizes.md, fontWeight: '800' },
   storyHeaderInfo: { flex: 1, gap: 4 },
-  storyTitle: { fontSize: Fonts.sizes.md, fontWeight: '800', textAlign: 'right', writingDirection: 'rtl', width: '100%' },
-  storyRef: { fontSize: Fonts.sizes.sm, fontWeight: '700', textAlign: 'right', writingDirection: 'rtl', width: '100%' },
+  storyTitle: { fontSize: Fonts.sizes.md, fontWeight: '800', textAlign: rtlText, writingDirection: 'rtl', width: '100%' },
+  storyRef: { fontSize: Fonts.sizes.sm, fontWeight: '700', textAlign: rtlText, writingDirection: 'rtl', width: '100%' },
   themeBadge: {
     paddingHorizontal: Spacing.sm,
     paddingVertical: 2,
@@ -509,7 +509,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: Fonts.sizes.md,
     lineHeight: 28,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     fontWeight: '600',
     color: '#1E293B',
@@ -525,17 +525,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: Spacing.sm,
   },
-  contextTitle: { fontSize: Fonts.sizes.sm, fontWeight: '800', textAlign: 'right', writingDirection: 'rtl' },
+  contextTitle: { fontSize: Fonts.sizes.sm, fontWeight: '800', textAlign: rtlText, writingDirection: 'rtl' },
   contextText: {
     fontSize: Fonts.sizes.sm,
     lineHeight: 24,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     fontWeight: '600',
     color: '#1E293B',
   },
   figuresSection: { gap: Spacing.sm },
-  figuresTitle: { fontSize: Fonts.sizes.sm, fontWeight: '800', textAlign: 'right', writingDirection: 'rtl' },
+  figuresTitle: { fontSize: Fonts.sizes.sm, fontWeight: '800', textAlign: rtlText, writingDirection: 'rtl' },
   figuresRow: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.xs },
   figureBadge: {
     flexDirection: 'row',

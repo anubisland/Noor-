@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
 import { useHifz } from '../../context/HifzContext';
-import { Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
 import { surahsMetadata } from '../../data/metadata';
 import { MEMORIZATION_MODES } from '../../constants/config';
 
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
     marginBottom: Spacing.sm,
   },
-  sectionTitle: { fontSize: Fonts.sizes.md, fontWeight: '800', textAlign: 'right' },
+  sectionTitle: { fontSize: Fonts.sizes.md, fontWeight: '800', textAlign: rtlText },
   reviewItem: {
     flexDirection: rtlRow,
     justifyContent: 'space-between',
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.sm,
     borderTopWidth: 1,
   },
-  reviewText: { fontSize: 15, fontWeight: '700', textAlign: 'right' },
+  reviewText: { fontSize: 15, fontWeight: '700', textAlign: rtlText },
   sectionHeaderWrapper: {
     width: '100%',
     flexDirection: 'row',
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '900',
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
   },
   modesContainer: {
     paddingHorizontal: Spacing.lg,
@@ -342,8 +342,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  modeTitle: { fontSize: 17, fontWeight: '900', writingDirection: 'rtl', textAlign: 'right', width: '100%' },
-  modeDesc: { fontSize: 13.5, fontWeight: '700', lineHeight: 20, writingDirection: 'rtl', textAlign: 'right', width: '100%' },
+  modeTitle: { fontSize: 17, fontWeight: '900', writingDirection: 'rtl', textAlign: rtlText, width: '100%' },
+  modeDesc: { fontSize: 13.5, fontWeight: '700', lineHeight: 20, writingDirection: 'rtl', textAlign: rtlText, width: '100%' },
   surahItem: {
     flexDirection: rtlRow,
     alignItems: 'center',
@@ -372,7 +372,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '900',
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
     width: '100%',
   },
   surahMeta: {
@@ -380,7 +380,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     marginTop: 2,
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
     width: '100%',
   },
   progressContainer: { alignItems: 'center', gap: 4, width: 60 },
@@ -460,7 +460,7 @@ const styles = StyleSheet.create({
   pickerName: {
     fontSize: Fonts.sizes.md,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     width: '100%',
   },
@@ -468,7 +468,7 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.xs,
     fontWeight: '600',
     marginTop: 2,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
     width: '100%',
   },

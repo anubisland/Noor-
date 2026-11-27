@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, I18nManager } from 'react-nat
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
-import { BorderRadius, Fonts, Shadows, Spacing, rtlRow, rtlAlign } from '../../constants/theme';
+import {  BorderRadius, Fonts, Shadows, Spacing, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
 import Badge from '../ui/Badge';
 
 interface SurahCardProps {
@@ -83,14 +83,14 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: '800',
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
   },
   nameEn: {
     width: '100%',
     fontSize: Fonts.sizes.sm,
     fontWeight: '600',
     marginTop: 2,
-    textAlign: 'right',
+    textAlign: rtlText,
   },
   metaRow: {
     flexDirection: rtlRow,

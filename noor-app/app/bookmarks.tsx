@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../context/ThemeContext';
 import { useApp } from '../context/AppContext';
-import { Fonts, Spacing, BorderRadius, Shadows, rtlRow } from '../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlText } from '../constants/theme';
 import Header from '../components/ui/Header';
 import { quranData } from '../data/quran';
 import { audioService } from '../services/audioService';
@@ -168,12 +168,12 @@ const styles = StyleSheet.create({
   surahName: {
     fontSize: Fonts.sizes.md,
     fontWeight: '800',
-    textAlign: 'right',
+    textAlign: rtlText,
   },
   ayahRef: {
     fontSize: Fonts.sizes.xs,
     marginTop: 2,
-    textAlign: 'right',
+    textAlign: rtlText,
     fontWeight: '600',
   },
   actionsRow: {
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.arabic.quran,
     fontSize: 20,
     lineHeight: 38,
-    textAlign: 'right',
+    textAlign: rtlText,
     writingDirection: 'rtl',
   },
   footerRow: {

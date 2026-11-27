@@ -19,7 +19,7 @@ import { ExpoSpeechRecognitionModule, useSpeechRecognitionEvent } from 'expo-spe
 import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
 import { useHifz } from '../../context/HifzContext';
-import { Fonts, Spacing, BorderRadius, Shadows } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlText } from '../../constants/theme';
 import Header from '../../components/ui/Header';
 import { quranData } from '../../data/quran';
 import { surahsMetadata } from '../../data/metadata';
@@ -2006,7 +2006,7 @@ const styles = StyleSheet.create({
   wordBankTitle: {
     fontSize: Fonts.sizes.xs,
     fontWeight: '600',
-    textAlign: 'right',
+    textAlign: rtlText,
   },
   wordBankChips: {
     flexDirection: 'row',
@@ -2045,7 +2045,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 20,
     lineHeight: 38,
-    textAlign: 'right',
+    textAlign: rtlText,
   },
   orderInstruction: { fontSize: Fonts.sizes.sm, textAlign: 'center', marginBottom: Spacing.sm },
   shuffledItem: {
@@ -2139,7 +2139,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 46,
     writingDirection: 'rtl',
-    textAlign: 'right',
+    textAlign: rtlText,
   },
   tasmiCurrentArea: { gap: Spacing.sm },
   tasmiErrorBanner: {
