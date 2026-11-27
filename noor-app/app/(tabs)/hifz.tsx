@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
 import { useHifz } from '../../context/HifzContext';
-import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign, rtlText, stripeBg } from '../../constants/theme';
 import { surahsMetadata } from '../../data/metadata';
 import { MEMORIZATION_MODES } from '../../constants/config';
 
@@ -218,11 +218,11 @@ export default function HifzScreen() {
             <FlatList
               data={filteredSurahs}
               keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => {
+              renderItem={({ item, index }) => {
                 const progress = getMemorizationProgress(item.id);
                 return (
                   <TouchableOpacity
-                    style={[styles.pickerItem, { borderBottomColor: colors.borderLight }]}
+                    style={[styles.pickerItem, { backgroundColor: stripeBg(index, colors), borderBottomColor: colors.borderLight }]}
                     onPress={() => selectSurah(item.id)}
                   >
                     <View style={[styles.pickerNumber, { backgroundColor: colors.primaryLight }]}>

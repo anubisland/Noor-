@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
-import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign, rtlText, stripeBg } from '../../constants/theme';
 import Header from '../../components/ui/Header';
 import { mutashabihatData, MutashabihatGroup } from '../../data/mutashabihat';
 import { mutashabihatByAyah } from '../../data/mutashabihat-from-waqar';
@@ -343,7 +343,7 @@ export default function MutashabihatScreen() {
                 <View
                   style={[
                     styles.waqarCard,
-                    { backgroundColor: colors.surface, borderColor: colors.borderLight },
+                    { backgroundColor: stripeBg(index, colors), borderColor: colors.borderLight },
                     Shadows.sm,
                   ]}
                 >
@@ -500,7 +500,7 @@ export default function MutashabihatScreen() {
                 <View
                   style={[
                     styles.ruleCard,
-                    { backgroundColor: colors.surface, borderColor: catColor + '40' },
+                    { backgroundColor: stripeBg(index, colors), borderColor: catColor + '40' },
                     Shadows.sm,
                   ]}
                 >
@@ -624,7 +624,7 @@ export default function MutashabihatScreen() {
             keyExtractor={(item) => item.id}
             contentContainerStyle={styles.listPadding}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => {
+            renderItem={({ item, index }) => {
               const isExpanded = expandedThematicGroup === item.id;
 
               return (
@@ -633,7 +633,7 @@ export default function MutashabihatScreen() {
                   onPress={() => setExpandedThematicGroup(isExpanded ? null : item.id)}
                   style={[
                     styles.thematicCard,
-                    { backgroundColor: colors.surface, borderColor: colors.borderLight },
+                    { backgroundColor: stripeBg(index, colors), borderColor: colors.borderLight },
                     Shadows.sm,
                   ]}
                 >
@@ -734,7 +734,7 @@ export default function MutashabihatScreen() {
               data={filteredSurahsList}
               keyExtractor={(item) => item.id.toString()}
               contentContainerStyle={styles.modalListPadding}
-              renderItem={({ item }) => {
+              renderItem={({ item, index }) => {
                 const count = surahCountsMap.get(item.id) || 0;
                 const isSelected = selectedWaqarSurahId === item.id;
 
@@ -743,7 +743,7 @@ export default function MutashabihatScreen() {
                     style={[
                       styles.modalSurahItem,
                       {
-                        backgroundColor: isSelected ? colors.primaryLight : colors.surface,
+                        backgroundColor: isSelected ? colors.primaryLight : stripeBg(index, colors),
                         borderColor: isSelected ? colors.primary : colors.borderLight,
                       },
                     ]}

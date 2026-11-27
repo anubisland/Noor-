@@ -14,7 +14,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
-import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign, rtlText, stripeBg } from '../../constants/theme';
 import { quranTopics, QuranTopic } from '../../data/topics';
 import { quranpediaTopics, QPTopic } from '../../data/topics-from-quranpedia';
 import { quranData } from '../../data/quran';
@@ -508,11 +508,11 @@ export default function MawduiScreen() {
                 </Text>
               </View>
             }
-            renderItem={({ item }) => {
+            renderItem={({ item, index }) => {
               const ayahCount = item.ayahs ? item.ayahs.split(',').filter(Boolean).length : 0;
               return (
                 <TouchableOpacity
-                  style={[styles.qpItem, { backgroundColor: colors.surface, borderColor: colors.borderLight }, Shadows.sm]}
+                  style={[styles.qpItem, { backgroundColor: stripeBg(index, colors), borderColor: colors.borderLight }, Shadows.sm]}
                   onPress={() => setSelectedQPTopic(item)}
                   activeOpacity={0.7}
                 >

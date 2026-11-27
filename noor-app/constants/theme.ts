@@ -24,6 +24,7 @@ export const Colors = {
   background: '#FAFAF5',
   surface: '#FFFFFF',
   surfaceVariant: '#F5F5F0',
+  stripe: '#F0F1F3',
   text: '#090A0F',
   textSecondary: '#1E293B',
   textLight: '#334155',
@@ -52,6 +53,7 @@ export const DarkColors = {
   background: '#0B0F19',
   surface: '#111827',
   surfaceVariant: '#1F2937',
+  stripe: '#1A2230',
   text: '#FFFFFF',
   textSecondary: '#F1F5F9',
   textLight: '#CBD5E1',
@@ -80,8 +82,8 @@ export const Fonts = {
     hafs: 'KFGQPC',
   },
   sizes: {
-    xs: 13,
-    sm: 15,
+    xs: 14,
+    sm: 16,
     md: 17,
     lg: 19,
     xl: 22,
@@ -142,3 +144,7 @@ export const Shadows = {
     elevation: 5,
   },
 };
+
+// Alternating row background for long lists (white / light gray) to ease line tracking.
+export const stripeBg = (index: number, colors: { surface: string; stripe: string }) =>
+  index % 2 === 0 ? colors.surface : colors.stripe;

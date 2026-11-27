@@ -263,7 +263,7 @@ export default function HomeScreen() {
                 activeOpacity={0.8}
               >
                 <View style={styles.mushafIconCircle}>
-                  <Ionicons name="book" size={24} color="#FFE066" style={styles.bookIconGlow} />
+                  <Ionicons name="book" size={26} color="#FFD700" style={styles.bookIconGlow} />
                 </View>
               </TouchableOpacity>
             </View>
@@ -529,16 +529,16 @@ const styles = StyleSheet.create({
     width: 52,
     height: 52,
     borderRadius: 26,
-    borderWidth: 1.5,
-    borderColor: 'rgba(255, 224, 102, 0.75)',
-    backgroundColor: 'rgba(11, 77, 47, 0.9)',
+    borderWidth: 2,
+    borderColor: '#FFD700',
+    backgroundColor: 'rgba(212, 175, 55, 0.22)',
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#FFD700',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 5,
-    elevation: 4,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.95,
+    shadowRadius: 14,
+    elevation: 12,
   },
   bookIconGlow: {
     shadowColor: '#FFD700',
@@ -548,15 +548,16 @@ const styles = StyleSheet.create({
   },
   mainAppTitle: {
     fontFamily: 'AmiriQuran',
-    fontSize: 36,
-    color: '#FFF275',
+    fontSize: 44,
+    color: '#FFD966',
     textAlign: 'center',
-    textShadowColor: '#FFAA00',
+    textShadowColor: '#FFC300',
     textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 20,
+    textShadowRadius: 24,
     fontWeight: '700',
-    lineHeight: 50,
-    marginBottom: 4,
+    lineHeight: 84,
+    paddingTop: 6,
+    marginBottom: 10,
     overflow: 'visible',
   },
   subAppTitle: {
@@ -565,8 +566,8 @@ const styles = StyleSheet.create({
     color: '#FFF0B8',
     fontWeight: '700',
     textAlign: 'center',
-    marginTop: 6,
-    lineHeight: 20,
+    marginTop: 4,
+    lineHeight: 22,
   },
   scrollContent: {
     paddingTop: Spacing.sm,

@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../context/ThemeContext';
 import { useApp } from '../context/AppContext';
-import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlText } from '../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlText, stripeBg } from '../constants/theme';
 import Header from '../components/ui/Header';
 import { quranData } from '../data/quran';
 import { audioService } from '../services/audioService';
@@ -50,14 +50,14 @@ export default function BookmarksScreen() {
           data={sortedBookmarks}
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.listContent}
-          renderItem={({ item }) => {
+          renderItem={({ item, index }) => {
             const ayahObj = getAyahObj(item.surahId, item.ayahNumber);
             const ayahText = ayahObj?.text || '';
 
             return (
               <TouchableOpacity
                 activeOpacity={0.85}
-                style={[styles.bookmarkCard, { backgroundColor: colors.surface, borderColor: colors.borderLight }, Shadows.sm]}
+                style={[styles.bookmarkCard, { backgroundColor: stripeBg(index, colors), borderColor: colors.borderLight }, Shadows.sm]}
                 onPress={() => handleOpenBookmark(item.id ? item.surahId : 1, item.ayahNumber)}
               >
                 {/* Header row with surah name, ayah number, audio button, and delete */}

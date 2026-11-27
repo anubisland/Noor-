@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, I18nManager } from 'react-nat
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
-import {  BorderRadius, Fonts, Shadows, Spacing, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
+import {  BorderRadius, Fonts, Shadows, Spacing, rtlRow, rtlAlign, rtlText, stripeBg } from '../../constants/theme';
 import Badge from '../ui/Badge';
 
 interface SurahCardProps {
@@ -14,9 +14,11 @@ interface SurahCardProps {
   versesCount: number;
   revelationType: 'meccan' | 'medinan';
   juz: number[];
+  /** Position in the list; enables alternating row background. */
+  index?: number;
 }
 
-export default function SurahCard({ id, name, nameEn, nameTranslation, versesCount, revelationType, juz }: SurahCardProps) {
+export default function SurahCard({ id, name, nameEn, nameTranslation, versesCount, revelationType, juz, index }: SurahCardProps) {
   const { colors } = useTheme();
   const router = useRouter();
 
@@ -24,7 +26,7 @@ export default function SurahCard({ id, name, nameEn, nameTranslation, versesCou
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={() => router.push(`/surah/${id}`)}
-      style={[styles.container, { backgroundColor: colors.surface, borderColor: colors.borderLight }, Shadows.sm]}
+      style={[styles.container, { backgroundColor: index === undefined ? colors.surface : stripeBg(index, colors), borderColor: colors.borderLight }, Shadows.sm]}
     >
       <View style={[styles.numberContainer, { backgroundColor: colors.primaryLight }]}>
         <Text style={[styles.number, { color: colors.primary }]}>{id}</Text>

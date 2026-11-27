@@ -19,7 +19,7 @@ import { ExpoSpeechRecognitionModule, useSpeechRecognitionEvent } from 'expo-spe
 import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
 import { useHifz } from '../../context/HifzContext';
-import {  Fonts, Spacing, BorderRadius, Shadows, rtlText } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlText, stripeBg } from '../../constants/theme';
 import Header from '../../components/ui/Header';
 import { quranData } from '../../data/quran';
 import { surahsMetadata } from '../../data/metadata';
@@ -1729,14 +1729,14 @@ export default function MemorizeScreen() {
             <FlatList
               data={RECITERS}
               keyExtractor={(item) => item.id}
-              renderItem={({ item }) => {
+              renderItem={({ item, index }) => {
                 const isSelected = selectedReciter === item.id;
                 return (
                   <TouchableOpacity
                     style={[
                       styles.reciterItem,
                       {
-                        backgroundColor: isSelected ? colors.primaryLight : colors.surface,
+                        backgroundColor: isSelected ? colors.primaryLight : stripeBg(index, colors),
                         borderColor: isSelected ? colors.primary : colors.borderLight,
                       },
                     ]}

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar, Platform
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../context/ThemeContext';
-import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlText } from '../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlText, stripeBg } from '../constants/theme';
 import SearchBar from '../components/ui/SearchBar';
 import { quranData } from '../data/quran';
 import { surahsMetadata } from '../data/metadata';
@@ -135,9 +135,9 @@ export default function SearchScreen() {
               {results.length} نتيجة
             </Text>
           }
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <TouchableOpacity
-              style={[styles.resultItem, { backgroundColor: colors.surface, borderColor: colors.borderLight }, Shadows.sm]}
+              style={[styles.resultItem, { backgroundColor: stripeBg(index, colors), borderColor: colors.borderLight }, Shadows.sm]}
               onPress={() => {
                 if (item.matchType === 'surah') {
                   router.push(`/surah/${item.surahId}`);

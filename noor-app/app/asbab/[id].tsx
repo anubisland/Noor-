@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, Modal
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
-import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign, rtlText, stripeBg } from '../../constants/theme';
 import Header from '../../components/ui/Header';
 import { asbabData } from '../../data/asbab-nuzul';
 import { surahsMetadata } from '../../data/metadata';
@@ -312,11 +312,11 @@ export default function AsbabNuzulScreen() {
             <FlatList
               data={filteredSurahs}
               keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => {
+              renderItem={({ item, index }) => {
                 const count = getEntryCount(item.id);
                 return (
                   <TouchableOpacity
-                    style={[styles.pickerItem, { borderBottomColor: colors.borderLight }]}
+                    style={[styles.pickerItem, { backgroundColor: stripeBg(index, colors), borderBottomColor: colors.borderLight }]}
                     onPress={() => selectSurah(item.id)}
                   >
                     <View style={[styles.pickerNumber, { backgroundColor: colors.primaryLight }]}>

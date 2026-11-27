@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, StatusBar, Platform, TouchableOpacity
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
-import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign, rtlText, stripeBg } from '../../constants/theme';
 import SearchBar from '../../components/ui/SearchBar';
 import SurahCard from '../../components/quran/SurahCard';
 import { surahsMetadata } from '../../data/metadata';
@@ -168,8 +168,9 @@ export default function QuranScreen() {
         <FlatList
           data={filteredSurahs}
           keyExtractor={(item) => String(item.id)}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <SurahCard
+              index={index}
               id={item.id}
               name={item.name}
               nameEn={item.nameEn}
@@ -194,7 +195,7 @@ export default function QuranScreen() {
         <FlatList
           data={filteredPages}
           keyExtractor={(item) => `page_${item.page}`}
-          renderItem={({ item }) => {
+          renderItem={({ item, index }) => {
             const surahNames = item.surahs
               .map((s) => surahsMetadata.find((sm) => sm.id === s.id)?.name)
               .filter(Boolean)
@@ -203,7 +204,7 @@ export default function QuranScreen() {
             return (
               <TouchableOpacity
                 activeOpacity={0.7}
-                style={[styles.pageCard, { backgroundColor: colors.surface, borderColor: colors.borderLight }, Shadows.sm]}
+                style={[styles.pageCard, { backgroundColor: stripeBg(index, colors), borderColor: colors.borderLight }, Shadows.sm]}
                 onPress={() => router.push(`/surah/${item.surahs[0].id}`)}
               >
                 <View style={[styles.pageNumberBadge, { backgroundColor: colors.primaryLight }]}>
@@ -234,10 +235,10 @@ export default function QuranScreen() {
         <FlatList
           data={juzList}
           keyExtractor={(item) => `juz_${item.juz}`}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <TouchableOpacity
               activeOpacity={0.7}
-              style={[styles.pageCard, { backgroundColor: colors.surface, borderColor: colors.borderLight }, Shadows.sm]}
+              style={[styles.pageCard, { backgroundColor: stripeBg(index, colors), borderColor: colors.borderLight }, Shadows.sm]}
               onPress={() => router.push(`/surah/${item.firstSurahId}`)}
             >
               <View style={[styles.pageNumberBadge, { backgroundColor: colors.secondaryLight }]}>

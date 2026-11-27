@@ -4,7 +4,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
-import {  Fonts, Spacing, BorderRadius, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
+import {  Fonts, Spacing, BorderRadius, rtlRow, rtlAlign, rtlText, stripeBg } from '../../constants/theme';
 import Header from '../../components/ui/Header';
 import AyahView from '../../components/quran/AyahView';
 import MushafPageView, { getPageItemDimensions } from '../../components/quran/MushafPageView';
@@ -647,8 +647,9 @@ export default function SurahScreen() {
                 flatListRef.current?.scrollToIndex({ index: info.index, animated: false, viewPosition: 0 });
               }, 80);
             }}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <AyahView
+              index={index}
               surahId={surahId}
               surahName={surahMeta.name}
               ayahNumber={item.ayahNumber}
@@ -827,14 +828,14 @@ export default function SurahScreen() {
               keyExtractor={(item) => `picker_surah_${item.id}`}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{ paddingBottom: 24, paddingHorizontal: 16 }}
-              renderItem={({ item }) => {
+              renderItem={({ item, index }) => {
                 const isCurrent = item.id === surahId;
                 return (
                   <TouchableOpacity
                     style={[
                       styles.surahPickerCard,
                       {
-                        backgroundColor: isCurrent ? '#EAF6EE' : colors.surface,
+                        backgroundColor: isCurrent ? '#EAF6EE' : stripeBg(index, colors),
                         borderColor: isCurrent ? '#1B7F5A' : colors.borderLight,
                       },
                     ]}

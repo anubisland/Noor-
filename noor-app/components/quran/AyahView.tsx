@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
-import { BorderRadius, Fonts, Spacing, rtlRow } from '../../constants/theme';
+import { BorderRadius, Fonts, Spacing, rtlRow, stripeBg } from '../../constants/theme';
 import { fetchEnglishTafsir } from '../../services/englishTafsirService';
 
 interface TafsirEntry {
@@ -27,6 +27,8 @@ interface AyahViewProps {
   highlighted?: boolean;
   showActions?: boolean;
   onToggleActions?: () => void;
+  /** Position in the list; enables alternating row background. */
+  index?: number;
 }
 
 export default function AyahView({
@@ -44,6 +46,7 @@ export default function AyahView({
   highlighted,
   showActions,
   onToggleActions,
+  index,
 }: AyahViewProps) {
   const { colors } = useTheme();
   const { addBookmark, removeBookmark, isBookmarked, bookmarks, selectedEnglishTafsir } = useApp();
@@ -108,7 +111,7 @@ export default function AyahView({
       style={[
         styles.container,
         {
-          backgroundColor: highlighted ? colors.goldLight : colors.surface,
+          backgroundColor: highlighted ? colors.goldLight : index === undefined ? colors.surface : stripeBg(index, colors),
           borderColor: highlighted ? colors.secondary : colors.borderLight,
           borderWidth: highlighted ? 2 : 1,
         },
