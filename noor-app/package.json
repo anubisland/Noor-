@@ -1,6 +1,6 @@
 {
   "name": "noor-quran",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "تطبيق زاد القرآن الكريم",
   "main": "index.js",
   "scripts": {

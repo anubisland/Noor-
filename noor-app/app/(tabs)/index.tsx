@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platform, Dimensions, Image, I18nManager } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platform, Dimensions, Image, I18nManager, useWindowDimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -81,6 +81,9 @@ const DAILY_VERSES = [
 ];
 
 export default function HomeScreen() {
+  // Title must fit one line between the two header badges and frame padding (~170px) on narrow phones.
+  const { width: windowWidth } = useWindowDimensions();
+  const titleFontSize = Math.min(44, Math.max(22, (windowWidth - 170) / 6.5));
   const { colors } = useTheme();
   const { lastRead, dailyProgress } = useApp();
   const { stats, getDueReviews } = useHifz();
@@ -247,11 +250,14 @@ export default function HomeScreen() {
               {/* Center: Title + Subtitle in authentic Amiri Quran font */}
               <View style={styles.headerCenterColumn}>
                 <Text
-                  style={styles.mainAppTitle}
+                  style={[styles.mainAppTitle, { fontSize: titleFontSize, lineHeight: titleFontSize * 1.5 }]}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.6}
                 >
                   {Platform.OS === 'web' ? 'نور القرآن الكريم' : 'زاد القرآن الكريم'}
                 </Text>
-                <Text style={styles.subAppTitle}>
+                <Text style={[styles.subAppTitle, { fontSize: Math.min(13.5, titleFontSize * 0.42) }]} numberOfLines={1}>
                   المصحف الشريف • تلاوة وتفسير وتدبر
                 </Text>
               </View>
@@ -463,7 +469,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(212, 175, 55, 0.45)',
     borderRadius: BorderRadius.lg,
-    paddingVertical: 14,
+    paddingVertical: 4,
     paddingHorizontal: Spacing.md,
     alignItems: 'center',
     backgroundColor: 'rgba(11, 77, 47, 0.92)',
@@ -478,12 +484,12 @@ const styles = StyleSheet.create({
   },
   cornerStar: {
     color: '#D4AF37',
-    fontSize: 15,
+    fontSize: 12,
     fontWeight: '700',
   },
   dividerOrnament: {
     color: 'rgba(212, 175, 55, 0.55)',
-    fontSize: 11,
+    fontSize: 9,
     letterSpacing: 2,
   },
   headerMainRow: {
@@ -492,13 +498,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     paddingHorizontal: 2,
-    marginVertical: 4,
+    marginVertical: 0,
     ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),
   },
   headerBadgeWrapper: {
-    width: 54,
-    height: 54,
-    borderRadius: 27,
+    width: 46,
+    height: 46,
+    borderRadius: 23,
     borderWidth: 1.8,
     borderColor: '#FFE066',
     overflow: 'hidden',
@@ -510,8 +516,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   headerBadgeImage: {
-    width: 54,
-    height: 54,
+    width: 46,
+    height: 46,
   },
   headerCenterColumn: {
     flex: 1,
@@ -520,15 +526,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     minWidth: 0,
     overflow: 'visible',
-    gap: 8,
+    gap: 2,
   },
   mushafIconButton: {
     padding: 2,
   },
   mushafIconCircle: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
+    width: 46,
+    height: 46,
+    borderRadius: 23,
     borderWidth: 2,
     borderColor: '#FFD700',
     backgroundColor: 'rgba(212, 175, 55, 0.22)',
@@ -556,8 +562,8 @@ const styles = StyleSheet.create({
     textShadowRadius: 24,
     fontWeight: '700',
     lineHeight: 84,
-    paddingTop: 6,
-    marginBottom: 10,
+    paddingTop: 0,
+    marginBottom: 2,
     overflow: 'visible',
   },
   subAppTitle: {
@@ -566,7 +572,7 @@ const styles = StyleSheet.create({
     color: '#FFF0B8',
     fontWeight: '700',
     textAlign: 'center',
-    marginTop: 4,
+    marginTop: 0,
     lineHeight: 22,
   },
   scrollContent: {
