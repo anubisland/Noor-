@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
   },
   closeBtn: { padding: Spacing.xs },
-  headerTitle: { color: '#FFF', fontSize: Fonts.sizes.xl, fontWeight: '700' },
+  headerTitle: { color: '#FFF', fontSize: Fonts.sizes.title, fontWeight: '700' },
   emptyState: {
     flex: 1,
     justifyContent: 'center',

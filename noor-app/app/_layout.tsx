@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+// Must stay first: wraps StyleSheet.create before any screen styles are created.
+import { loadFontScale, useFontScale } from '../services/fontScale';
+import React, { useEffect, useState } from 'react';
 import { Stack } from 'expo-router';
 import Head from 'expo-router/head';
 import { I18nManager, View, ActivityIndicator, Platform } from 'react-native';
@@ -67,13 +69,19 @@ export default function RootLayout() {
     }
   }, []);
 
+  const fontScale = useFontScale();
+  const [fontScaleReady, setFontScaleReady] = useState(Platform.OS === 'web');
+  useEffect(() => {
+    loadFontScale().finally(() => setFontScaleReady(true));
+  }, []);
+
   useEffect(() => {
     if (fontsLoaded || fontError) {
       SplashScreen.hideAsync().catch(() => {});
     }
   }, [fontsLoaded, fontError]);
 
-  if (!fontsLoaded && !fontError) {
+  if ((!fontsLoaded && !fontError) || !fontScaleReady) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#0D7C5F' }}>
         <ActivityIndicator size="large" color="#FFF" />
@@ -104,7 +112,8 @@ export default function RootLayout() {
           `}</style>
         </Head>
       )}
-      <ThemeProvider>
+      {/* key: remount screens so styles re-read the new text size (native) */}
+      <ThemeProvider key={`font-scale-${fontScale}`}>
         <AppProvider>
           <HifzProvider>
             <Stack screenOptions={{ headerShown: false }}>

@@ -5,6 +5,7 @@ import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
 import {  Fonts, Spacing, BorderRadius, rtlRow, rtlAlign, rtlText } from '../../constants/theme';
 import { ALL_TAFSIR_SOURCES, RECITERS, APP_CONFIG } from '../../constants/config';
+import FontScalePicker from '../../components/settings/FontScalePicker';
 
 const toArabicDigits = (str: string) => str.replace(/[0-9]/g, (d) => ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'][parseInt(d, 10)]);
 
@@ -110,6 +111,15 @@ export default function MoreScreen() {
             </TouchableOpacity>
           </View>
         </View>
+
+        {/* App-wide text size */}
+        <View style={[styles.sectionHeaderWrapper, { marginTop: Spacing.xl }]}>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>حجم الخط في التطبيق</Text>
+          <Text style={[styles.tafsirHint, { color: colors.textSecondary }]}>
+            يكبّر أو يصغّر النصوص في جميع الشاشات
+          </Text>
+        </View>
+        <FontScalePicker />
 
         {/* Reciter Selection (اختيار القارئ) */}
         <View style={[styles.sectionHeaderWrapper, { marginTop: Spacing.xl }]}>

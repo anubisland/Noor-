@@ -409,8 +409,8 @@ export default function MawduiScreen() {
               size={15}
               color={activeTab === 'curated' ? colors.primary : '#FFF'}
             />
-            <Text style={[styles.tabBtnText, activeTab === 'curated' && { color: colors.primary, fontWeight: '700' }]}>
-              الموضوعات الكبرى ({toArabicDigits(quranTopics.length)})
+            <Text numberOfLines={1} adjustsFontSizeToFit style={[styles.tabBtnText, activeTab === 'curated' && { color: colors.primary, fontWeight: '700' }]}>
+              الموضوعات ({toArabicDigits(quranTopics.length)})
             </Text>
           </TouchableOpacity>
 
@@ -423,8 +423,8 @@ export default function MawduiScreen() {
               size={15}
               color={activeTab === 'encyclopedia' ? colors.primary : '#FFF'}
             />
-            <Text style={[styles.tabBtnText, activeTab === 'encyclopedia' && { color: colors.primary, fontWeight: '700' }]}>
-              الموسوعة الشاملة (٦٠٠٠ موضوع)
+            <Text numberOfLines={1} adjustsFontSizeToFit style={[styles.tabBtnText, activeTab === 'encyclopedia' && { color: colors.primary, fontWeight: '700' }]}>
+              الموسوعة (٦٠٠٠)
             </Text>
           </TouchableOpacity>
         </View>
@@ -552,10 +552,10 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: BorderRadius.xl,
     borderBottomRightRadius: BorderRadius.xl,
   },
-  headerTitle: { color: '#FFF', fontSize: Fonts.sizes.xl, fontWeight: '800' },
+  headerTitle: { color: '#FFF', fontSize: Fonts.sizes.title, fontWeight: '800' },
   headerSubtitle: {
-    color: 'rgba(255,255,255,0.8)',
-    fontSize: Fonts.sizes.xs,
+    color: 'rgba(255,255,255,0.85)',
+    fontSize: Fonts.sizes.sm,
     textAlign: 'center',
     paddingHorizontal: Spacing.xl,
   },
@@ -565,23 +565,23 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.full,
     padding: 3,
     marginTop: Spacing.sm,
-    marginHorizontal: Spacing.md,
+    marginHorizontal: Spacing.sm,
   },
   tabBtn: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 7,
-    paddingHorizontal: Spacing.sm,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
     borderRadius: BorderRadius.full,
-    gap: 5,
+    gap: 4,
   },
   tabBtnActive: {
     backgroundColor: '#FFFFFF',
   },
   tabBtnText: {
-    fontSize: Fonts.sizes.xs,
+    fontSize: 15,
     color: '#FFF',
     fontWeight: '600',
   },
@@ -645,8 +645,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   qpInfo: { flex: 1, alignItems: rtlAlign },
-  qpName: { fontSize: Fonts.sizes.sm, fontWeight: '700', lineHeight: 22, textAlign: rtlText, writingDirection: 'rtl', width: '100%' },
-  qpMeta: { fontSize: Fonts.sizes.xs, fontWeight: '600', marginTop: 2, textAlign: rtlText, writingDirection: 'rtl', width: '100%' },
+  qpName: { fontSize: Fonts.sizes.md, fontWeight: '700', lineHeight: 28, textAlign: rtlText, writingDirection: 'rtl', width: '100%' },
+  qpMeta: { fontSize: Fonts.sizes.sm, fontWeight: '600', marginTop: 4, textAlign: rtlText, writingDirection: 'rtl', width: '100%' },
   emptyState: { alignItems: 'center', justifyContent: 'center', paddingVertical: 60, gap: Spacing.sm },
   emptyText: { fontSize: Fonts.sizes.sm, fontWeight: '600', textAlign: 'center', writingDirection: 'rtl' },
 

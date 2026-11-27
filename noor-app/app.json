@@ -2,7 +2,7 @@
   "expo": {
     "name": "زاد القرآن الكريم",
     "slug": "zad-al-quran",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "noor",
@@ -22,7 +22,7 @@
       }
     },
     "android": {
-      "versionCode": 18,
+      "versionCode": 19,
       "supportsRtl": true,
       "adaptiveIcon": {
         "backgroundColor": "#0D7C5F"
