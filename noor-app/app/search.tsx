@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar, Platform
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../context/ThemeContext';
-import { Fonts, Spacing, BorderRadius, Shadows } from '../constants/theme';
+import { Fonts, Spacing, BorderRadius, Shadows, rtlRow } from '../constants/theme';
 import SearchBar from '../components/ui/SearchBar';
 import { quranData } from '../data/quran';
 import { surahsMetadata } from '../data/metadata';
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.lg,
   },
   headerRow: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: Spacing.md,
   },
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.sm,
   },
   resultHeader: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: Spacing.sm,
     marginBottom: Spacing.sm,

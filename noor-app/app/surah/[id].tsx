@@ -4,7 +4,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
-import { Fonts, Spacing, BorderRadius } from '../../constants/theme';
+import { Fonts, Spacing, BorderRadius, rtlRow, rtlAlign } from '../../constants/theme';
 import Header from '../../components/ui/Header';
 import AyahView from '../../components/quran/AyahView';
 import MushafPageView, { getPageItemDimensions } from '../../components/quran/MushafPageView';
@@ -858,8 +858,8 @@ export default function SurahScreen() {
                     </View>
 
                     {/* 2. Surah Name & Metadata (Middle) */}
-                    <View style={{ flex: 1, marginHorizontal: 12 }}>
-                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                    <View style={{ flex: 1, marginHorizontal: 12, alignItems: rtlAlign }}>
+                      <View style={{ flexDirection: rtlRow, alignItems: 'center', gap: 6 }}>
                         <Text style={[styles.surahPickerNameText, { color: isCurrent ? '#1B7F5A' : colors.text }]}>
                           {item.name}
                         </Text>
@@ -1023,7 +1023,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   surahModalHeader: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: Spacing.lg,
@@ -1049,7 +1049,7 @@ const styles = StyleSheet.create({
     writingDirection: 'rtl',
   },
   surahSearchBox: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     marginHorizontal: Spacing.lg,
     marginVertical: Spacing.md,
@@ -1067,7 +1067,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   surahPickerCard: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 10,

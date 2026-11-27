@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
 import { useHifz } from '../../context/HifzContext';
-import { Fonts, Spacing, BorderRadius, Shadows } from '../../constants/theme';
+import { Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign } from '../../constants/theme';
 import { surahsMetadata } from '../../data/metadata';
 import { MEMORIZATION_MODES } from '../../constants/config';
 
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
   headerSubtitle: { color: 'rgba(255,255,255,0.7)', fontSize: Fonts.sizes.sm },
   scrollContent: { paddingTop: Spacing.lg },
   statsRow: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     paddingHorizontal: Spacing.lg,
     gap: Spacing.sm,
     marginBottom: Spacing.lg,
@@ -287,14 +287,14 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.lg,
   },
   sectionHeader: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: Spacing.sm,
     marginBottom: Spacing.sm,
   },
   sectionTitle: { fontSize: Fonts.sizes.md, fontWeight: '800', textAlign: 'right' },
   reviewItem: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: Spacing.sm,
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
     ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),
   },
   modeRow: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     gap: Spacing.sm,
     marginBottom: Spacing.sm,
     ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),
@@ -332,7 +332,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   modeIconRow: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     width: '100%',
   },
   modeIcon: {
@@ -345,7 +345,7 @@ const styles = StyleSheet.create({
   modeTitle: { fontSize: 17, fontWeight: '900', writingDirection: 'rtl', textAlign: 'right', width: '100%' },
   modeDesc: { fontSize: 13.5, fontWeight: '700', lineHeight: 20, writingDirection: 'rtl', textAlign: 'right', width: '100%' },
   surahItem: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     marginHorizontal: Spacing.lg,
     marginBottom: Spacing.sm,
@@ -366,6 +366,7 @@ const styles = StyleSheet.create({
   surahInfo: {
     flex: 1,
     marginHorizontal: Spacing.sm,
+    alignItems: rtlAlign,
   },
   surahName: {
     fontSize: 18,
@@ -410,7 +411,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   modalHeader: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: Spacing.lg,
@@ -419,7 +420,7 @@ const styles = StyleSheet.create({
   },
   modalTitle: { fontSize: Fonts.sizes.xl, fontWeight: '700' },
   searchContainer: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     marginHorizontal: Spacing.lg,
     marginVertical: Spacing.sm,
@@ -436,7 +437,7 @@ const styles = StyleSheet.create({
     writingDirection: 'rtl',
   },
   pickerItem: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
@@ -454,6 +455,7 @@ const styles = StyleSheet.create({
   pickerInfo: {
     flex: 1,
     marginHorizontal: Spacing.sm,
+    alignItems: rtlAlign,
   },
   pickerName: {
     fontSize: Fonts.sizes.md,

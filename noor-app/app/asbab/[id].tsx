@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, Modal
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
-import { Fonts, Spacing, BorderRadius, Shadows } from '../../constants/theme';
+import { Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign } from '../../constants/theme';
 import Header from '../../components/ui/Header';
 import { asbabData } from '../../data/asbab-nuzul';
 import { surahsMetadata } from '../../data/metadata';
@@ -364,7 +364,7 @@ const styles = StyleSheet.create({
   introText: { flex: 1, fontSize: Fonts.sizes.md, lineHeight: 24 },
   surahChips: { marginBottom: Spacing.lg, gap: Spacing.sm },
   chipsTitle: { fontSize: Fonts.sizes.md, fontWeight: '700', writingDirection: 'rtl' },
-  chipsRow: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm, paddingVertical: Spacing.xs },
+  chipsRow: { flexDirection: rtlRow, flexWrap: 'wrap', gap: Spacing.sm, paddingVertical: Spacing.xs },
   chip: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -388,7 +388,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.lg,
     gap: Spacing.md,
   },
-  surahInfoRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.md },
+  surahInfoRow: { flexDirection: rtlRow, alignItems: 'center', gap: Spacing.md },
   surahIdBadge: {
     width: 44,
     height: 44,
@@ -397,7 +397,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   surahIdText: { fontSize: Fonts.sizes.lg, fontWeight: '700' },
-  surahDetails: { flex: 1 },
+  surahDetails: { flex: 1, alignItems: rtlAlign },
   surahNameText: { fontSize: Fonts.sizes.lg, fontWeight: '700' },
   surahMetaText: { fontSize: Fonts.sizes.sm, marginTop: 2 },
   changeSurahBtn: {
@@ -432,7 +432,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
   },
   storyHeader: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     padding: Spacing.lg,
     gap: Spacing.md,
@@ -593,7 +593,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   modalHeader: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: Spacing.lg,
@@ -602,7 +602,7 @@ const styles = StyleSheet.create({
   },
   modalTitle: { fontSize: Fonts.sizes.xl, fontWeight: '700' },
   searchBar: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     marginHorizontal: Spacing.lg,
     marginVertical: Spacing.sm,
@@ -630,7 +630,7 @@ const styles = StyleSheet.create({
   },
   allEntriesText: { fontSize: Fonts.sizes.md, fontWeight: '600' },
   pickerItem: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
@@ -642,10 +642,10 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: Spacing.md,
+    marginHorizontal: Spacing.xs,
   },
   pickerNumberText: { fontSize: Fonts.sizes.sm, fontWeight: '700' },
-  pickerInfo: { flex: 1, marginHorizontal: Spacing.sm },
+  pickerInfo: { flex: 1, marginHorizontal: Spacing.sm, alignItems: rtlAlign },
   pickerName: { fontSize: Fonts.sizes.md, fontWeight: '600' },
   pickerMeta: { fontSize: Fonts.sizes.xs, marginTop: 2 },
   countBadge: {

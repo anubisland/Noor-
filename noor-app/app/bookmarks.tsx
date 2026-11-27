@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../context/ThemeContext';
 import { useApp } from '../context/AppContext';
-import { Fonts, Spacing, BorderRadius, Shadows } from '../constants/theme';
+import { Fonts, Spacing, BorderRadius, Shadows, rtlRow } from '../constants/theme';
 import Header from '../components/ui/Header';
 import { quranData } from '../data/quran';
 import { audioService } from '../services/audioService';
@@ -149,12 +149,12 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   headerRow: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   metaInfo: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: Spacing.sm,
   },
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   actionsRow: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: Spacing.xs,
   },
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     writingDirection: 'rtl',
   },
   footerRow: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     justifyContent: 'space-between',
     alignItems: 'center',
     borderTopWidth: 1,
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   viewAyahHint: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: 4,
   },

@@ -14,7 +14,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
-import { Fonts, Spacing, BorderRadius, Shadows } from '../../constants/theme';
+import { Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign } from '../../constants/theme';
 import { quranTopics, QuranTopic } from '../../data/topics';
 import { quranpediaTopics, QPTopic } from '../../data/topics-from-quranpedia';
 import { quranData } from '../../data/quran';
@@ -615,7 +615,7 @@ const styles = StyleSheet.create({
 
   // Search Bar
   searchBarBox: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     marginHorizontal: Spacing.md,
     marginTop: Spacing.md,
@@ -629,7 +629,7 @@ const styles = StyleSheet.create({
   searchInput: { flex: 1, fontSize: Fonts.sizes.sm, textAlign: 'right', writingDirection: 'rtl' },
   qpListContent: { paddingHorizontal: Spacing.md, paddingBottom: 60 },
   qpItem: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     padding: Spacing.md,
     borderRadius: BorderRadius.lg,
@@ -644,7 +644,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  qpInfo: { flex: 1 },
+  qpInfo: { flex: 1, alignItems: rtlAlign },
   qpName: { fontSize: Fonts.sizes.sm, fontWeight: '700', lineHeight: 22, textAlign: 'right', writingDirection: 'rtl', width: '100%' },
   qpMeta: { fontSize: Fonts.sizes.xs, fontWeight: '600', marginTop: 2, textAlign: 'right', writingDirection: 'rtl', width: '100%' },
   emptyState: { alignItems: 'center', justifyContent: 'center', paddingVertical: 60, gap: Spacing.sm },
@@ -686,18 +686,18 @@ const styles = StyleSheet.create({
     writingDirection: 'rtl',
   },
   verseFooter: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     justifyContent: 'space-between',
     alignItems: 'center',
     borderTopWidth: 1,
     borderTopColor: 'rgba(0,0,0,0.06)',
     paddingTop: Spacing.sm,
   },
-  verseRefBox: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+  verseRefBox: { flexDirection: rtlRow, alignItems: 'center', gap: 4 },
   verseRef: { fontSize: Fonts.sizes.xs, fontWeight: '700', textAlign: 'right', writingDirection: 'rtl' },
-  verseActions: { flexDirection: 'row', gap: Spacing.xs },
+  verseActions: { flexDirection: rtlRow, gap: Spacing.xs },
   actionPill: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: 4,
     paddingVertical: 5,
@@ -712,13 +712,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   hadithHeaderRow: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: Spacing.sm,
   },
   narratorBadge: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: 5,
     paddingHorizontal: 9,
@@ -750,13 +750,14 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.sm,
   },
   hadithSourceRow: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: 6,
     paddingVertical: 5,
     paddingHorizontal: 9,
     borderRadius: BorderRadius.md,
     backgroundColor: 'rgba(191, 149, 63, 0.08)',
+    alignSelf: rtlAlign,
   },
   hadithSourceText: {
     fontSize: 11.5,

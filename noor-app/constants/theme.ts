@@ -1,8 +1,14 @@
-import { I18nManager } from 'react-native';
+import { Platform, I18nManager } from 'react-native';
 
 // Enable RTL for Arabic
 I18nManager.allowRTL(true);
 I18nManager.forceRTL(true);
+
+export const isRTL = Platform.OS === 'web' || I18nManager.isRTL;
+export const rtlRow: 'row' | 'row-reverse' = (Platform.OS === 'web' || I18nManager.isRTL) ? 'row' : 'row-reverse';
+export const rtlAlign: 'flex-start' | 'flex-end' = (Platform.OS === 'web' || I18nManager.isRTL) ? 'flex-start' : 'flex-end';
+export const rtlFlexStart: 'flex-start' | 'flex-end' = (Platform.OS === 'web' || I18nManager.isRTL) ? 'flex-start' : 'flex-end';
+export const rtlFlexEnd: 'flex-start' | 'flex-end' = (Platform.OS === 'web' || I18nManager.isRTL) ? 'flex-end' : 'flex-start';
 
 export const Colors = {
   primary: '#0D7C5F',

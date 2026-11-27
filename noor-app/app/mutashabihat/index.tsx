@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
-import { Fonts, Spacing, BorderRadius, Shadows } from '../../constants/theme';
+import { Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign } from '../../constants/theme';
 import Header from '../../components/ui/Header';
 import { mutashabihatData, MutashabihatGroup } from '../../data/mutashabihat';
 import { mutashabihatByAyah } from '../../data/mutashabihat-from-waqar';
@@ -839,7 +839,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.sm,
   },
   surahSelectBtn: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     padding: Spacing.md,
     borderRadius: BorderRadius.lg,
@@ -859,6 +859,7 @@ const styles = StyleSheet.create({
   },
   surahSelectDetails: {
     flex: 1,
+    alignItems: rtlAlign,
   },
   surahSelectName: {
     fontSize: Fonts.sizes.md,
@@ -882,7 +883,7 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
   },
   waqarSourceHeader: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -948,12 +949,12 @@ const styles = StyleSheet.create({
     gap: Spacing.xs,
   },
   waqarMutMetaRow: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   waqarMutRef: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: 4,
   },
@@ -998,7 +999,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   ruleCardHeader: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -1023,7 +1024,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   ruleAyahMetaRow: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -1047,7 +1048,7 @@ const styles = StyleSheet.create({
     marginVertical: -2,
   },
   ruleNoteToggle: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: Spacing.xs,
@@ -1065,7 +1066,7 @@ const styles = StyleSheet.create({
     gap: Spacing.xs,
   },
   ruleNoteHeader: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: Spacing.xs,
   },
@@ -1110,7 +1111,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   thematicHeader: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: Spacing.sm,
   },
@@ -1150,7 +1151,7 @@ const styles = StyleSheet.create({
     gap: Spacing.xs,
   },
   thematicVerseMetaRow: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -1173,7 +1174,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   thematicTipCard: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     padding: Spacing.md,
     borderRadius: BorderRadius.md,
     borderWidth: 1,
@@ -1181,6 +1182,7 @@ const styles = StyleSheet.create({
   },
   thematicTipBody: {
     flex: 1,
+    alignItems: rtlAlign,
     gap: 2,
   },
   thematicTipLabel: {

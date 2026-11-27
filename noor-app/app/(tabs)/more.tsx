@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platfo
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
-import { Fonts, Spacing, BorderRadius } from '../../constants/theme';
+import { Fonts, Spacing, BorderRadius, rtlRow, rtlAlign } from '../../constants/theme';
 import { ALL_TAFSIR_SOURCES, RECITERS, APP_CONFIG } from '../../constants/config';
 
 const toArabicDigits = (str: string) => str.replace(/[0-9]/g, (d) => ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'][parseInt(d, 10)]);
@@ -236,16 +236,19 @@ const styles = StyleSheet.create({
   sectionHeaderWrapper: {
     width: '100%',
     alignSelf: 'stretch',
-    alignItems: 'flex-start',
+    alignItems: rtlAlign,
     paddingHorizontal: Spacing.xxl,
     marginBottom: Spacing.xs,
   },
   sectionTitle: {
     fontSize: Fonts.sizes.xl,
     fontWeight: '800',
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    width: '100%',
   },
   settingItem: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: Spacing.lg,
@@ -255,13 +258,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   settingLeft: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: Spacing.md,
   },
   settingText: { fontSize: Fonts.sizes.md, fontWeight: '800' },
   fontControls: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     gap: Spacing.sm,
   },
   fontBtn: {
@@ -276,9 +279,12 @@ const styles = StyleSheet.create({
     fontSize: Fonts.sizes.sm,
     fontWeight: '700',
     marginTop: 2,
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    width: '100%',
   },
   tafsirItem: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: Spacing.lg,
@@ -289,17 +295,23 @@ const styles = StyleSheet.create({
   },
   tafsirInfo: {
     flex: 1,
-    alignItems: 'flex-start',
+    alignItems: rtlAlign,
     gap: 2,
     marginHorizontal: Spacing.sm,
   },
   tafsirName: {
     fontSize: Fonts.sizes.md,
     fontWeight: '800',
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    width: '100%',
   },
   tafsirDesc: {
     fontSize: 13,
     fontWeight: '700',
+    textAlign: 'right',
+    writingDirection: 'rtl',
+    width: '100%',
   },
   appInfo: {
     alignItems: 'center',

@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
-import { BorderRadius, Fonts, Spacing } from '../../constants/theme';
+import { BorderRadius, Fonts, Spacing, rtlRow } from '../../constants/theme';
 import { fetchEnglishTafsir } from '../../services/englishTafsirService';
 
 interface TafsirEntry {
@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   actions: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     paddingVertical: Spacing.md,

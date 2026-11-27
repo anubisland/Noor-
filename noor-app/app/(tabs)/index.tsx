@@ -7,7 +7,7 @@ import Svg, { Polygon, Line, Circle, G } from 'react-native-svg';
 import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
 import { useHifz } from '../../context/HifzContext';
-import { Fonts, Spacing, BorderRadius, Shadows } from '../../constants/theme';
+import { Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign } from '../../constants/theme';
 
 // Authentic Islamic 8-Pointed Star Arabesque Lattice Vector Component
 const ArabesquePattern = () => {
@@ -634,7 +634,7 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.lg,
     paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.sm,
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     justifyContent: 'space-between',
     borderWidth: 1.5,
@@ -643,7 +643,7 @@ const styles = StyleSheet.create({
     borderColor: '#A3E4D7',
   },
   lastReadContent: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: Spacing.md,
   },
@@ -657,7 +657,7 @@ const styles = StyleSheet.create({
   },
   lastReadInfo: {
     gap: 2,
-    alignItems: 'flex-start',
+    alignItems: rtlAlign,
   },
   lastReadLabel: {
     fontSize: Fonts.sizes.xs,
@@ -678,7 +678,7 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.lg,
     paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.sm,
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: Spacing.sm,
     borderWidth: 1,
@@ -745,7 +745,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
   },
   searchInnerRow: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: Spacing.sm,
     ...(Platform.OS === 'web' ? { direction: 'rtl' as any } : {}),

@@ -3,7 +3,7 @@ import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Platform, View, Text, StyleSheet, TouchableOpacity, I18nManager } from 'react-native';
 import { useTheme } from '../../context/ThemeContext';
-import { Fonts } from '../../constants/theme';
+import { Fonts, rtlRow } from '../../constants/theme';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
 const TAB_CONFIG: { [key: string]: { title: string; icon: keyof typeof Ionicons.glyphMap; activeColor: string } } = {
@@ -24,7 +24,7 @@ function CustomTabBar({ state, descriptors, navigation }: BottomTabBarProps) {
         {
           backgroundColor: colors.surface,
           borderTopColor: colors.border,
-          flexDirection: 'row',
+          flexDirection: rtlRow,
         },
       ]}
     >

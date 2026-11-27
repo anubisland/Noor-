@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, StatusBar, Platform, I18nMana
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
-import { Fonts, Spacing } from '../../constants/theme';
+import { Fonts, Spacing, rtlRow } from '../../constants/theme';
 
 interface HeaderProps {
   title: string;
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.md,
   },
   content: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     paddingHorizontal: Spacing.lg,
     minHeight: 44,

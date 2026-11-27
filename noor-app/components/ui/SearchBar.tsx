@@ -2,7 +2,7 @@ import React from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, I18nManager } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
-import { BorderRadius, Fonts, Spacing } from '../../constants/theme';
+import { BorderRadius, Fonts, Spacing, rtlRow } from '../../constants/theme';
 
 interface SearchBarProps {
   value: string;
@@ -38,7 +38,7 @@ export default function SearchBar({ value, onChangeText, placeholder = 'ابحث
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     borderRadius: BorderRadius.lg,
     paddingHorizontal: Spacing.md,

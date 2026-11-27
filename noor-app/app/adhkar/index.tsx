@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platfo
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
-import { Fonts, Spacing, BorderRadius, Shadows } from '../../constants/theme';
+import { Fonts, Spacing, BorderRadius, Shadows, rtlRow } from '../../constants/theme';
 import { adhkarData } from '../../data/adhkar';
 
 const ADHKAR_COLOR = '#0D7C5F';
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
   },
   topBar: {
     width: '100%',
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     justifyContent: 'flex-start',
     marginBottom: Spacing.xs,
   },
@@ -210,14 +210,14 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
   },
   categoryHeader: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: Spacing.lg,
     borderRadius: BorderRadius.lg,
   },
   categoryHeaderLeft: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     gap: Spacing.md,
     flex: 1,
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   entryCard: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     padding: Spacing.lg,
     borderRadius: BorderRadius.md,
     gap: Spacing.md,
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   counterRow: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     justifyContent: 'flex-start',
     gap: Spacing.sm,

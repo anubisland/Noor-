@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, StatusBar, Platform, TouchableOpacity
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
-import { Fonts, Spacing, BorderRadius, Shadows } from '../../constants/theme';
+import { Fonts, Spacing, BorderRadius, Shadows, rtlRow, rtlAlign } from '../../constants/theme';
 import SearchBar from '../../components/ui/SearchBar';
 import SurahCard from '../../components/quran/SurahCard';
 import { surahsMetadata } from '../../data/metadata';
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   pageCard: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     padding: Spacing.md,
     marginHorizontal: Spacing.lg,
@@ -333,6 +333,7 @@ const styles = StyleSheet.create({
   pageCardInfo: {
     flex: 1,
     marginHorizontal: Spacing.md,
+    alignItems: rtlAlign,
   },
   pageSurahsText: {
     fontSize: Fonts.sizes.md,
@@ -352,7 +353,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   filterContainer: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     paddingHorizontal: Spacing.lg,
     gap: Spacing.sm,
     marginVertical: Spacing.sm,

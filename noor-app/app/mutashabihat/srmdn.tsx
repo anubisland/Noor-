@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
 import { useApp } from '../../context/AppContext';
-import { Fonts, Spacing, BorderRadius, Shadows } from '../../constants/theme';
+import { Fonts, Spacing, BorderRadius, Shadows, rtlRow } from '../../constants/theme';
 import { srmdnPairs, srmdnCategories } from '../../data/mutashabihat-from-srmdn';
 import { quranData } from '../../data/quran';
 import { surahsMetadata } from '../../data/metadata';
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   chipsWrapper: { paddingVertical: Spacing.md, paddingHorizontal: Spacing.lg },
-  chipsContainer: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.sm, alignItems: 'center' },
+  chipsContainer: { flexDirection: rtlRow, flexWrap: 'wrap', gap: Spacing.sm, alignItems: 'center' },
   chip: {
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.sm,
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xs,
   },
   ayahSectionHeader: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: Spacing.sm,
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   noteToggle: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     alignItems: 'center',
     justifyContent: 'center',
     gap: Spacing.xs,

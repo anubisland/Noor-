@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar, Platfo
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useTheme } from '../../context/ThemeContext';
-import { Fonts, Spacing, BorderRadius } from '../../constants/theme';
+import { Fonts, Spacing, BorderRadius, rtlRow } from '../../constants/theme';
 import { useApp } from '../../context/AppContext';
 import { quranicDuas, duaCategories, QuranicDua } from '../../data/quranic-duas';
 import { quranData } from '../../data/quran';
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     color: '#0F172A',
   },
   cardHeaderRow: {
-    flexDirection: 'row',
+    flexDirection: rtlRow,
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: Spacing.md,
