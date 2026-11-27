@@ -12,7 +12,10 @@ import { HifzProvider } from '../context/HifzContext';
 // Force RTL immediately at bundle evaluation time
 I18nManager.allowRTL(true);
 I18nManager.forceRTL(true);
-I18nManager.swapLeftAndRightInRTL(true);
+// Native-only: react-native-web's I18nManager has no swapLeftAndRightInRTL (crashes web with a blank page)
+if (Platform.OS !== 'web') {
+  I18nManager.swapLeftAndRightInRTL(true);
+}
 
 // Keep splash screen visible while loading resources
 SplashScreen.preventAutoHideAsync().catch(() => {});
