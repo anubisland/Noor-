@@ -250,7 +250,7 @@ export default function HomeScreen() {
               {/* Center: Title + Subtitle in authentic Amiri Quran font */}
               <View style={styles.headerCenterColumn}>
                 <Text
-                  style={[styles.mainAppTitle, { fontSize: titleFontSize, lineHeight: titleFontSize * 1.5 }]}
+                  style={[styles.mainAppTitle, { fontSize: titleFontSize, lineHeight: titleFontSize * 1.8, marginBottom: titleFontSize * 0.2 }]}
                   numberOfLines={1}
                   adjustsFontSizeToFit
                   minimumFontScale={0.6}
