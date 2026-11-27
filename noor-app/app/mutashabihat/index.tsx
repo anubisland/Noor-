@@ -343,7 +343,7 @@ export default function MutashabihatScreen() {
                 <View
                   style={[
                     styles.waqarCard,
-                    { backgroundColor: stripeBg(index, colors), borderColor: colors.borderLight },
+                    { backgroundColor: colors.surface, borderColor: colors.borderLight },
                     Shadows.sm,
                   ]}
                 >
@@ -500,7 +500,7 @@ export default function MutashabihatScreen() {
                 <View
                   style={[
                     styles.ruleCard,
-                    { backgroundColor: stripeBg(index, colors), borderColor: catColor + '40' },
+                    { backgroundColor: colors.surface, borderColor: catColor + '40' },
                     Shadows.sm,
                   ]}
                 >
@@ -624,7 +624,7 @@ export default function MutashabihatScreen() {
             keyExtractor={(item) => item.id}
             contentContainerStyle={styles.listPadding}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) => {
+            renderItem={({ item }) => {
               const isExpanded = expandedThematicGroup === item.id;
 
               return (
@@ -633,7 +633,7 @@ export default function MutashabihatScreen() {
                   onPress={() => setExpandedThematicGroup(isExpanded ? null : item.id)}
                   style={[
                     styles.thematicCard,
-                    { backgroundColor: stripeBg(index, colors), borderColor: colors.borderLight },
+                    { backgroundColor: colors.surface, borderColor: colors.borderLight },
                     Shadows.sm,
                   ]}
                 >
